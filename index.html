@@ -18,6 +18,7 @@
       --gold: #facc15;
       --silver: #a1a1aa;
       --red: #ef4444;
+      --tier2: #6366f1;
     }
 
     * {
@@ -155,6 +156,23 @@
       font-weight: 500;
     }
 
+    .tier-badge {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: var(--subtle);
+    }
+
+    .tier-badge.secondary {
+      background: rgba(99,102,241,0.2);
+      color: #c7d2fe;
+      border: 1px solid rgba(99,102,241,0.35);
+    }
+
     .progress-wrapper {
       margin: 0 auto 1.6rem;
       max-width: 260px;
@@ -222,6 +240,13 @@
       animation: pulse 2.5s infinite;
     }
 
+    .team-card button.secondary {
+      background: linear-gradient(135deg, #6366f1, #4338ca);
+      color: #fff;
+      box-shadow: 0 0 0 0 rgba(99,102,241,0.35);
+      animation: none;
+    }
+
     .team-card button:hover {
       transform: translateY(-3px);
       box-shadow: var(--neon-glow);
@@ -262,10 +287,10 @@
       <p>
         Two teams. Limited spots. One winner.
         <br><br>
-        Whichever team sells out first unlocks a bonus pool for everyone on that side.
+        Whichever team sells out first unlocks a bonus pool for everyone in Tier 1 on that side.
       </p>
       <p class="tagline">
-        Simple. Transparent. On-chain.
+        Early supporters get rewarded more. Late supporters still get in.
       </p>
     </section>
 
@@ -275,9 +300,10 @@
       <div class="team-card">
         <div class="team-title visionary">Visionary</div>
         <div class="team-subtitle">The builders. The believers.</div>
-        <div class="price" id="visionaryPrice">10 MATIC</div>
+        <div class="price" id="visionaryPrice">69 MATIC</div>
         <div class="spots">
-          Spots left: <strong><span id="visionarySpots">69</span></strong> / 69
+          Tier 1 spots left: <strong><span id="visionarySpots">420</span></strong> / 420
+          <div class="tier-badge" id="visionaryTierBadge">Tier 1</div>
         </div>
 
         <div class="progress-wrapper">
@@ -288,22 +314,23 @@
         </div>
 
         <ul>
-          <li>Access to bonus pool if your team wins</li>
+          <li>Access to bonus pool if your team wins (Tier 1 only)</li>
           <li>Early access to future drops & experiments</li>
           <li>Public badge: Visionary</li>
           <li>Bragging rights if you sell out first</li>
         </ul>
 
-        <button onclick="handleSignup('visionary')">Join Visionary</button>
+        <button id="visionaryButton" onclick="handleSignup('visionary')">Join Visionary</button>
       </div>
 
       <!-- UNDERDOG TEAM -->
       <div class="team-card">
         <div class="team-title underdog">Underdog</div>
         <div class="team-subtitle">The grinders. The rebels.</div>
-        <div class="price" id="underdogPrice">2 MATIC</div>
+        <div class="price" id="underdogPrice">420 MATIC</div>
         <div class="spots">
-          Spots left: <strong><span id="underdogSpots">420</span></strong> / 420
+          Tier 1 spots left: <strong><span id="underdogSpots">69</span></strong> / 69
+          <div class="tier-badge" id="underdogTierBadge">Tier 1</div>
         </div>
 
         <div class="progress-wrapper">
@@ -314,13 +341,13 @@
         </div>
 
         <ul>
-          <li>Access to bonus pool if your team wins</li>
+          <li>Access to bonus pool if your team wins (Tier 1 only)</li>
           <li>Entry into future community challenges</li>
           <li>Public badge: Underdog</li>
           <li>Proof you backed the long shot</li>
         </ul>
 
-        <button onclick="handleSignup('underdog')">Join Underdog</button>
+        <button id="underdogButton" onclick="handleSignup('underdog')">Join Underdog</button>
       </div>
 
     </section>
@@ -328,7 +355,7 @@
     <div class="footer-note">
       Payments are sent directly on-chain to the project wallet. No middlemen. No hidden fees.
       <br>
-      Spots are first-come, first-served. Once a team fills, the challenge ends.
+      Tier 1 spots are limited. After Tier 1 fills, all new supporters enter Tier 2 (still allowed, fewer perks).
     </div>
 
   </main>
@@ -342,14 +369,18 @@
 
     const TEAM_CONFIG = {
       visionary: {
-        priceMatic: 10,
-        totalSpots: 69,
-        spotsLeft: 69
+        priceMatic: 69,
+        totalSpots: 420,
+        spotsLeft: 420,
+        tier1Filled: false,
+        tier2Count: 0
       },
       underdog: {
-        priceMatic: 2,
-        totalSpots: 420,
-        spotsLeft: 420
+        priceMatic: 420,
+        totalSpots: 69,
+        spotsLeft: 69,
+        tier1Filled: false,
+        tier2Count: 0
       }
     };
 
@@ -362,10 +393,8 @@
         return;
       }
 
-      if (TEAM_CONFIG[team].spotsLeft <= 0) {
-        alert("This team is sold out!");
-        return;
-      }
+      const teamData = TEAM_CONFIG[team];
+      const isTier1 = teamData.spotsLeft > 0;
 
       try {
         // Connect wallet
@@ -378,7 +407,7 @@
           params: [{ chainId: POLYGON_CHAIN_ID }]
         });
 
-        const priceMatic = TEAM_CONFIG[team].priceMatic;
+        const priceMatic = teamData.priceMatic;
         const valueWei = "0x" + (priceMatic * 1e18).toString(16);
 
         const txParams = {
@@ -392,11 +421,23 @@
           params: [txParams],
         });
 
-        // Optimistically update UI (MVP)
-        TEAM_CONFIG[team].spotsLeft--;
+        // Update state
+        if (isTier1) {
+          teamData.spotsLeft--;
+          if (teamData.spotsLeft === 0) {
+            teamData.tier1Filled = true;
+          }
+        } else {
+          teamData.tier2Count++;
+        }
+
         updateUI();
 
-        alert(`Welcome to the ${team.toUpperCase()} team! Your transaction was sent successfully.`);
+        alert(
+          isTier1
+            ? `Welcome to the ${team.toUpperCase()} team — Tier 1 secured!`
+            : `Welcome to the ${team.toUpperCase()} team — you're in Tier 2.`
+        );
 
       } catch (err) {
         console.error(err);
@@ -408,21 +449,33 @@
      * UI UPDATE LOGIC
      **********************/
     function updateUI() {
-      // Visionary
-      const v = TEAM_CONFIG.visionary;
-      const vFilled = v.totalSpots - v.spotsLeft;
-      const vPercent = Math.round((vFilled / v.totalSpots) * 100);
-      document.getElementById("visionarySpots").textContent = v.spotsLeft;
-      document.getElementById("visionaryProgress").style.width = vPercent + "%";
-      document.getElementById("visionaryProgressLabel").textContent = `${vPercent}% filled`;
+      updateTeamUI("visionary");
+      updateTeamUI("underdog");
+    }
 
-      // Underdog
-      const u = TEAM_CONFIG.underdog;
-      const uFilled = u.totalSpots - u.spotsLeft;
-      const uPercent = Math.round((uFilled / u.totalSpots) * 100);
-      document.getElementById("underdogSpots").textContent = u.spotsLeft;
-      document.getElementById("underdogProgress").style.width = uPercent + "%";
-      document.getElementById("underdogProgressLabel").textContent = `${uPercent}% filled`;
+    function updateTeamUI(team) {
+      const t = TEAM_CONFIG[team];
+      const filled = t.totalSpots - t.spotsLeft;
+      const percent = Math.round((filled / t.totalSpots) * 100);
+
+      document.getElementById(`${team}Spots`).textContent = t.spotsLeft;
+      document.getElementById(`${team}Progress`).style.width = percent + "%";
+      document.getElementById(`${team}ProgressLabel`).textContent = `${percent}% filled`;
+
+      const badge = document.getElementById(`${team}TierBadge`);
+      const button = document.getElementById(`${team}Button`);
+
+      if (t.spotsLeft === 0) {
+        badge.textContent = "Tier 2";
+        badge.classList.add("secondary");
+        button.textContent = "Join Tier 2";
+        button.classList.add("secondary");
+      } else {
+        badge.textContent = "Tier 1";
+        badge.classList.remove("secondary");
+        button.textContent = "Join " + team.charAt(0).toUpperCase() + team.slice(1);
+        button.classList.remove("secondary");
+      }
     }
 
     // Initial UI render
