@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Drive. Earn. Own Your Data.</title>
+  <title>Gig. Earn. Own Your Data.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -246,23 +246,53 @@
         font-size: 2.6rem;
       }
     }
+
+    /* Additional responsiveness for smaller screens */
+    @media (max-width: 640px) {
+      header {
+        padding: 20px 24px;
+      }
+
+      main {
+        padding: 60px 24px 100px;
+      }
+
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-text p {
+        font-size: 1rem;
+      }
+
+      .hero-stats {
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+
+      .panel {
+        padding: 28px;
+      }
+
+      .slider-card {
+        padding: 16px 18px;
+      }
+    }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="logo">DRIVE.DATA</div>
+    <div class="logo">UNPRINCIPLED INC.</div>
     <button class="cta">Join Early Access</button>
   </header>
 
   <main>
     <section class="hero">
       <div class="hero-text">
-        <h1>Your car pays for itself.</h1>
+        <h1>Monetize your data. Earn gigs.</h1>
         <p>
-          Turn your everyday driving into passive income — while helping improve
-          maps, autonomy, safety, and infrastructure worldwide. You control exactly
-          what data is shared. You get paid for all of it.
+          Opt-in to share what you want. Get paid for every byte. Unlock personalized gigs, referrals, and exclusive opportunities.
         </p>
 
         <div class="hero-stats">
@@ -272,75 +302,85 @@
           </div>
           <div class="stat">
             <strong>100%</strong>
-            <span>Opt-in control</span>
+            <span>Data ownership</span>
           </div>
           <div class="stat">
             <strong>Real-time</strong>
-            <span>Earnings dashboard</span>
+            <span>Earnings tracking</span>
           </div>
         </div>
       </div>
 
       <div class="panel">
-        <h2>Data Sharing Controls</h2>
+        <h2>Data Monetization Controls</h2>
         <p>
-          Choose exactly what your vehicle contributes. Toggle anytime.
-          Earn more for richer data.
+          Toggle to earn. Start simple, unlock more value. You control, we pay.
         </p>
 
         <div class="slider-group">
 
           <div class="slider-card">
             <div class="slider-info">
-              <strong>Driving Behavior</strong>
-              <span>Acceleration, braking, steering patterns</span>
+              <strong>Email</strong>
+              <span>Earn from tailored gig alerts</span>
             </div>
             <label class="toggle">
-              <input type="checkbox" checked onchange="toggleSwitch(this)">
+              <input type="checkbox" onchange="toggleSwitch(this)">
               <div class="knob"></div>
             </label>
           </div>
 
           <div class="slider-card">
             <div class="slider-info">
-              <strong>Camera Footage</strong>
-              <span>Road scenarios, rare events, edge cases</span>
+              <strong>Phone</strong>
+              <span>Earn from priority gig contacts</span>
             </div>
             <label class="toggle">
-              <input type="checkbox" checked onchange="toggleSwitch(this)">
+              <input type="checkbox" onchange="toggleSwitch(this)">
               <div class="knob"></div>
             </label>
           </div>
 
           <div class="slider-card">
             <div class="slider-info">
-              <strong>Weather & Road Conditions</strong>
-              <span>Rain, fog, snow, surface hazards</span>
+              <strong>Referrals</strong>
+              <span>Earn bonuses when friends join</span>
             </div>
             <label class="toggle">
-              <input type="checkbox" checked onchange="toggleSwitch(this)">
+              <input type="checkbox" onchange="toggleSwitch(this)">
               <div class="knob"></div>
             </label>
           </div>
 
           <div class="slider-card">
             <div class="slider-info">
-              <strong>Mapping & Infrastructure</strong>
-              <span>Construction, signage, lane changes</span>
+              <strong>Videos</strong>
+              <span>Earn per upload for content gigs</span>
             </div>
             <label class="toggle">
-              <input type="checkbox" checked onchange="toggleSwitch(this)">
+              <input type="checkbox" onchange="toggleSwitch(this)">
               <div class="knob"></div>
             </label>
           </div>
 
           <div class="slider-card">
             <div class="slider-info">
-              <strong>Autonomy Training Data</strong>
-              <span>Labeled clips for AI and simulation</span>
+              <strong>Skills Profile</strong>
+              <span>Earn from premium gig matches</span>
             </div>
             <label class="toggle">
-              <input type="checkbox" checked onchange="toggleSwitch(this)">
+              <input type="checkbox" onchange="toggleSwitch(this)">
+              <div class="knob"></div>
+            </label>
+          </div>
+
+          <div class="slider-card">
+            <div class="slider-info">
+              <strong>Location</strong>
+              <span>Earn from local, high-pay opportunities</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" onchange="toggleSwitch(this)">
               <div class="knob"></div>
             </label>
           </div>
@@ -348,8 +388,7 @@
         </div>
 
         <div class="footer-note">
-          All data is encrypted, anonymized, and shared only with your explicit consent.
-          You retain ownership and can revoke access at any time.
+          All data encrypted and owned by you. Revoke anytime. Earn more as you share more.
         </div>
       </div>
     </section>
@@ -375,3 +414,4 @@
 
 </body>
 </html>
+```​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
