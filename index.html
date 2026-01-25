@@ -16,6 +16,8 @@
       --neon: #22c55e;
       --neon-glow: 0 0 24px rgba(34, 197, 94, 0.65);
       --glass: rgba(255,255,255,0.05);
+      --gold: #facc15;
+      --silver: #a1a1aa;
     }
 
     * {
@@ -248,31 +250,181 @@
       display: none;
     }
 
-    .start-button {
+    .tiers-section {
+      margin-top: 4rem;
+    }
+
+    .tiers-section h2 {
+      text-align: center;
+      font-size: 2.4rem;
+      margin-bottom: 1.5rem;
+      color: var(--neon);
+    }
+
+    .tiers-section p.intro {
+      text-align: center;
+      color: var(--subtle);
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+    }
+
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-bottom: 4rem;
+    }
+
+    .tier-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border-radius: 24px;
+      padding: 40px 32px;
+      border: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      transition: all 0.4s ease;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+
+    .tier-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--neon-glow);
+      border-color: rgba(34,197,94,0.3);
+    }
+
+    .tier-card h3 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, var(--gold), var(--neon));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tier-card .price {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--neon);
+    }
+
+    .tier-card .spots {
+      font-size: 1.1rem;
+      color: var(--subtle);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+
+    .tier-card ul {
+      list-style: none;
+      margin-bottom: 2rem;
+      text-align: left;
+      max-width: 80%;
+      margin: 0 auto 2rem;
+    }
+
+    .tier-card li {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 24px;
+    }
+
+    .tier-card li:before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--neon);
+      font-weight: bold;
+    }
+
+    .tier-card button {
       display: block;
       width: 100%;
       background: linear-gradient(135deg, var(--neon), #16a34a);
       color: #000;
       border: none;
-      padding: 20px;
-      border-radius: 20px;
+      padding: 18px;
+      border-radius: 16px;
       font-weight: 700;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       cursor: pointer;
       transition: all 0.4s;
-      margin-top: 2.5rem;
       box-shadow: 0 0 0 0 var(--neon-glow);
       animation: pulse 2.5s infinite;
     }
 
-    .start-button:hover {
+    .tier-card button:hover {
       transform: translateY(-3px);
       box-shadow: var(--neon-glow);
     }
 
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
-      50%      { box-shadow: 0 0 0 16px rgba(34,197,94,0); }
+    .tier-card.underdog h3 {
+      background: linear-gradient(90deg, var(--silver), var(--neon));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tier-card.underdog button {
+      background: linear-gradient(135deg, #16a34a, var(--neon));
+    }
+
+    .challenges-section {
+      margin-top: 6rem;
+      background: var(--panel);
+      border-radius: 28px;
+      padding: 48px 40px;
+      border: 1px solid rgba(34,197,94,0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .challenges-section h2 {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      color: var(--neon);
+    }
+
+    .challenges-section p {
+      text-align: center;
+      color: var(--subtle);
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+      max-width: 720px;
+      margin: 0 auto 3rem;
+    }
+
+    .challenge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .challenge-card {
+      background: rgba(255,255,255,0.025);
+      border-radius: 20px;
+      padding: 32px 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      transition: all 0.35s ease;
+    }
+
+    .challenge-card:hover {
+      border-color: var(--neon);
+      background: rgba(34,197,94,0.08);
+      box-shadow: var(--neon-glow);
+      transform: translateY(-4px);
+    }
+
+    .challenge-card h3 {
+      font-size: 1.45rem;
+      margin-bottom: 1rem;
+      color: var(--neon);
+    }
+
+    .challenge-card p {
+      font-size: 1rem;
+      color: var(--subtle);
+      line-height: 1.5;
     }
 
     .fineprint {
@@ -283,6 +435,11 @@
       max-width: 720px;
       margin: 5rem auto 0;
       opacity: 0.9;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50%      { box-shadow: 0 0 0 16px rgba(34,197,94,0); }
     }
 
     @media (max-width: 768px) {
@@ -309,6 +466,18 @@
 
       .video-upload {
         padding: 32px 20px;
+      }
+
+      .tiers-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .challenges-section {
+        padding: 40px 24px;
+      }
+
+      .challenge-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -399,32 +568,67 @@
         <input type="file" id="videoInput" class="upload-input" accept="video/*">
       </div>
 
-      <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
-        <input 
-          type="email" 
-          name="email" 
-          placeholder="Your email — activate & start earning" 
-          required 
-          style="
-            width: 100%;
-            padding: 20px 24px;
-            font-size: 1.15rem;
-            border: 1px solid rgba(34,197,94,0.3);
-            border-radius: 20px;
-            background: rgba(255,255,255,0.04);
-            color: white;
-            margin: 2.5rem 0 1.5rem;
-            outline: none;
-            transition: all 0.3s;
-          "
-          onfocus="this.style.borderColor='#22c55e'; this.style.boxShadow='0 0 0 4px rgba(34,197,94,0.2)';"
-        >
-        <button type="submit" class="start-button">Sign Up & Start Contributing</button>
-      </form>
+      <div class="tiers-section">
+        <h2>Choose Your Entry Point</h2>
+        <p class="intro">Join the revolution. Limited spots available — pick your team and unlock exclusive perks. Whether you're rolling in as a Visionary or hustling as an Underdog, you're building the future of data ownership.</p>
+
+        <div class="tiers-grid">
+          <div class="tier-card visionary">
+            <h3>Visionary Team</h3>
+            <div class="price">$420</div>
+            <div class="spots">Limited to 69 elite spots</div>
+            <ul>
+              <li>Priority access to premium data sales revenue shares</li>
+              <li>Exclusive VIP events & early feature drops</li>
+              <li>Custom anonymization tools & analytics dashboard</li>
+              <li>Bonus referral multipliers (2x rewards)</li>
+              <li>Proud badge: "Visionary" — lead the charge</li>
+            </ul>
+            <button onclick="handleSignup('visionary')">Join Visionary Team</button>
+          </div>
+
+          <div class="tier-card underdog">
+            <h3>Underdog Team</h3>
+            <div class="price">$69</div>
+            <div class="spots">Limited to 420 core spots</div>
+            <ul>
+              <li>Full access to community revenue pools</li>
+              <li>Underdog-exclusive challenges & leaderboards</li>
+              <li>Tools to maximize your data contributions</li>
+              <li>Referral bonuses & upgrade paths to Visionary</li>
+              <li>Proud badge: "Underdog" — the heart of the rebellion, where grit wins</li>
+            </ul>
+            <button onclick="handleSignup('underdog')">Join Underdog Team</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="challenges-section">
+      <h2>Rise Through the Ranks: Challenges Await</h2>
+      <p>Join the competition — whether Visionary or Underdog, prove your worth and earn more. Top performers get bonuses, upgrades, and eternal glory in the community hall of fame.</p>
+
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h3>Referral Rumble</h3>
+          <p>Bring in the most new members. Underdogs get a head start with higher base rewards — show the Visionaries what hustle looks like. Prizes: Cash bonuses, tier upgrades, exclusive merch.</p>
+        </div>
+
+        <div class="challenge-card">
+          <h3>Data Dynamo</h3>
+          <p>Contribute the most high-quality data (videos, patterns, etc.). Leaderboards reset monthly — Underdogs earn double points for creative content. Win: Revenue multipliers, custom tools, spotlights.</p>
+        </div>
+
+        <div class="challenge-card">
+          <h3>Team Showdown</h3>
+          <p>Visionaries vs. Underdogs: Collective challenges like total referrals or data volume. Winning team shares a massive bonus pool. United we monetize, divided we compete — elegantly.</p>
+        </div>
+      </div>
     </div>
 
     <div class="fineprint">
-      All data is anonymized, aggregated, and encrypted. You own it and can revoke access anytime. Revenue comes from memberships + data sales — a fair portion always flows back to the community.
+      All data is anonymized, aggregated, and encrypted. You own it and can revoke access anytime. Revenue comes from memberships + data sales — a fair portion always flows back to the community. Spots are first-come, first-served. Payments are one-time for lifetime access.
     </div>
 
   </main>
@@ -432,6 +636,16 @@
   <script>
     function toggleOption(card) {
       card.classList.toggle('selected');
+    }
+
+    function handleSignup(tier) {
+      // Placeholder for payment integration (e.g., Stripe checkout)
+      // In a real setup, this would redirect to a payment page with the tier info
+      const email = prompt('Enter your email to proceed to payment:');
+      if (email) {
+        alert(`Proceeding to secure payment for ${tier.charAt(0).toUpperCase() + tier.slice(1)} Team. Email: ${email}`);
+        // Example: window.location.href = `https://your-payment-link?email=${email}&tier=${tier}`;
+      }
     }
 
     // Background particles
@@ -473,3 +687,4 @@
 
 </body>
 </html>
+```​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
