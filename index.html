@@ -17,7 +17,6 @@
       --neon-glow: 0 0 24px rgba(34, 197, 94, 0.65);
       --gold: #facc15;
       --silver: #a1a1aa;
-      --red: #ef4444;
       --tier2: #6366f1;
       --mystery: #ec4899;
     }
@@ -58,7 +57,7 @@
     }
 
     main {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: clamp(60px, 10vw, 120px) clamp(20px, 6vw, 48px) 140px;
     }
@@ -93,13 +92,20 @@
       opacity: 0.9;
     }
 
-    .teams-section {
+    /* ---------- GRID LAYOUT ---------- */
+    .teams-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: 1fr 1fr;
       gap: 32px;
-      margin-bottom: 80px;
+      margin-bottom: 48px;
     }
 
+    .mystery-row {
+      display: flex;
+      justify-content: center;
+    }
+
+    /* ---------- CARD ---------- */
     .team-card {
       background: var(--panel);
       border-radius: 28px;
@@ -110,6 +116,8 @@
       box-shadow: 0 16px 48px rgba(0,0,0,0.45);
       position: relative;
       overflow: hidden;
+      width: 100%;
+      max-width: 520px;
     }
 
     .team-card:hover {
@@ -250,39 +258,70 @@
       color: var(--mystery);
     }
 
-    .team-card button {
+    /* ---------- BUTTONS (UNIFIED) ---------- */
+    .action-button {
       display: block;
       width: 100%;
+      height: 58px;
       background: linear-gradient(135deg, var(--neon), #16a34a);
       color: #000;
       border: none;
-      padding: 18px;
       border-radius: 16px;
       font-weight: 800;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       cursor: pointer;
       transition: all 0.35s ease;
       box-shadow: 0 0 0 0 rgba(34,197,94,0.4);
-      animation: pulse 2.5s infinite;
     }
 
-    .team-card button.secondary {
+    .action-button:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--neon-glow);
+    }
+
+    .action-button.secondary {
       background: linear-gradient(135deg, #6366f1, #4338ca);
       color: #fff;
       box-shadow: 0 0 0 0 rgba(99,102,241,0.35);
-      animation: none;
     }
 
-    .team-card button.mystery {
+    .action-button.mystery {
       background: linear-gradient(135deg, var(--mystery), #8b5cf6, #22c55e);
       color: #fff;
       box-shadow: 0 0 0 0 rgba(236,72,153,0.4);
-      animation: pulseMystery 2.8s infinite;
     }
 
-    .team-card button:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--neon-glow);
+    /* ---------- LEADERBOARD ---------- */
+    .leaderboard {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: left;
+    }
+
+    .leaderboard h3 {
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      color: #fbcfe8;
+      letter-spacing: 0.05em;
+    }
+
+    .leaderboard-list {
+      list-style: none;
+    }
+
+    .leaderboard-list li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.95rem;
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.08);
+      color: #e5e7eb;
+    }
+
+    .leaderboard-list span {
+      color: var(--mystery);
+      font-weight: 700;
     }
 
     .footer-note {
@@ -291,22 +330,12 @@
       font-size: 0.95rem;
       line-height: 1.7;
       max-width: 760px;
-      margin: 0 auto;
+      margin: 80px auto 0;
       opacity: 0.9;
     }
 
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
-      50%      { box-shadow: 0 0 0 16px rgba(34,197,94,0); }
-    }
-
-    @keyframes pulseMystery {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(236,72,153,0.45); }
-      50%      { box-shadow: 0 0 0 18px rgba(236,72,153,0); }
-    }
-
-    @media (max-width: 768px) {
-      .teams-section {
+    @media (max-width: 900px) {
+      .teams-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -328,13 +357,14 @@
         Whichever team sells out first unlocks a bonus pool for everyone in Tier 1 on that side.
       </p>
       <p class="tagline">
-        Or ignore both and unlock something nobody else knows about.
+        Or skip both and unlock something nobody else knows about.
       </p>
     </section>
 
-    <section class="teams-section">
+    <!-- TOP ROW -->
+    <section class="teams-grid">
 
-      <!-- VISIONARY TEAM -->
+      <!-- VISIONARY -->
       <div class="team-card">
         <div class="team-title visionary">Visionary</div>
         <div class="team-subtitle">High stakes. High conviction.</div>
@@ -358,10 +388,12 @@
           <li>Bragging rights if you sell out first</li>
         </ul>
 
-        <button id="visionaryButton" onclick="handleSignup('visionary')">Join Visionary</button>
+        <button class="action-button" id="visionaryButton" onclick="handleSignup('visionary')">
+          Join Visionary
+        </button>
       </div>
 
-      <!-- UNDERDOG TEAM -->
+      <!-- UNDERDOG -->
       <div class="team-card">
         <div class="team-title underdog">Underdog</div>
         <div class="team-subtitle">Low cost. High upside.</div>
@@ -385,11 +417,18 @@
           <li>Proof you backed the long shot</li>
         </ul>
 
-        <button id="underdogButton" onclick="handleSignup('underdog')">Join Underdog</button>
+        <button class="action-button" id="underdogButton" onclick="handleSignup('underdog')">
+          Join Underdog
+        </button>
       </div>
 
-      <!-- MYSTERY DONATION -->
+    </section>
+
+    <!-- MYSTERY ROW -->
+    <section class="mystery-row">
+
       <div class="team-card">
+
         <div class="team-title mystery">Mystery</div>
         <div class="team-subtitle">For the coolest people only.</div>
         <div class="price mystery">Any Amount</div>
@@ -412,7 +451,18 @@
           <li class="mystery">Vibes only</li>
         </ul>
 
-        <button class="mystery" onclick="handleMystery()">Enter the Unknown</button>
+        <button class="action-button mystery" onclick="handleMystery()">
+          Enter the Unknown
+        </button>
+
+        <!-- LEADERBOARD -->
+        <div class="leaderboard">
+          <h3>TOP MYSTERY SUPPORTERS</h3>
+          <ul class="leaderboard-list" id="mysteryLeaderboard">
+            <li><em>No mystery supporters yet.</em></li>
+          </ul>
+        </div>
+
       </div>
 
     </section>
@@ -448,7 +498,7 @@
         tier2Count: 0
       },
       mystery: {
-        totalDonations: 0
+        donations: [] // { wallet, amount }
       }
     };
 
@@ -544,7 +594,10 @@
           params: [txParams],
         });
 
-        TEAM_CONFIG.mystery.totalDonations++;
+        TEAM_CONFIG.mystery.donations.push({
+          wallet: sender,
+          amount: Number(amount)
+        });
 
         updateUI();
 
@@ -591,12 +644,30 @@
     }
 
     function updateMysteryUI() {
-      const count = TEAM_CONFIG.mystery.totalDonations;
-      const percent = Math.min(100, count * 7); // fake fun progress
+      const list = TEAM_CONFIG.mystery.donations
+        .sort((a, b) => b.amount - a.amount)
+        .slice(0, 10);
 
+      const leaderboard = document.getElementById("mysteryLeaderboard");
+      leaderboard.innerHTML = "";
+
+      if (list.length === 0) {
+        leaderboard.innerHTML = "<li><em>No mystery supporters yet.</em></li>";
+        document.getElementById("mysteryProgressLabel").textContent = "???% filled";
+        document.getElementById("mysteryProgress").style.width = "0%";
+        return;
+      }
+
+      list.forEach((entry, index) => {
+        const masked = entry.wallet.slice(0, 6) + "..." + entry.wallet.slice(-4);
+        const li = document.createElement("li");
+        li.innerHTML = `#${index + 1} ${masked} <span>${entry.amount} MATIC</span>`;
+        leaderboard.appendChild(li);
+      });
+
+      const percent = Math.min(100, TEAM_CONFIG.mystery.donations.length * 7);
       document.getElementById("mysteryProgress").style.width = percent + "%";
-      document.getElementById("mysteryProgressLabel").textContent =
-        count === 0 ? "???% filled" : `${percent}% filled`;
+      document.getElementById("mysteryProgressLabel").textContent = `${percent}% filled`;
     }
 
     updateUI();
