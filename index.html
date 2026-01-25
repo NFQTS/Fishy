@@ -19,6 +19,8 @@
       --silver: #a1a1aa;
       --red: #ef4444;
       --tier2: #6366f1;
+      --power1: #22c55e;
+      --power2: #6366f1;
     }
 
     * {
@@ -29,7 +31,7 @@
     }
 
     body {
-      background: var(--bg);
+      background: radial-gradient(circle at top, #0b0b12 0%, #060609 60%);
       color: var(--accent);
       min-height: 100vh;
       overflow-x: hidden;
@@ -64,8 +66,9 @@
 
     .hero {
       text-align: center;
-      max-width: 760px;
-      margin: 0 auto 72px;
+      max-width: 820px;
+      margin: 0 auto 60px;
+      position: relative;
     }
 
     .hero h1 {
@@ -83,7 +86,7 @@
       font-size: clamp(1.1rem, 2.8vw, 1.35rem);
       color: var(--subtle);
       line-height: 1.55;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.2rem;
     }
 
     .hero .tagline {
@@ -92,11 +95,59 @@
       opacity: 0.9;
     }
 
+    /* === POWER METER === */
+    .power-meter {
+      margin: 48px auto 64px;
+      max-width: 700px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      height: 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    .power-fill {
+      height: 100%;
+      width: 50%;
+      background: linear-gradient(90deg, var(--power1), var(--power2));
+      transition: width 0.6s ease;
+    }
+
+    .power-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      color: var(--subtle);
+    }
+
+    .power-glow {
+      position: absolute;
+      inset: -20px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      filter: blur(40px);
+    }
+
+    .power-glow.visionary {
+      background: radial-gradient(circle at left, rgba(34,197,94,0.45), transparent 60%);
+      opacity: 1;
+    }
+
+    .power-glow.underdog {
+      background: radial-gradient(circle at right, rgba(99,102,241,0.45), transparent 60%);
+      opacity: 1;
+    }
+
     .teams-section {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 32px;
       margin-bottom: 80px;
+      position: relative;
+      z-index: 1;
     }
 
     .team-card {
@@ -111,10 +162,18 @@
       overflow: hidden;
     }
 
+    .team-card.winning {
+      box-shadow: 0 0 40px rgba(34,197,94,0.55), 0 0 80px rgba(34,197,94,0.25);
+      border-color: rgba(34,197,94,0.45);
+    }
+
+    .team-card.winning.underdog {
+      box-shadow: 0 0 40px rgba(99,102,241,0.55), 0 0 80px rgba(99,102,241,0.25);
+      border-color: rgba(99,102,241,0.45);
+    }
+
     .team-card:hover {
       transform: translateY(-6px);
-      box-shadow: var(--neon-glow);
-      border-color: rgba(34,197,94,0.3);
     }
 
     .team-title {
@@ -131,7 +190,7 @@
     }
 
     .team-title.underdog {
-      background: linear-gradient(90deg, var(--silver), var(--neon));
+      background: linear-gradient(90deg, var(--silver), var(--tier2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -147,6 +206,10 @@
       font-weight: 800;
       margin-bottom: 0.8rem;
       color: var(--neon);
+    }
+
+    .price.underdog {
+      color: var(--tier2);
     }
 
     .spots {
@@ -193,6 +256,10 @@
       transition: width 0.4s ease;
     }
 
+    .progress-fill.underdog {
+      background: linear-gradient(90deg, var(--tier2), #4338ca);
+    }
+
     .progress-label {
       font-size: 0.85rem;
       color: var(--subtle);
@@ -224,6 +291,10 @@
       font-weight: bold;
     }
 
+    .team-card.underdog li:before {
+      color: var(--tier2);
+    }
+
     .team-card button {
       display: block;
       width: 100%;
@@ -240,16 +311,18 @@
       animation: pulse 2.5s infinite;
     }
 
-    .team-card button.secondary {
-      background: linear-gradient(135deg, #6366f1, #4338ca);
+    .team-card.underdog button {
+      background: linear-gradient(135deg, var(--tier2), #4338ca);
       color: #fff;
       box-shadow: 0 0 0 0 rgba(99,102,241,0.35);
+    }
+
+    .team-card button.secondary {
       animation: none;
     }
 
     .team-card button:hover {
       transform: translateY(-3px);
-      box-shadow: var(--neon-glow);
     }
 
     .footer-note {
@@ -292,15 +365,25 @@
       <p class="tagline">
         Early supporters get rewarded more. Late supporters still get in.
       </p>
+
+      <!-- POWER METER -->
+      <div class="power-meter">
+        <div class="power-glow" id="powerGlow"></div>
+        <div class="power-fill" id="powerFill"></div>
+      </div>
+      <div class="power-labels">
+        <span id="powerLeft">Visionary power</span>
+        <span id="powerRight">Underdog power</span>
+      </div>
     </section>
 
     <section class="teams-section">
 
       <!-- VISIONARY TEAM -->
-      <div class="team-card">
+      <div class="team-card" id="visionaryCard">
         <div class="team-title visionary">Visionary</div>
         <div class="team-subtitle">The builders. The believers.</div>
-        <div class="price" id="visionaryPrice">69 MATIC</div>
+        <div class="price" id="visionaryPrice">420 MATIC</div>
         <div class="spots">
           Tier 1 spots left: <strong><span id="visionarySpots">420</span></strong> / 420
           <div class="tier-badge" id="visionaryTierBadge">Tier 1</div>
@@ -324,10 +407,10 @@
       </div>
 
       <!-- UNDERDOG TEAM -->
-      <div class="team-card">
+      <div class="team-card underdog" id="underdogCard">
         <div class="team-title underdog">Underdog</div>
         <div class="team-subtitle">The grinders. The rebels.</div>
-        <div class="price" id="underdogPrice">420 MATIC</div>
+        <div class="price underdog" id="underdogPrice">69 MATIC</div>
         <div class="spots">
           Tier 1 spots left: <strong><span id="underdogSpots">69</span></strong> / 69
           <div class="tier-badge" id="underdogTierBadge">Tier 1</div>
@@ -335,7 +418,7 @@
 
         <div class="progress-wrapper">
           <div class="progress-bar">
-            <div class="progress-fill" id="underdogProgress"></div>
+            <div class="progress-fill underdog" id="underdogProgress"></div>
           </div>
           <div class="progress-label" id="underdogProgressLabel">0% filled</div>
         </div>
@@ -369,14 +452,14 @@
 
     const TEAM_CONFIG = {
       visionary: {
-        priceMatic: 69,
+        priceMatic: 420,
         totalSpots: 420,
         spotsLeft: 420,
         tier1Filled: false,
         tier2Count: 0
       },
       underdog: {
-        priceMatic: 420,
+        priceMatic: 69,
         totalSpots: 69,
         spotsLeft: 69,
         tier1Filled: false,
@@ -432,6 +515,7 @@
         }
 
         updateUI();
+        animatePowerPulse(team);
 
         alert(
           isTier1
@@ -451,6 +535,8 @@
     function updateUI() {
       updateTeamUI("visionary");
       updateTeamUI("underdog");
+      updatePowerMeter();
+      updateWinningGlow();
     }
 
     function updateTeamUI(team) {
@@ -476,6 +562,53 @@
         button.textContent = "Join " + team.charAt(0).toUpperCase() + team.slice(1);
         button.classList.remove("secondary");
       }
+    }
+
+    function updatePowerMeter() {
+      const v = TEAM_CONFIG.visionary;
+      const u = TEAM_CONFIG.underdog;
+
+      const vProgress = (v.totalSpots - v.spotsLeft) / v.totalSpots;
+      const uProgress = (u.totalSpots - u.spotsLeft) / u.totalSpots;
+
+      const total = vProgress + uProgress || 1;
+      const vPower = vProgress / total;
+      const percent = Math.round(vPower * 100);
+
+      document.getElementById("powerFill").style.width = percent + "%";
+    }
+
+    function updateWinningGlow() {
+      const v = TEAM_CONFIG.visionary;
+      const u = TEAM_CONFIG.underdog;
+
+      const vProgress = (v.totalSpots - v.spotsLeft) / v.totalSpots;
+      const uProgress = (u.totalSpots - u.spotsLeft) / u.totalSpots;
+
+      const powerGlow = document.getElementById("powerGlow");
+      const vCard = document.getElementById("visionaryCard");
+      const uCard = document.getElementById("underdogCard");
+
+      vCard.classList.remove("winning");
+      uCard.classList.remove("winning");
+      powerGlow.classList.remove("visionary", "underdog");
+
+      if (vProgress > uProgress) {
+        vCard.classList.add("winning");
+        powerGlow.classList.add("visionary");
+      } else if (uProgress > vProgress) {
+        uCard.classList.add("winning");
+        powerGlow.classList.add("underdog");
+      }
+    }
+
+    function animatePowerPulse(team) {
+      const glow = document.getElementById("powerGlow");
+      glow.classList.remove("visionary", "underdog");
+      void glow.offsetWidth; // reset animation
+
+      glow.classList.add(team);
+      setTimeout(() => glow.classList.remove(team), 600);
     }
 
     // Initial UI render
