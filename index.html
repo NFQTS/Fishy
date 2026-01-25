@@ -6,7 +6,7 @@
   <title>Monetize Your Data. Get Paid.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #060609;
@@ -52,15 +52,66 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
     }
 
     .logo {
       font-size: clamp(1.4rem, 5vw, 1.8rem);
-      font-weight: 700;
-      letter-spacing: 0.07em;
+      font-weight: 800;
+      letter-spacing: 0.08em;
       background: linear-gradient(90deg, #fff, var(--neon));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      white-space: nowrap;
+    }
+
+    .battle-meter {
+      flex: 1;
+      max-width: 520px;
+      min-width: 260px;
+    }
+
+    .battle-title {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--subtle);
+      margin-bottom: 6px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .battle-bar {
+      position: relative;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      overflow: hidden;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+    }
+
+    .battle-left, .battle-right {
+      position: absolute;
+      top: 0;
+      height: 100%;
+    }
+
+    .battle-left {
+      left: 0;
+      background: linear-gradient(90deg, var(--gold), var(--neon));
+    }
+
+    .battle-right {
+      right: 0;
+      background: linear-gradient(90deg, var(--neon), var(--silver));
+    }
+
+    .battle-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      margin-top: 6px;
+      color: var(--subtle);
     }
 
     main {
@@ -71,7 +122,7 @@
 
     .hero {
       text-align: center;
-      max-width: 860px;
+      max-width: 880px;
       margin: 0 auto 80px;
     }
 
@@ -91,6 +142,13 @@
       color: var(--subtle);
       line-height: 1.5;
       margin-bottom: 3rem;
+    }
+
+    .hero .cta-sub {
+      font-size: 1rem;
+      color: var(--subtle);
+      margin-top: 1.5rem;
+      opacity: 0.9;
     }
 
     .money-flow {
@@ -152,9 +210,9 @@
     }
 
     .flow-percentage {
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       color: var(--subtle);
-      margin-top: 1rem;
+      margin-top: 0.6rem;
       font-weight: 500;
     }
 
@@ -162,7 +220,7 @@
       background: var(--panel);
       border-radius: 32px;
       padding: clamp(40px, 6vw, 60px);
-      max-width: 900px;
+      max-width: 920px;
       margin: 0 auto;
       box-shadow: 0 30px 80px rgba(0,0,0,0.6);
       border: 1px solid rgba(34,197,94,0.2);
@@ -172,7 +230,7 @@
     .instant-tool h2 {
       text-align: center;
       font-size: 2.4rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       color: var(--neon);
     }
 
@@ -180,7 +238,7 @@
       text-align: center;
       color: var(--subtle);
       font-size: 1.1rem;
-      margin-bottom: 3rem;
+      margin-bottom: 2.5rem;
     }
 
     .data-options {
@@ -250,14 +308,70 @@
       display: none;
     }
 
+    .referral-section {
+      margin-top: 3rem;
+      background: rgba(255,255,255,0.04);
+      border-radius: 24px;
+      padding: 32px 28px;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+
+    .referral-section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 0.8rem;
+      color: var(--neon);
+    }
+
+    .referral-section p {
+      color: var(--subtle);
+      font-size: 1rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .referral-box {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .referral-input {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      padding: 12px 14px;
+      min-width: 260px;
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .referral-button {
+      background: linear-gradient(135deg, var(--neon), #16a34a);
+      color: #000;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 0 0 var(--neon-glow);
+    }
+
+    .referral-button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--neon-glow);
+    }
+
     .tiers-section {
-      margin-top: 4rem;
+      margin-top: 5rem;
     }
 
     .tiers-section h2 {
       text-align: center;
       font-size: 2.4rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       color: var(--neon);
     }
 
@@ -266,6 +380,9 @@
       color: var(--subtle);
       font-size: 1.1rem;
       margin-bottom: 3rem;
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .tiers-grid {
@@ -345,7 +462,7 @@
       border: none;
       padding: 18px;
       border-radius: 16px;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 1.15rem;
       cursor: pointer;
       transition: all 0.4s;
@@ -368,63 +485,71 @@
       background: linear-gradient(135deg, #16a34a, var(--neon));
     }
 
-    .challenges-section {
+    .tournaments-section {
       margin-top: 6rem;
       background: var(--panel);
       border-radius: 28px;
-      padding: 48px 40px;
+      padding: 56px 44px;
       border: 1px solid rgba(34,197,94,0.18);
       backdrop-filter: blur(10px);
     }
 
-    .challenges-section h2 {
+    .tournaments-section h2 {
       text-align: center;
-      font-size: 2.2rem;
-      margin-bottom: 2rem;
+      font-size: 2.4rem;
+      margin-bottom: 1.4rem;
       color: var(--neon);
     }
 
-    .challenges-section p {
+    .tournaments-section p {
       text-align: center;
       color: var(--subtle);
       font-size: 1.1rem;
-      margin-bottom: 3rem;
-      max-width: 720px;
-      margin: 0 auto 3rem;
+      margin-bottom: 3.5rem;
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .challenge-grid {
+    .tournament-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 28px;
+      gap: 32px;
     }
 
-    .challenge-card {
+    .tournament-card {
       background: rgba(255,255,255,0.025);
       border-radius: 20px;
-      padding: 32px 28px;
+      padding: 36px 30px;
       border: 1px solid rgba(255,255,255,0.1);
       text-align: center;
       transition: all 0.35s ease;
     }
 
-    .challenge-card:hover {
+    .tournament-card:hover {
       border-color: var(--neon);
       background: rgba(34,197,94,0.08);
       box-shadow: var(--neon-glow);
       transform: translateY(-4px);
     }
 
-    .challenge-card h3 {
-      font-size: 1.45rem;
+    .tournament-card h3 {
+      font-size: 1.5rem;
       margin-bottom: 1rem;
       color: var(--neon);
     }
 
-    .challenge-card p {
+    .tournament-card p {
       font-size: 1rem;
       color: var(--subtle);
       line-height: 1.5;
+    }
+
+    .tournament-card .reward {
+      margin-top: 1.2rem;
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1rem;
     }
 
     .fineprint {
@@ -432,7 +557,7 @@
       color: var(--subtle);
       font-size: 0.95rem;
       line-height: 1.7;
-      max-width: 720px;
+      max-width: 760px;
       margin: 5rem auto 0;
       opacity: 0.9;
     }
@@ -472,11 +597,11 @@
         grid-template-columns: 1fr;
       }
 
-      .challenges-section {
-        padding: 40px 24px;
+      .tournaments-section {
+        padding: 44px 28px;
       }
 
-      .challenge-grid {
+      .tournament-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -488,13 +613,30 @@
 
   <header>
     <div class="logo">UNPRINCIPLED INC.</div>
+
+    <div class="battle-meter">
+      <div class="battle-title">LIVE REFERRAL WAR</div>
+      <div class="battle-bar">
+        <div class="battle-left" id="visionaryBar" style="width: 52%;"></div>
+        <div class="battle-right" id="underdogBar" style="width: 48%;"></div>
+      </div>
+      <div class="battle-labels">
+        <span>Visionaries: <strong id="visionaryCount">52%</strong></span>
+        <span>Underdogs: <strong id="underdogCount">48%</strong></span>
+      </div>
+    </div>
   </header>
 
   <main>
 
     <section class="hero">
       <h1>Monetize Your Data. Get Paid.</h1>
-      <p class="lead">You choose what to share → we anonymize & sell it → money flows back to the community (including you).</p>
+      <p class="lead">
+        You choose what to share → we anonymize & sell it → the money flows back to the community (including you).
+      </p>
+      <p class="cta-sub">
+        Pick a side. Invite your friends. Win tournaments. Get paid.
+      </p>
     </section>
 
     <div class="money-flow">
@@ -507,28 +649,28 @@
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-box">
-            <strong>Small % back to community</strong>
-            <p class="flow-percentage">Redistributed as bonuses, incentives & payouts</p>
+            <strong>Community Rewards Pool</strong>
+            <p class="flow-percentage">Bonuses, tournaments, referral payouts</p>
           </div>
         </div>
 
         <div class="flow-row">
           <div class="flow-box">
-            <strong>Data we sell</strong>
+            <strong>Data We Sell</strong>
             <p>Anonymized, aggregated, high-quality human data</p>
           </div>
           <div class="flow-arrow">→</div>
           <div class="flow-box">
-            <strong>Larger % back to community</strong>
-            <p class="flow-percentage">Shared via revenue splits & rewards</p>
+            <strong>Larger Community Revenue Share</strong>
+            <p class="flow-percentage">Split with contributors and top performers</p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="instant-tool">
-      <h2>What Would You Share Today?</h2>
-      <p>Select options below — then upload a short video or sign up to start contributing immediately.</p>
+      <h2>Start Contributing in 60 Seconds</h2>
+      <p>Select what you'd share — then upload or sign up to start earning immediately.</p>
 
       <div class="data-options">
         <div class="option-card" onclick="toggleOption(this)">
@@ -568,9 +710,30 @@
         <input type="file" id="videoInput" class="upload-input" accept="video/*">
       </div>
 
+      <div class="referral-section">
+        <h3>Invite Friends. Win Together.</h3>
+        <p>
+          Every referral boosts your team’s score, increases your earnings, and pushes your side toward tournament victory.
+        </p>
+
+        <div class="referral-box">
+          <input 
+            type="text" 
+            class="referral-input" 
+            id="referralLink" 
+            value="https://unprincipled.inc/ref/yourname" 
+            readonly
+          >
+          <button class="referral-button" onclick="copyReferral()">Copy Link</button>
+          <button class="referral-button" onclick="shareReferral()">Share</button>
+        </div>
+      </div>
+
       <div class="tiers-section">
-        <h2>Choose Your Entry Point</h2>
-        <p class="intro">Join the revolution. Limited spots available — pick your team and unlock exclusive perks. Whether you're rolling in as a Visionary or hustling as an Underdog, you're building the future of data ownership.</p>
+        <h2>Choose Your Team</h2>
+        <p class="intro">
+          This is a live competition economy. Pick your side, unlock perks, and compete in ongoing tournaments for money, upgrades, and status.
+        </p>
 
         <div class="tiers-grid">
           <div class="tier-card visionary">
@@ -578,11 +741,11 @@
             <div class="price">$420</div>
             <div class="spots">Limited to 69 elite spots</div>
             <ul>
-              <li>Priority access to premium data sales revenue shares</li>
-              <li>Exclusive VIP events & early feature drops</li>
-              <li>Custom anonymization tools & analytics dashboard</li>
-              <li>Bonus referral multipliers (2x rewards)</li>
-              <li>Proud badge: "Visionary" — lead the charge</li>
+              <li>Priority access to premium data revenue</li>
+              <li>VIP events, early drops, and closed features</li>
+              <li>Advanced analytics & anonymization tools</li>
+              <li>2× referral rewards in tournaments</li>
+              <li>Badge: "Visionary" — lead the future</li>
             </ul>
             <button onclick="handleSignup('visionary')">Join Visionary Team</button>
           </div>
@@ -593,10 +756,10 @@
             <div class="spots">Limited to 420 core spots</div>
             <ul>
               <li>Full access to community revenue pools</li>
-              <li>Underdog-exclusive challenges & leaderboards</li>
-              <li>Tools to maximize your data contributions</li>
-              <li>Referral bonuses & upgrade paths to Visionary</li>
-              <li>Proud badge: "Underdog" — the heart of the rebellion, where grit wins</li>
+              <li>Underdog-only challenges & leaderboards</li>
+              <li>Tools to maximize creative data contributions</li>
+              <li>Referral bonuses + upgrade paths</li>
+              <li>Badge: "Underdog" — where grit wins</li>
             </ul>
             <button onclick="handleSignup('underdog')">Join Underdog Team</button>
           </div>
@@ -605,30 +768,41 @@
 
     </div>
 
-    <div class="challenges-section">
-      <h2>Rise Through the Ranks: Challenges Await</h2>
-      <p>Join the competition — whether Visionary or Underdog, prove your worth and earn more. Top performers get bonuses, upgrades, and eternal glory in the community hall of fame.</p>
+    <div class="tournaments-section">
+      <h2>Live Tournaments & Challenges</h2>
+      <p>
+        This isn’t a one-time game — it’s a continuous competition economy. New tournaments launch regularly, with rotating challenges, bonus pools, and team wars.
+      </p>
 
-      <div class="challenge-grid">
-        <div class="challenge-card">
-          <h3>Referral Rumble</h3>
-          <p>Bring in the most new members. Underdogs get a head start with higher base rewards — show the Visionaries what hustle looks like. Prizes: Cash bonuses, tier upgrades, exclusive merch.</p>
+      <div class="tournament-grid">
+        <div class="tournament-card">
+          <h3>Referral War</h3>
+          <p>
+            Visionaries vs Underdogs — whichever team brings in the most new members wins the prize pool.
+          </p>
+          <div class="reward">🏆 Reward: Cash bonuses + revenue multipliers</div>
         </div>
 
-        <div class="challenge-card">
-          <h3>Data Dynamo</h3>
-          <p>Contribute the most high-quality data (videos, patterns, etc.). Leaderboards reset monthly — Underdogs earn double points for creative content. Win: Revenue multipliers, custom tools, spotlights.</p>
+        <div class="tournament-card">
+          <h3>Data Contribution League</h3>
+          <p>
+            Earn points for high-quality uploads and useful data. Underdogs get creative multipliers.
+          </p>
+          <div class="reward">🏆 Reward: Revenue shares + tier upgrades</div>
         </div>
 
-        <div class="challenge-card">
+        <div class="tournament-card">
           <h3>Team Showdown</h3>
-          <p>Visionaries vs. Underdogs: Collective challenges like total referrals or data volume. Winning team shares a massive bonus pool. United we monetize, divided we compete — elegantly.</p>
+          <p>
+            Collective challenges — total referrals, uploads, or engagement. One team takes the jackpot.
+          </p>
+          <div class="reward">🏆 Reward: Massive bonus pool + hall of fame</div>
         </div>
       </div>
     </div>
 
     <div class="fineprint">
-      All data is anonymized, aggregated, and encrypted. You own it and can revoke access anytime. Revenue comes from memberships + data sales — a fair portion always flows back to the community. Spots are first-come, first-served. Payments are one-time for lifetime access.
+      All data is anonymized, aggregated, and encrypted. You own it and can revoke access anytime. Revenue comes from memberships + data sales — and a meaningful portion always flows back to the community. Spots are first-come, first-served. Payments are one-time for lifetime access.
     </div>
 
   </main>
@@ -639,14 +813,49 @@
     }
 
     function handleSignup(tier) {
-      // Placeholder for payment integration (e.g., Stripe checkout)
-      // In a real setup, this would redirect to a payment page with the tier info
       const email = prompt('Enter your email to proceed to payment:');
       if (email) {
         alert(`Proceeding to secure payment for ${tier.charAt(0).toUpperCase() + tier.slice(1)} Team. Email: ${email}`);
-        // Example: window.location.href = `https://your-payment-link?email=${email}&tier=${tier}`;
       }
     }
+
+    function copyReferral() {
+      const input = document.getElementById('referralLink');
+      input.select();
+      input.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      alert('Referral link copied to clipboard!');
+    }
+
+    function shareReferral() {
+      const link = document.getElementById('referralLink').value;
+      if (navigator.share) {
+        navigator.share({
+          title: 'Join the Data Rebellion',
+          text: 'Monetize your data, join my team, and earn with me.',
+          url: link
+        });
+      } else {
+        alert('Sharing not supported on this device. Copy your link instead!');
+      }
+    }
+
+    // Fake live battle updates (placeholder)
+    let visionary = 52;
+    let underdog = 48;
+
+    function updateBattleMeter() {
+      const change = Math.random() * 2 - 1;
+      visionary = Math.max(30, Math.min(70, visionary + change));
+      underdog = 100 - visionary;
+
+      document.getElementById('visionaryBar').style.width = visionary + '%';
+      document.getElementById('underdogBar').style.width = underdog + '%';
+      document.getElementById('visionaryCount').textContent = visionary.toFixed(0) + '%';
+      document.getElementById('underdogCount').textContent = underdog.toFixed(0) + '%';
+    }
+
+    setInterval(updateBattleMeter, 3000);
 
     // Background particles
     const canvas = document.getElementById('bg-canvas');
@@ -687,4 +896,3 @@
 
 </body>
 </html>
-```​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
