@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Monetize Your Data. Get Paid.</title>
+  <title>Pick Your Side. Fill It First.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #060609;
-      --panel: rgba(18, 18, 20, 0.75);
+      --panel: rgba(18, 18, 20, 0.85);
       --accent: #ffffff;
       --subtle: #a1a1aa;
       --neon: #22c55e;
       --neon-glow: 0 0 24px rgba(34, 197, 94, 0.65);
-      --glass: rgba(255,255,255,0.05);
       --gold: #facc15;
       --silver: #a1a1aa;
+      --red: #ef4444;
     }
 
     * {
@@ -32,32 +32,21 @@
       color: var(--accent);
       min-height: 100vh;
       overflow-x: hidden;
-      position: relative;
-    }
-
-    canvas#bg-canvas {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      opacity: 0.4;
     }
 
     header {
       position: sticky;
       top: 0;
       z-index: 100;
-      padding: clamp(16px, 4vw, 28px) clamp(20px, 6vw, 48px);
-      backdrop-filter: blur(16px);
+      padding: 20px clamp(20px, 6vw, 48px);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255,255,255,0.08);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 24px;
-      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .logo {
-      font-size: clamp(1.4rem, 5vw, 1.8rem);
+      font-size: clamp(1.3rem, 4vw, 1.7rem);
       font-weight: 800;
       letter-spacing: 0.08em;
       background: linear-gradient(90deg, #fff, var(--neon));
@@ -66,387 +55,150 @@
       white-space: nowrap;
     }
 
-    .battle-meter {
-      flex: 1;
-      max-width: 520px;
-      min-width: 260px;
-    }
-
-    .battle-title {
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--subtle);
-      margin-bottom: 6px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .battle-bar {
-      position: relative;
-      height: 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.1);
-      overflow: hidden;
-      box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
-    }
-
-    .battle-left, .battle-right {
-      position: absolute;
-      top: 0;
-      height: 100%;
-    }
-
-    .battle-left {
-      left: 0;
-      background: linear-gradient(90deg, var(--gold), var(--neon));
-    }
-
-    .battle-right {
-      right: 0;
-      background: linear-gradient(90deg, var(--neon), var(--silver));
-    }
-
-    .battle-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      margin-top: 6px;
-      color: var(--subtle);
-    }
-
     main {
-      max-width: 1280px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: clamp(80px, 12vw, 140px) clamp(24px, 6vw, 56px) 160px;
+      padding: clamp(60px, 10vw, 120px) clamp(20px, 6vw, 48px) 140px;
     }
 
     .hero {
       text-align: center;
-      max-width: 880px;
-      margin: 0 auto 80px;
+      max-width: 760px;
+      margin: 0 auto 72px;
     }
 
     .hero h1 {
-      font-size: clamp(3rem, 8vw, 5rem);
+      font-size: clamp(2.8rem, 7vw, 4.6rem);
       font-weight: 800;
-      line-height: 1.02;
+      line-height: 1.05;
       letter-spacing: -0.03em;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.2rem;
       background: linear-gradient(90deg, #fff, var(--neon));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .hero p.lead {
-      font-size: clamp(1.25rem, 3vw, 1.5rem);
+    .hero p {
+      font-size: clamp(1.1rem, 2.8vw, 1.35rem);
       color: var(--subtle);
-      line-height: 1.5;
-      margin-bottom: 3rem;
+      line-height: 1.55;
+      margin-bottom: 2.5rem;
     }
 
-    .hero .cta-sub {
+    .hero .tagline {
       font-size: 1rem;
       color: var(--subtle);
-      margin-top: 1.5rem;
       opacity: 0.9;
     }
 
-    .money-flow {
+    .teams-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+
+    .team-card {
       background: var(--panel);
       border-radius: 28px;
-      padding: 40px;
-      margin: 0 auto 100px;
-      max-width: 960px;
-      border: 1px solid rgba(34,197,94,0.18);
-      backdrop-filter: blur(10px);
-    }
-
-    .money-flow h2 {
-      text-align: center;
-      font-size: 2.2rem;
-      margin-bottom: 2.5rem;
-      color: var(--neon);
-    }
-
-    .flow-diagram {
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-      align-items: center;
-    }
-
-    .flow-row {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-      width: 100%;
-      max-width: 800px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .flow-box {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 20px;
-      padding: 28px 32px;
-      text-align: center;
-      flex: 1;
-      min-width: 220px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-
-    .flow-box strong {
-      font-size: 1.4rem;
-      display: block;
-      margin-bottom: 0.8rem;
-      color: var(--neon);
-    }
-
-    .flow-arrow {
-      font-size: 3rem;
-      color: var(--neon);
-      opacity: 0.6;
-    }
-
-    .flow-percentage {
-      font-size: 1.1rem;
-      color: var(--subtle);
-      margin-top: 0.6rem;
-      font-weight: 500;
-    }
-
-    .instant-tool {
-      background: var(--panel);
-      border-radius: 32px;
-      padding: clamp(40px, 6vw, 60px);
-      max-width: 920px;
-      margin: 0 auto;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-      border: 1px solid rgba(34,197,94,0.2);
-      backdrop-filter: blur(12px);
-    }
-
-    .instant-tool h2 {
-      text-align: center;
-      font-size: 2.4rem;
-      margin-bottom: 1.2rem;
-      color: var(--neon);
-    }
-
-    .instant-tool p {
-      text-align: center;
-      color: var(--subtle);
-      font-size: 1.1rem;
-      margin-bottom: 2.5rem;
-    }
-
-    .data-options {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 24px;
-      margin-bottom: 3rem;
-    }
-
-    .option-card {
-      background: rgba(255,255,255,0.025);
-      border-radius: 20px;
-      padding: 28px 24px;
-      border: 1px solid rgba(255,255,255,0.1);
-      cursor: pointer;
-      transition: all 0.35s ease;
-      text-align: center;
-    }
-
-    .option-card.selected {
-      border-color: var(--neon);
-      background: rgba(34,197,94,0.1);
-      box-shadow: var(--neon-glow);
-      transform: translateY(-6px) scale(1.03);
-    }
-
-    .option-card h3 {
-      font-size: 1.35rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .option-card p {
-      font-size: 0.95rem;
-      color: var(--subtle);
-      line-height: 1.45;
-    }
-
-    .video-upload {
-      background: rgba(34,197,94,0.08);
-      border: 2px dashed rgba(34,197,94,0.4);
-      border-radius: 24px;
-      padding: 40px 32px;
-      text-align: center;
-      margin: 2.5rem 0;
-      transition: all 0.3s;
-      cursor: pointer;
-    }
-
-    .video-upload:hover {
-      border-color: var(--neon);
-      background: rgba(34,197,94,0.12);
-      box-shadow: var(--neon-glow);
-    }
-
-    .video-upload h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--neon);
-    }
-
-    .video-upload p {
-      font-size: 1.05rem;
-      color: var(--subtle);
-    }
-
-    .upload-input {
-      display: none;
-    }
-
-    .referral-section {
-      margin-top: 3rem;
-      background: rgba(255,255,255,0.04);
-      border-radius: 24px;
-      padding: 32px 28px;
-      border: 1px solid rgba(255,255,255,0.1);
-      text-align: center;
-    }
-
-    .referral-section h3 {
-      font-size: 1.8rem;
-      margin-bottom: 0.8rem;
-      color: var(--neon);
-    }
-
-    .referral-section p {
-      color: var(--subtle);
-      font-size: 1rem;
-      margin-bottom: 1.8rem;
-    }
-
-    .referral-box {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .referral-input {
-      background: rgba(0,0,0,0.4);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px;
-      padding: 12px 14px;
-      min-width: 260px;
-      color: var(--accent);
-      font-size: 0.95rem;
-    }
-
-    .referral-button {
-      background: linear-gradient(135deg, var(--neon), #16a34a);
-      color: #000;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 0 0 var(--neon-glow);
-    }
-
-    .referral-button:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--neon-glow);
-    }
-
-    .tiers-section {
-      margin-top: 5rem;
-    }
-
-    .tiers-section h2 {
-      text-align: center;
-      font-size: 2.4rem;
-      margin-bottom: 1.2rem;
-      color: var(--neon);
-    }
-
-    .tiers-section p.intro {
-      text-align: center;
-      color: var(--subtle);
-      font-size: 1.1rem;
-      margin-bottom: 3rem;
-      max-width: 820px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .tiers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 32px;
-      margin-bottom: 4rem;
-    }
-
-    .tier-card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      border-radius: 24px;
       padding: 40px 32px;
       border: 1px solid rgba(255,255,255,0.08);
       text-align: center;
       transition: all 0.4s ease;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+      position: relative;
+      overflow: hidden;
     }
 
-    .tier-card:hover {
-      transform: translateY(-8px);
+    .team-card:hover {
+      transform: translateY(-6px);
       box-shadow: var(--neon-glow);
       border-color: rgba(34,197,94,0.3);
     }
 
-    .tier-card h3 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+    .team-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .team-title.visionary {
       background: linear-gradient(90deg, var(--gold), var(--neon));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .tier-card .price {
-      font-size: 3.5rem;
+    .team-title.underdog {
+      background: linear-gradient(90deg, var(--silver), var(--neon));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .team-subtitle {
+      font-size: 1rem;
+      color: var(--subtle);
+      margin-bottom: 1.4rem;
+    }
+
+    .price {
+      font-size: 3.2rem;
       font-weight: 800;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       color: var(--neon);
     }
 
-    .tier-card .spots {
-      font-size: 1.1rem;
+    .spots {
+      font-size: 1.05rem;
       color: var(--subtle);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.6rem;
       font-weight: 500;
     }
 
-    .tier-card ul {
-      list-style: none;
-      margin-bottom: 2rem;
-      text-align: left;
-      max-width: 80%;
-      margin: 0 auto 2rem;
+    .progress-wrapper {
+      margin: 0 auto 1.6rem;
+      max-width: 260px;
     }
 
-    .tier-card li {
+    .progress-bar {
+      height: 14px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--neon), #16a34a);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .progress-label {
+      font-size: 0.85rem;
+      color: var(--subtle);
+      margin-top: 6px;
+    }
+
+    .team-card ul {
+      list-style: none;
+      margin-bottom: 2.2rem;
+      text-align: left;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .team-card li {
       font-size: 1rem;
       color: var(--accent);
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.7rem;
       position: relative;
-      padding-left: 24px;
+      padding-left: 22px;
     }
 
-    .tier-card li:before {
+    .team-card li:before {
       content: '✓';
       position: absolute;
       left: 0;
@@ -454,7 +206,7 @@
       font-weight: bold;
     }
 
-    .tier-card button {
+    .team-card button {
       display: block;
       width: 100%;
       background: linear-gradient(135deg, var(--neon), #16a34a);
@@ -465,100 +217,23 @@
       font-weight: 800;
       font-size: 1.15rem;
       cursor: pointer;
-      transition: all 0.4s;
-      box-shadow: 0 0 0 0 var(--neon-glow);
+      transition: all 0.35s ease;
+      box-shadow: 0 0 0 0 rgba(34,197,94,0.4);
       animation: pulse 2.5s infinite;
     }
 
-    .tier-card button:hover {
+    .team-card button:hover {
       transform: translateY(-3px);
       box-shadow: var(--neon-glow);
     }
 
-    .tier-card.underdog h3 {
-      background: linear-gradient(90deg, var(--silver), var(--neon));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .tier-card.underdog button {
-      background: linear-gradient(135deg, #16a34a, var(--neon));
-    }
-
-    .tournaments-section {
-      margin-top: 6rem;
-      background: var(--panel);
-      border-radius: 28px;
-      padding: 56px 44px;
-      border: 1px solid rgba(34,197,94,0.18);
-      backdrop-filter: blur(10px);
-    }
-
-    .tournaments-section h2 {
-      text-align: center;
-      font-size: 2.4rem;
-      margin-bottom: 1.4rem;
-      color: var(--neon);
-    }
-
-    .tournaments-section p {
-      text-align: center;
-      color: var(--subtle);
-      font-size: 1.1rem;
-      margin-bottom: 3.5rem;
-      max-width: 820px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .tournament-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
-    }
-
-    .tournament-card {
-      background: rgba(255,255,255,0.025);
-      border-radius: 20px;
-      padding: 36px 30px;
-      border: 1px solid rgba(255,255,255,0.1);
-      text-align: center;
-      transition: all 0.35s ease;
-    }
-
-    .tournament-card:hover {
-      border-color: var(--neon);
-      background: rgba(34,197,94,0.08);
-      box-shadow: var(--neon-glow);
-      transform: translateY(-4px);
-    }
-
-    .tournament-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--neon);
-    }
-
-    .tournament-card p {
-      font-size: 1rem;
-      color: var(--subtle);
-      line-height: 1.5;
-    }
-
-    .tournament-card .reward {
-      margin-top: 1.2rem;
-      font-weight: 600;
-      color: var(--accent);
-      font-size: 1rem;
-    }
-
-    .fineprint {
+    .footer-note {
       text-align: center;
       color: var(--subtle);
       font-size: 0.95rem;
       line-height: 1.7;
       max-width: 760px;
-      margin: 5rem auto 0;
+      margin: 0 auto;
       opacity: 0.9;
     }
 
@@ -568,40 +243,7 @@
     }
 
     @media (max-width: 768px) {
-      .money-flow {
-        padding: 32px 24px;
-      }
-
-      .flow-row {
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .flow-arrow {
-        transform: rotate(90deg);
-      }
-
-      .instant-tool {
-        padding: 40px 24px;
-      }
-
-      .data-options {
-        grid-template-columns: 1fr;
-      }
-
-      .video-upload {
-        padding: 32px 20px;
-      }
-
-      .tiers-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .tournaments-section {
-        padding: 44px 28px;
-      }
-
-      .tournament-grid {
+      .teams-section {
         grid-template-columns: 1fr;
       }
     }
@@ -609,289 +251,182 @@
 </head>
 <body>
 
-  <canvas id="bg-canvas"></canvas>
-
   <header>
-    <div class="logo">UNPRINCIPLED INC.</div>
-
-    <div class="battle-meter">
-      <div class="battle-title">LIVE REFERRAL WAR</div>
-      <div class="battle-bar">
-        <div class="battle-left" id="visionaryBar" style="width: 52%;"></div>
-        <div class="battle-right" id="underdogBar" style="width: 48%;"></div>
-      </div>
-      <div class="battle-labels">
-        <span>Visionaries: <strong id="visionaryCount">52%</strong></span>
-        <span>Underdogs: <strong id="underdogCount">48%</strong></span>
-      </div>
-    </div>
+    <div class="logo">PICK A SIDE</div>
   </header>
 
   <main>
 
     <section class="hero">
-      <h1>Monetize Your Data. Get Paid.</h1>
-      <p class="lead">
-        You choose what to share → we anonymize & sell it → the money flows back to the community (including you).
+      <h1>Pick Your Side.<br>Fill It First.</h1>
+      <p>
+        Two teams. Limited spots. One winner.
+        <br><br>
+        Whichever team sells out first unlocks a bonus pool for everyone on that side.
       </p>
-      <p class="cta-sub">
-        Pick a side. Invite your friends. Win tournaments. Get paid.
+      <p class="tagline">
+        Simple. Transparent. On-chain.
       </p>
     </section>
 
-    <div class="money-flow">
-      <h2>How the Money Actually Flows</h2>
-      <div class="flow-diagram">
-        <div class="flow-row">
-          <div class="flow-box">
-            <strong>Memberships & Premium Access</strong>
-            <p>People pay to join or unlock perks</p>
+    <section class="teams-section">
+
+      <!-- VISIONARY TEAM -->
+      <div class="team-card">
+        <div class="team-title visionary">Visionary</div>
+        <div class="team-subtitle">The builders. The believers.</div>
+        <div class="price" id="visionaryPrice">10 MATIC</div>
+        <div class="spots">
+          Spots left: <strong><span id="visionarySpots">69</span></strong> / 69
+        </div>
+
+        <div class="progress-wrapper">
+          <div class="progress-bar">
+            <div class="progress-fill" id="visionaryProgress"></div>
           </div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box">
-            <strong>Community Rewards Pool</strong>
-            <p class="flow-percentage">Bonuses, tournaments, referral payouts</p>
-          </div>
+          <div class="progress-label" id="visionaryProgressLabel">0% filled</div>
         </div>
 
-        <div class="flow-row">
-          <div class="flow-box">
-            <strong>Data We Sell</strong>
-            <p>Anonymized, aggregated, high-quality human data</p>
-          </div>
-          <div class="flow-arrow">→</div>
-          <div class="flow-box">
-            <strong>Larger Community Revenue Share</strong>
-            <p class="flow-percentage">Split with contributors and top performers</p>
-          </div>
-        </div>
-      </div>
-    </div>
+        <ul>
+          <li>Access to bonus pool if your team wins</li>
+          <li>Early access to future drops & experiments</li>
+          <li>Public badge: Visionary</li>
+          <li>Bragging rights if you sell out first</li>
+        </ul>
 
-    <div class="instant-tool">
-      <h2>Start Contributing in 60 Seconds</h2>
-      <p>Select what you'd share — then upload or sign up to start earning immediately.</p>
-
-      <div class="data-options">
-        <div class="option-card" onclick="toggleOption(this)">
-          <h3>Email</h3>
-          <p>Stay updated & receive payouts</p>
-        </div>
-
-        <div class="option-card" onclick="toggleOption(this)">
-          <h3>Wallet Connect</h3>
-          <p>On-chain activity signals (anonymous)</p>
-        </div>
-
-        <div class="option-card" onclick="toggleOption(this)">
-          <h3>Browsing Patterns</h3>
-          <p>General interests & habits (privacy-safe)</p>
-        </div>
-
-        <div class="option-card" onclick="toggleOption(this)">
-          <h3>Social Interactions</h3>
-          <p>Engagement style & network signals</p>
-        </div>
-
-        <div class="option-card" onclick="toggleOption(this)">
-          <h3>Creative Content</h3>
-          <p>Short videos, images, or text you create</p>
-        </div>
-
-        <div class="option-card" onclick="toggleOption(this)">
-          <h3>Device Usage</h3>
-          <p>App patterns & sensor data (anonymized)</p>
-        </div>
+        <button onclick="handleSignup('visionary')">Join Visionary</button>
       </div>
 
-      <div class="video-upload" onclick="document.getElementById('videoInput').click()">
-        <h3>Upload a Short Video Now</h3>
-        <p>Start earning immediately — drag & drop or click to select (max 60s, anonymized)</p>
-        <input type="file" id="videoInput" class="upload-input" accept="video/*">
-      </div>
-
-      <div class="referral-section">
-        <h3>Invite Friends. Win Together.</h3>
-        <p>
-          Every referral boosts your team’s score, increases your earnings, and pushes your side toward tournament victory.
-        </p>
-
-        <div class="referral-box">
-          <input 
-            type="text" 
-            class="referral-input" 
-            id="referralLink" 
-            value="https://unprincipled.inc/ref/yourname" 
-            readonly
-          >
-          <button class="referral-button" onclick="copyReferral()">Copy Link</button>
-          <button class="referral-button" onclick="shareReferral()">Share</button>
+      <!-- UNDERDOG TEAM -->
+      <div class="team-card">
+        <div class="team-title underdog">Underdog</div>
+        <div class="team-subtitle">The grinders. The rebels.</div>
+        <div class="price" id="underdogPrice">2 MATIC</div>
+        <div class="spots">
+          Spots left: <strong><span id="underdogSpots">420</span></strong> / 420
         </div>
-      </div>
 
-      <div class="tiers-section">
-        <h2>Choose Your Team</h2>
-        <p class="intro">
-          This is a live competition economy. Pick your side, unlock perks, and compete in ongoing tournaments for money, upgrades, and status.
-        </p>
-
-        <div class="tiers-grid">
-          <div class="tier-card visionary">
-            <h3>Visionary Team</h3>
-            <div class="price">$420</div>
-            <div class="spots">Limited to 69 elite spots</div>
-            <ul>
-              <li>Priority access to premium data revenue</li>
-              <li>VIP events, early drops, and closed features</li>
-              <li>Advanced analytics & anonymization tools</li>
-              <li>2× referral rewards in tournaments</li>
-              <li>Badge: "Visionary" — lead the future</li>
-            </ul>
-            <button onclick="handleSignup('visionary')">Join Visionary Team</button>
+        <div class="progress-wrapper">
+          <div class="progress-bar">
+            <div class="progress-fill" id="underdogProgress"></div>
           </div>
-
-          <div class="tier-card underdog">
-            <h3>Underdog Team</h3>
-            <div class="price">$69</div>
-            <div class="spots">Limited to 420 core spots</div>
-            <ul>
-              <li>Full access to community revenue pools</li>
-              <li>Underdog-only challenges & leaderboards</li>
-              <li>Tools to maximize creative data contributions</li>
-              <li>Referral bonuses + upgrade paths</li>
-              <li>Badge: "Underdog" — where grit wins</li>
-            </ul>
-            <button onclick="handleSignup('underdog')">Join Underdog Team</button>
-          </div>
+          <div class="progress-label" id="underdogProgressLabel">0% filled</div>
         </div>
+
+        <ul>
+          <li>Access to bonus pool if your team wins</li>
+          <li>Entry into future community challenges</li>
+          <li>Public badge: Underdog</li>
+          <li>Proof you backed the long shot</li>
+        </ul>
+
+        <button onclick="handleSignup('underdog')">Join Underdog</button>
       </div>
 
-    </div>
+    </section>
 
-    <div class="tournaments-section">
-      <h2>Live Tournaments & Challenges</h2>
-      <p>
-        This isn’t a one-time game — it’s a continuous competition economy. New tournaments launch regularly, with rotating challenges, bonus pools, and team wars.
-      </p>
-
-      <div class="tournament-grid">
-        <div class="tournament-card">
-          <h3>Referral War</h3>
-          <p>
-            Visionaries vs Underdogs — whichever team brings in the most new members wins the prize pool.
-          </p>
-          <div class="reward">🏆 Reward: Cash bonuses + revenue multipliers</div>
-        </div>
-
-        <div class="tournament-card">
-          <h3>Data Contribution League</h3>
-          <p>
-            Earn points for high-quality uploads and useful data. Underdogs get creative multipliers.
-          </p>
-          <div class="reward">🏆 Reward: Revenue shares + tier upgrades</div>
-        </div>
-
-        <div class="tournament-card">
-          <h3>Team Showdown</h3>
-          <p>
-            Collective challenges — total referrals, uploads, or engagement. One team takes the jackpot.
-          </p>
-          <div class="reward">🏆 Reward: Massive bonus pool + hall of fame</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="fineprint">
-      All data is anonymized, aggregated, and encrypted. You own it and can revoke access anytime. Revenue comes from memberships + data sales — and a meaningful portion always flows back to the community. Spots are first-come, first-served. Payments are one-time for lifetime access.
+    <div class="footer-note">
+      Payments are sent directly on-chain to the project wallet. No middlemen. No hidden fees.
+      <br>
+      Spots are first-come, first-served. Once a team fills, the challenge ends.
     </div>
 
   </main>
 
   <script>
-    function toggleOption(card) {
-      card.classList.toggle('selected');
-    }
+    /**********************
+     * CONFIG
+     **********************/
+    const RECEIVER_ADDRESS = "0xYOUR_WALLET_HERE"; // <-- Replace this
+    const POLYGON_CHAIN_ID = "0x89";
 
-    function handleSignup(tier) {
-      const email = prompt('Enter your email to proceed to payment:');
-      if (email) {
-        alert(`Proceeding to secure payment for ${tier.charAt(0).toUpperCase() + tier.slice(1)} Team. Email: ${email}`);
+    const TEAM_CONFIG = {
+      visionary: {
+        priceMatic: 10,
+        totalSpots: 69,
+        spotsLeft: 69
+      },
+      underdog: {
+        priceMatic: 2,
+        totalSpots: 420,
+        spotsLeft: 420
       }
-    }
+    };
 
-    function copyReferral() {
-      const input = document.getElementById('referralLink');
-      input.select();
-      input.setSelectionRange(0, 99999);
-      document.execCommand('copy');
-      alert('Referral link copied to clipboard!');
-    }
+    /**********************
+     * WALLET + PAYMENT
+     **********************/
+    async function handleSignup(team) {
+      if (!window.ethereum) {
+        alert("Please install MetaMask or a Web3 wallet to continue.");
+        return;
+      }
 
-    function shareReferral() {
-      const link = document.getElementById('referralLink').value;
-      if (navigator.share) {
-        navigator.share({
-          title: 'Join the Data Rebellion',
-          text: 'Monetize your data, join my team, and earn with me.',
-          url: link
+      if (TEAM_CONFIG[team].spotsLeft <= 0) {
+        alert("This team is sold out!");
+        return;
+      }
+
+      try {
+        // Connect wallet
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const sender = accounts[0];
+
+        // Switch to Polygon
+        await ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: POLYGON_CHAIN_ID }]
         });
-      } else {
-        alert('Sharing not supported on this device. Copy your link instead!');
+
+        const priceMatic = TEAM_CONFIG[team].priceMatic;
+        const valueWei = "0x" + (priceMatic * 1e18).toString(16);
+
+        const txParams = {
+          from: sender,
+          to: RECEIVER_ADDRESS,
+          value: valueWei
+        };
+
+        await ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [txParams],
+        });
+
+        // Optimistically update UI (MVP)
+        TEAM_CONFIG[team].spotsLeft--;
+        updateUI();
+
+        alert(`Welcome to the ${team.toUpperCase()} team! Your transaction was sent successfully.`);
+
+      } catch (err) {
+        console.error(err);
+        alert("Transaction failed or was cancelled.");
       }
     }
 
-    // Fake live battle updates (placeholder)
-    let visionary = 52;
-    let underdog = 48;
+    /**********************
+     * UI UPDATE LOGIC
+     **********************/
+    function updateUI() {
+      // Visionary
+      const v = TEAM_CONFIG.visionary;
+      const vFilled = v.totalSpots - v.spotsLeft;
+      const vPercent = Math.round((vFilled / v.totalSpots) * 100);
+      document.getElementById("visionarySpots").textContent = v.spotsLeft;
+      document.getElementById("visionaryProgress").style.width = vPercent + "%";
+      document.getElementById("visionaryProgressLabel").textContent = `${vPercent}% filled`;
 
-    function updateBattleMeter() {
-      const change = Math.random() * 2 - 1;
-      visionary = Math.max(30, Math.min(70, visionary + change));
-      underdog = 100 - visionary;
-
-      document.getElementById('visionaryBar').style.width = visionary + '%';
-      document.getElementById('underdogBar').style.width = underdog + '%';
-      document.getElementById('visionaryCount').textContent = visionary.toFixed(0) + '%';
-      document.getElementById('underdogCount').textContent = underdog.toFixed(0) + '%';
+      // Underdog
+      const u = TEAM_CONFIG.underdog;
+      const uFilled = u.totalSpots - u.spotsLeft;
+      const uPercent = Math.round((uFilled / u.totalSpots) * 100);
+      document.getElementById("underdogSpots").textContent = u.spotsLeft;
+      document.getElementById("underdogProgress").style.width = uPercent + "%";
+      document.getElementById("underdogProgressLabel").textContent = `${uPercent}% filled`;
     }
 
-    setInterval(updateBattleMeter, 3000);
-
-    // Background particles
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let w, h, particles = [];
-
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resize);
-    resize();
-
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        radius: Math.random() * 2 + 0.5,
-        speed: Math.random() * 0.5 + 0.1,
-        alpha: Math.random() * 0.6 + 0.2
-      });
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, w, h);
-      particles.forEach(p => {
-        p.y += p.speed;
-        if (p.y > h) p.y = -10;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(34,197,94,${p.alpha})`;
-        ctx.fill();
-      });
-      requestAnimationFrame(animate);
-    }
-    animate();
+    // Initial UI render
+    updateUI();
   </script>
 
 </body>
