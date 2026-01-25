@@ -19,8 +19,7 @@
       --silver: #a1a1aa;
       --red: #ef4444;
       --tier2: #6366f1;
-      --power1: #22c55e;
-      --power2: #6366f1;
+      --mystery: #ec4899;
     }
 
     * {
@@ -31,7 +30,7 @@
     }
 
     body {
-      background: radial-gradient(circle at top, #0b0b12 0%, #060609 60%);
+      background: var(--bg);
       color: var(--accent);
       min-height: 100vh;
       overflow-x: hidden;
@@ -59,16 +58,15 @@
     }
 
     main {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: clamp(60px, 10vw, 120px) clamp(20px, 6vw, 48px) 140px;
     }
 
     .hero {
       text-align: center;
-      max-width: 820px;
-      margin: 0 auto 60px;
-      position: relative;
+      max-width: 760px;
+      margin: 0 auto 72px;
     }
 
     .hero h1 {
@@ -86,7 +84,7 @@
       font-size: clamp(1.1rem, 2.8vw, 1.35rem);
       color: var(--subtle);
       line-height: 1.55;
-      margin-bottom: 2.2rem;
+      margin-bottom: 2.5rem;
     }
 
     .hero .tagline {
@@ -95,59 +93,11 @@
       opacity: 0.9;
     }
 
-    /* === POWER METER === */
-    .power-meter {
-      margin: 48px auto 64px;
-      max-width: 700px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 999px;
-      height: 20px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
-    }
-
-    .power-fill {
-      height: 100%;
-      width: 50%;
-      background: linear-gradient(90deg, var(--power1), var(--power2));
-      transition: width 0.6s ease;
-    }
-
-    .power-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      margin-top: 8px;
-      color: var(--subtle);
-    }
-
-    .power-glow {
-      position: absolute;
-      inset: -20px;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      filter: blur(40px);
-    }
-
-    .power-glow.visionary {
-      background: radial-gradient(circle at left, rgba(34,197,94,0.45), transparent 60%);
-      opacity: 1;
-    }
-
-    .power-glow.underdog {
-      background: radial-gradient(circle at right, rgba(99,102,241,0.45), transparent 60%);
-      opacity: 1;
-    }
-
     .teams-section {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 32px;
       margin-bottom: 80px;
-      position: relative;
-      z-index: 1;
     }
 
     .team-card {
@@ -162,18 +112,10 @@
       overflow: hidden;
     }
 
-    .team-card.winning {
-      box-shadow: 0 0 40px rgba(34,197,94,0.55), 0 0 80px rgba(34,197,94,0.25);
-      border-color: rgba(34,197,94,0.45);
-    }
-
-    .team-card.winning.underdog {
-      box-shadow: 0 0 40px rgba(99,102,241,0.55), 0 0 80px rgba(99,102,241,0.25);
-      border-color: rgba(99,102,241,0.45);
-    }
-
     .team-card:hover {
       transform: translateY(-6px);
+      box-shadow: var(--neon-glow);
+      border-color: rgba(34,197,94,0.3);
     }
 
     .team-title {
@@ -190,7 +132,13 @@
     }
 
     .team-title.underdog {
-      background: linear-gradient(90deg, var(--silver), var(--tier2));
+      background: linear-gradient(90deg, var(--silver), var(--neon));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .team-title.mystery {
+      background: linear-gradient(90deg, var(--mystery), #8b5cf6, #22c55e);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -208,8 +156,8 @@
       color: var(--neon);
     }
 
-    .price.underdog {
-      color: var(--tier2);
+    .price.mystery {
+      color: var(--mystery);
     }
 
     .spots {
@@ -236,6 +184,12 @@
       border: 1px solid rgba(99,102,241,0.35);
     }
 
+    .tier-badge.mystery {
+      background: rgba(236,72,153,0.2);
+      color: #fbcfe8;
+      border: 1px solid rgba(236,72,153,0.4);
+    }
+
     .progress-wrapper {
       margin: 0 auto 1.6rem;
       max-width: 260px;
@@ -256,8 +210,8 @@
       transition: width 0.4s ease;
     }
 
-    .progress-fill.underdog {
-      background: linear-gradient(90deg, var(--tier2), #4338ca);
+    .progress-fill.mystery {
+      background: linear-gradient(90deg, var(--mystery), #8b5cf6, #22c55e);
     }
 
     .progress-label {
@@ -291,8 +245,9 @@
       font-weight: bold;
     }
 
-    .team-card.underdog li:before {
-      color: var(--tier2);
+    .team-card li.mystery:before {
+      content: '✦';
+      color: var(--mystery);
     }
 
     .team-card button {
@@ -311,18 +266,23 @@
       animation: pulse 2.5s infinite;
     }
 
-    .team-card.underdog button {
-      background: linear-gradient(135deg, var(--tier2), #4338ca);
+    .team-card button.secondary {
+      background: linear-gradient(135deg, #6366f1, #4338ca);
       color: #fff;
       box-shadow: 0 0 0 0 rgba(99,102,241,0.35);
+      animation: none;
     }
 
-    .team-card button.secondary {
-      animation: none;
+    .team-card button.mystery {
+      background: linear-gradient(135deg, var(--mystery), #8b5cf6, #22c55e);
+      color: #fff;
+      box-shadow: 0 0 0 0 rgba(236,72,153,0.4);
+      animation: pulseMystery 2.8s infinite;
     }
 
     .team-card button:hover {
       transform: translateY(-3px);
+      box-shadow: var(--neon-glow);
     }
 
     .footer-note {
@@ -338,6 +298,11 @@
     @keyframes pulse {
       0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
       50%      { box-shadow: 0 0 0 16px rgba(34,197,94,0); }
+    }
+
+    @keyframes pulseMystery {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(236,72,153,0.45); }
+      50%      { box-shadow: 0 0 0 18px rgba(236,72,153,0); }
     }
 
     @media (max-width: 768px) {
@@ -363,26 +328,16 @@
         Whichever team sells out first unlocks a bonus pool for everyone in Tier 1 on that side.
       </p>
       <p class="tagline">
-        Early supporters get rewarded more. Late supporters still get in.
+        Or ignore both and unlock something nobody else knows about.
       </p>
-
-      <!-- POWER METER -->
-      <div class="power-meter">
-        <div class="power-glow" id="powerGlow"></div>
-        <div class="power-fill" id="powerFill"></div>
-      </div>
-      <div class="power-labels">
-        <span id="powerLeft">Visionary power</span>
-        <span id="powerRight">Underdog power</span>
-      </div>
     </section>
 
     <section class="teams-section">
 
       <!-- VISIONARY TEAM -->
-      <div class="team-card" id="visionaryCard">
+      <div class="team-card">
         <div class="team-title visionary">Visionary</div>
-        <div class="team-subtitle">The builders. The believers.</div>
+        <div class="team-subtitle">High stakes. High conviction.</div>
         <div class="price" id="visionaryPrice">420 MATIC</div>
         <div class="spots">
           Tier 1 spots left: <strong><span id="visionarySpots">420</span></strong> / 420
@@ -397,7 +352,7 @@
         </div>
 
         <ul>
-          <li>Access to bonus pool if your team wins (Tier 1 only)</li>
+          <li>Bonus pool access if your team fills first (Tier 1)</li>
           <li>Early access to future drops & experiments</li>
           <li>Public badge: Visionary</li>
           <li>Bragging rights if you sell out first</li>
@@ -407,10 +362,10 @@
       </div>
 
       <!-- UNDERDOG TEAM -->
-      <div class="team-card underdog" id="underdogCard">
+      <div class="team-card">
         <div class="team-title underdog">Underdog</div>
-        <div class="team-subtitle">The grinders. The rebels.</div>
-        <div class="price underdog" id="underdogPrice">69 MATIC</div>
+        <div class="team-subtitle">Low cost. High upside.</div>
+        <div class="price" id="underdogPrice">69 MATIC</div>
         <div class="spots">
           Tier 1 spots left: <strong><span id="underdogSpots">69</span></strong> / 69
           <div class="tier-badge" id="underdogTierBadge">Tier 1</div>
@@ -418,19 +373,46 @@
 
         <div class="progress-wrapper">
           <div class="progress-bar">
-            <div class="progress-fill underdog" id="underdogProgress"></div>
+            <div class="progress-fill" id="underdogProgress"></div>
           </div>
           <div class="progress-label" id="underdogProgressLabel">0% filled</div>
         </div>
 
         <ul>
-          <li>Access to bonus pool if your team wins (Tier 1 only)</li>
+          <li>Bonus pool access if your team fills first (Tier 1)</li>
           <li>Entry into future community challenges</li>
           <li>Public badge: Underdog</li>
           <li>Proof you backed the long shot</li>
         </ul>
 
         <button id="underdogButton" onclick="handleSignup('underdog')">Join Underdog</button>
+      </div>
+
+      <!-- MYSTERY DONATION -->
+      <div class="team-card">
+        <div class="team-title mystery">Mystery</div>
+        <div class="team-subtitle">For the coolest people only.</div>
+        <div class="price mystery">Any Amount</div>
+        <div class="spots">
+          No limits. No rules.
+          <div class="tier-badge mystery">Secret Tier</div>
+        </div>
+
+        <div class="progress-wrapper">
+          <div class="progress-bar">
+            <div class="progress-fill mystery" id="mysteryProgress"></div>
+          </div>
+          <div class="progress-label" id="mysteryProgressLabel">???% filled</div>
+        </div>
+
+        <ul>
+          <li class="mystery">Hidden rewards</li>
+          <li class="mystery">Surprise perks unlocked later</li>
+          <li class="mystery">Unannounced access</li>
+          <li class="mystery">Vibes only</li>
+        </ul>
+
+        <button class="mystery" onclick="handleMystery()">Enter the Unknown</button>
       </div>
 
     </section>
@@ -464,6 +446,9 @@
         spotsLeft: 69,
         tier1Filled: false,
         tier2Count: 0
+      },
+      mystery: {
+        totalDonations: 0
       }
     };
 
@@ -480,11 +465,9 @@
       const isTier1 = teamData.spotsLeft > 0;
 
       try {
-        // Connect wallet
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
         const sender = accounts[0];
 
-        // Switch to Polygon
         await ethereum.request({
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: POLYGON_CHAIN_ID }]
@@ -504,7 +487,6 @@
           params: [txParams],
         });
 
-        // Update state
         if (isTier1) {
           teamData.spotsLeft--;
           if (teamData.spotsLeft === 0) {
@@ -515,7 +497,6 @@
         }
 
         updateUI();
-        animatePowerPulse(team);
 
         alert(
           isTier1
@@ -529,14 +510,59 @@
       }
     }
 
+    async function handleMystery() {
+      if (!window.ethereum) {
+        alert("Please install MetaMask or a Web3 wallet to continue.");
+        return;
+      }
+
+      const amount = prompt("Enter the amount of MATIC you want to donate:");
+      if (!amount || isNaN(amount) || Number(amount) <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+
+      try {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const sender = accounts[0];
+
+        await ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: POLYGON_CHAIN_ID }]
+        });
+
+        const valueWei = "0x" + (Number(amount) * 1e18).toString(16);
+
+        const txParams = {
+          from: sender,
+          to: RECEIVER_ADDRESS,
+          value: valueWei
+        };
+
+        await ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [txParams],
+        });
+
+        TEAM_CONFIG.mystery.totalDonations++;
+
+        updateUI();
+
+        alert("You’ve entered the mystery tier. Something cool is coming. 😎");
+
+      } catch (err) {
+        console.error(err);
+        alert("Transaction failed or was cancelled.");
+      }
+    }
+
     /**********************
      * UI UPDATE LOGIC
      **********************/
     function updateUI() {
       updateTeamUI("visionary");
       updateTeamUI("underdog");
-      updatePowerMeter();
-      updateWinningGlow();
+      updateMysteryUI();
     }
 
     function updateTeamUI(team) {
@@ -564,54 +590,15 @@
       }
     }
 
-    function updatePowerMeter() {
-      const v = TEAM_CONFIG.visionary;
-      const u = TEAM_CONFIG.underdog;
+    function updateMysteryUI() {
+      const count = TEAM_CONFIG.mystery.totalDonations;
+      const percent = Math.min(100, count * 7); // fake fun progress
 
-      const vProgress = (v.totalSpots - v.spotsLeft) / v.totalSpots;
-      const uProgress = (u.totalSpots - u.spotsLeft) / u.totalSpots;
-
-      const total = vProgress + uProgress || 1;
-      const vPower = vProgress / total;
-      const percent = Math.round(vPower * 100);
-
-      document.getElementById("powerFill").style.width = percent + "%";
+      document.getElementById("mysteryProgress").style.width = percent + "%";
+      document.getElementById("mysteryProgressLabel").textContent =
+        count === 0 ? "???% filled" : `${percent}% filled`;
     }
 
-    function updateWinningGlow() {
-      const v = TEAM_CONFIG.visionary;
-      const u = TEAM_CONFIG.underdog;
-
-      const vProgress = (v.totalSpots - v.spotsLeft) / v.totalSpots;
-      const uProgress = (u.totalSpots - u.spotsLeft) / u.totalSpots;
-
-      const powerGlow = document.getElementById("powerGlow");
-      const vCard = document.getElementById("visionaryCard");
-      const uCard = document.getElementById("underdogCard");
-
-      vCard.classList.remove("winning");
-      uCard.classList.remove("winning");
-      powerGlow.classList.remove("visionary", "underdog");
-
-      if (vProgress > uProgress) {
-        vCard.classList.add("winning");
-        powerGlow.classList.add("visionary");
-      } else if (uProgress > vProgress) {
-        uCard.classList.add("winning");
-        powerGlow.classList.add("underdog");
-      }
-    }
-
-    function animatePowerPulse(team) {
-      const glow = document.getElementById("powerGlow");
-      glow.classList.remove("visionary", "underdog");
-      void glow.offsetWidth; // reset animation
-
-      glow.classList.add(team);
-      setTimeout(() => glow.classList.remove(team), 600);
-    }
-
-    // Initial UI render
     updateUI();
   </script>
 
