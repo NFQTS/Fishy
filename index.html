@@ -13,7 +13,7 @@
       --panel: #121214;
       --accent: #ffffff;
       --subtle: #9ca3af;
-      --glow: rgba(255,255,255,0.15);
+      --glow: rgba(34, 197, 94, 0.35);
       --green: #22c55e;
     }
 
@@ -21,7 +21,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
     body {
@@ -32,80 +32,85 @@
     }
 
     header {
-      padding: 28px 40px;
+      padding: clamp(16px, 5vw, 28px) clamp(20px, 6vw, 40px);
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid rgba(255,255,255,0.06);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     .logo {
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      opacity: 0.9;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
     }
 
     .cta {
-      background: linear-gradient(135deg, #ffffff, #d1d5db);
+      background: linear-gradient(135deg, #ffffff, #e5e7eb);
       color: #000;
       border: none;
-      padding: 10px 18px;
+      padding: 10px 20px;
       border-radius: 999px;
       font-weight: 600;
+      font-size: 0.95rem;
       cursor: pointer;
-      transition: all 0.25s ease;
-      box-shadow: 0 0 0 transparent;
+      transition: all 0.3s ease;
     }
 
     .cta:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 0 24px rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(255,255,255,0.18);
     }
 
     main {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
-      padding: 80px 40px 120px;
+      padding: clamp(60px, 10vw, 100px) clamp(20px, 6vw, 48px) clamp(100px, 12vw, 140px);
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 80px;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: clamp(48px, 8vw, 96px);
       align-items: center;
     }
 
     .hero-text h1 {
-      font-size: 3.4rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 20px;
+      font-size: clamp(2.4rem, 7vw, 3.6rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      margin-bottom: 1.2rem;
     }
 
     .hero-text p {
       color: var(--subtle);
-      font-size: 1.15rem;
-      line-height: 1.6;
-      max-width: 560px;
+      font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+      line-height: 1.55;
+      max-width: 580px;
     }
 
     .hero-stats {
       display: flex;
-      gap: 36px;
-      margin-top: 36px;
+      flex-wrap: wrap;
+      gap: clamp(24px, 5vw, 48px);
+      margin-top: 2.5rem;
     }
 
     .stat {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 0.4rem;
     }
 
     .stat strong {
-      font-size: 1.4rem;
-      font-weight: 600;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 700;
+      color: var(--green);
     }
 
     .stat span {
@@ -114,12 +119,12 @@
     }
 
     .panel {
-      background: linear-gradient(180deg, #141416, #0c0c0e);
-      border-radius: 22px;
-      padding: 36px;
+      background: linear-gradient(180deg, #141416, #0a0a0c);
+      border-radius: 24px;
+      padding: clamp(28px, 5vw, 44px);
       box-shadow: 
-        0 0 0 1px rgba(255,255,255,0.06),
-        0 20px 60px rgba(0,0,0,0.5);
+        0 0 0 1px rgba(255,255,255,0.07),
+        0 30px 80px rgba(0,0,0,0.6);
       position: relative;
       overflow: hidden;
     }
@@ -128,71 +133,69 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at top left, rgba(255,255,255,0.05), transparent 60%);
+      background: radial-gradient(circle at 20% 20%, rgba(34,197,94,0.08), transparent 70%);
       pointer-events: none;
     }
 
     .panel h2 {
-      font-size: 1.6rem;
-      font-weight: 500;
-      margin-bottom: 8px;
-      letter-spacing: -0.01em;
+      font-size: clamp(1.5rem, 4vw, 1.8rem);
+      font-weight: 600;
+      margin-bottom: 0.8rem;
     }
 
     .panel p {
-      font-size: 0.95rem;
+      font-size: clamp(0.95rem, 2.2vw, 1.05rem);
       color: var(--subtle);
-      margin-bottom: 28px;
+      margin-bottom: 2rem;
+      max-width: 480px;
     }
 
     .slider-group {
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
     .slider-card {
-      background: rgba(255,255,255,0.02);
+      background: rgba(255,255,255,0.015);
       border-radius: 16px;
-      padding: 18px 20px;
-      border: 1px solid rgba(255,255,255,0.06);
+      padding: 18px 22px;
+      border: 1px solid rgba(255,255,255,0.05);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      transition: background 0.25s ease, box-shadow 0.25s ease;
+      gap: 20px;
+      transition: all 0.3s ease;
     }
 
-    .slider-card:hover {
-      background: rgba(255,255,255,0.04);
-      box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
-    }
-
-    .slider-info {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+    .slider-card.active {
+      background: rgba(34,197,94,0.08);
+      border-color: rgba(34,197,94,0.25);
+      box-shadow: 0 0 24px var(--glow);
+      transform: translateY(-2px);
     }
 
     .slider-info strong {
-      font-size: 0.95rem;
-      font-weight: 500;
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: block;
     }
 
     .slider-info span {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--subtle);
+      line-height: 1.4;
     }
 
     .toggle {
       position: relative;
-      width: 54px;
-      height: 30px;
-      background: #1f2933;
+      width: 56px;
+      height: 32px;
+      background: #1e293b;
       border-radius: 999px;
       cursor: pointer;
-      transition: background 0.25s ease;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+      transition: background 0.3s ease;
+      flex-shrink: 0;
     }
 
     .toggle input {
@@ -201,81 +204,70 @@
 
     .knob {
       position: absolute;
-      top: 3px;
-      left: 3px;
+      top: 4px;
+      left: 4px;
       width: 24px;
       height: 24px;
-      background: #ffffff;
+      background: white;
       border-radius: 50%;
-      transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s ease;
-      box-shadow: 0 0 12px rgba(255,255,255,0.25);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
 
     .toggle input:checked + .knob {
       transform: translateX(24px);
-      box-shadow: 0 0 18px rgba(34,197,94,0.5);
+      background: var(--green);
+      box-shadow: 0 0 16px var(--glow);
     }
 
     .toggle input:checked ~ .toggle {
-      background: #14532d;
-    }
-
-    .toggle input:checked ~ .knob {
-      background: #22c55e;
-    }
-
-    .toggle.on {
-      background: linear-gradient(135deg, #14532d, #166534);
-      box-shadow: 0 0 0 1px rgba(34,197,94,0.3), 0 0 24px rgba(34,197,94,0.25);
+      background: #134e2d;
     }
 
     .footer-note {
-      margin-top: 28px;
-      font-size: 0.8rem;
+      margin-top: 2rem;
+      font-size: 0.82rem;
       color: var(--subtle);
-      line-height: 1.5;
+      line-height: 1.6;
+      opacity: 0.85;
     }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1024px) {
       .hero {
         grid-template-columns: 1fr;
-        gap: 60px;
-      }
-
-      .hero-text h1 {
-        font-size: 2.6rem;
+        gap: 64px;
       }
     }
 
-    /* Additional responsiveness for smaller screens */
     @media (max-width: 640px) {
       header {
-        padding: 20px 24px;
+        padding: 16px 24px;
       }
 
       main {
-        padding: 60px 24px 100px;
+        padding: 64px 24px 100px;
       }
 
       .hero-text h1 {
-        font-size: 2.2rem;
-      }
-
-      .hero-text p {
-        font-size: 1rem;
+        font-size: 2.4rem;
       }
 
       .hero-stats {
-        flex-wrap: wrap;
-        gap: 24px;
+        gap: 32px;
       }
 
       .panel {
-        padding: 28px;
+        padding: 28px 24px;
       }
 
       .slider-card {
-        padding: 16px 18px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .toggle {
+        align-self: flex-end;
       }
     }
   </style>
@@ -290,39 +282,37 @@
   <main>
     <section class="hero">
       <div class="hero-text">
-        <h1>Monetize your data. Earn gigs.</h1>
+        <h1>Monetize your data.<br>Earn real gigs.</h1>
         <p>
-          Opt-in to share what you want. Get paid for every byte. Unlock personalized gigs, referrals, and exclusive opportunities.
+          Share what you're comfortable with. Get paid instantly. Unlock better opportunities the more you contribute.
         </p>
 
         <div class="hero-stats">
           <div class="stat">
             <strong>$0</strong>
-            <span>Platform fees</span>
+            <span>fees</span>
           </div>
           <div class="stat">
             <strong>100%</strong>
-            <span>Data ownership</span>
+            <span>your data, your rules</span>
           </div>
           <div class="stat">
-            <strong>Real-time</strong>
-            <span>Earnings tracking</span>
+            <strong>Instant</strong>
+            <span>payout tracking</span>
           </div>
         </div>
       </div>
 
       <div class="panel">
-        <h2>Data Monetization Controls</h2>
-        <p>
-          Toggle to earn. Start simple, unlock more value. You control, we pay.
-        </p>
+        <h2>Choose what pays you</h2>
+        <p>Toggle on → earn more. Each level unlocks higher-value gigs.</p>
 
         <div class="slider-group">
 
           <div class="slider-card">
             <div class="slider-info">
               <strong>Email</strong>
-              <span>Earn from tailored gig alerts</span>
+              <span>Get exclusive gig alerts first</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -333,7 +323,7 @@
           <div class="slider-card">
             <div class="slider-info">
               <strong>Phone</strong>
-              <span>Earn from priority gig contacts</span>
+              <span>Priority invites + fast-fill gigs</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -344,7 +334,7 @@
           <div class="slider-card">
             <div class="slider-info">
               <strong>Referrals</strong>
-              <span>Earn bonuses when friends join</span>
+              <span>Earn $50–$200 per successful friend</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -354,8 +344,8 @@
 
           <div class="slider-card">
             <div class="slider-info">
-              <strong>Videos</strong>
-              <span>Earn per upload for content gigs</span>
+              <strong>Short Videos</strong>
+              <span>Get paid per upload for training data</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -365,8 +355,8 @@
 
           <div class="slider-card">
             <div class="slider-info">
-              <strong>Skills Profile</strong>
-              <span>Earn from premium gig matches</span>
+              <strong>Skills & Portfolio</strong>
+              <span>Unlock premium, high-rate gigs</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -376,8 +366,8 @@
 
           <div class="slider-card">
             <div class="slider-info">
-              <strong>Location</strong>
-              <span>Earn from local, high-pay opportunities</span>
+              <strong>Location Data</strong>
+              <span>Access hyper-local, top-paying tasks</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -388,7 +378,7 @@
         </div>
 
         <div class="footer-note">
-          All data encrypted and owned by you. Revoke anytime. Earn more as you share more.
+          Everything encrypted. You own it. Revoke access anytime. More sharing = more earnings.
         </div>
       </div>
     </section>
@@ -396,22 +386,25 @@
 
   <script>
     function toggleSwitch(input) {
+      const card = input.closest('.slider-card');
       const toggle = input.parentElement;
+
       if (input.checked) {
         toggle.classList.add('on');
+        card.classList.add('active');
       } else {
         toggle.classList.remove('on');
+        card.classList.remove('active');
       }
     }
 
-    // Initialize toggles on load
+    // Initialize on load
     document.querySelectorAll('.toggle input').forEach(input => {
       if (input.checked) {
-        input.parentElement.classList.add('on');
+        toggleSwitch(input);
       }
     });
   </script>
 
 </body>
 </html>
-```​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
