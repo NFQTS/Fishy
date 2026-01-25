@@ -9,192 +9,241 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0b0b0c;
-      --panel: #121214;
+      --bg: #060609;
+      --panel: rgba(18, 18, 20, 0.7);
       --accent: #ffffff;
-      --subtle: #9ca3af;
-      --glow: rgba(34, 197, 94, 0.35);
-      --green: #22c55e;
+      --subtle: #a1a1aa;
+      --neon: #22c55e;
+      --neon-glow: 0 0 20px rgba(34, 197, 94, 0.6);
+      --glass: rgba(255,255,255,0.04);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
     }
 
     body {
-      background: radial-gradient(circle at top, #141416, #050506);
+      background: var(--bg);
       color: var(--accent);
       min-height: 100vh;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    canvas#bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.4;
     }
 
     header {
-      padding: clamp(16px, 5vw, 28px) clamp(20px, 6vw, 40px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: clamp(16px, 4vw, 24px) clamp(20px, 6vw, 48px);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
     }
 
     .logo {
+      font-size: clamp(1.3rem, 5vw, 1.6rem);
       font-weight: 700;
-      letter-spacing: 0.05em;
-      font-size: clamp(1.1rem, 4vw, 1.4rem);
+      letter-spacing: 0.06em;
+      background: linear-gradient(90deg, #fff, #e0e0e0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .cta {
-      background: linear-gradient(135deg, #ffffff, #e5e7eb);
+      background: var(--neon);
       color: #000;
       border: none;
-      padding: 10px 20px;
+      padding: 10px 24px;
       border-radius: 999px;
       font-weight: 600;
       font-size: 0.95rem;
       cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: 0 0 0 0 var(--neon-glow);
+      animation: pulse 2s infinite;
     }
 
     .cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(255,255,255,0.18);
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: var(--neon-glow);
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50%      { box-shadow: 0 0 0 12px rgba(34,197,94,0); }
     }
 
     main {
-      max-width: 1240px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: clamp(60px, 10vw, 100px) clamp(20px, 6vw, 48px) clamp(100px, 12vw, 140px);
+      padding: clamp(80px, 12vw, 140px) clamp(24px, 6vw, 56px) 160px;
     }
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-      gap: clamp(48px, 8vw, 96px);
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: clamp(56px, 8vw, 100px);
       align-items: center;
     }
 
     .hero-text h1 {
-      font-size: clamp(2.4rem, 7vw, 3.6rem);
-      font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.05;
-      margin-bottom: 1.2rem;
+      font-size: clamp(2.8rem, 8vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.4rem;
+      background: linear-gradient(90deg, #fff, var(--neon));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero-text p {
+      font-size: clamp(1.1rem, 2.8vw, 1.25rem);
       color: var(--subtle);
-      font-size: clamp(1.05rem, 2.5vw, 1.2rem);
-      line-height: 1.55;
-      max-width: 580px;
+      line-height: 1.6;
+      max-width: 620px;
+      margin-bottom: 2.5rem;
+    }
+
+    .email-form {
+      display: flex;
+      max-width: 480px;
+      gap: 12px;
+      margin-top: 2rem;
+    }
+
+    .email-input {
+      flex: 1;
+      padding: 14px 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .email-input:focus {
+      border-color: var(--neon);
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.2);
+    }
+
+    .email-btn {
+      background: var(--neon);
+      color: #000;
+      border: none;
+      padding: 0 28px;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .email-btn:hover {
+      background: #16a34a;
+      transform: translateY(-1px);
     }
 
     .hero-stats {
       display: flex;
       flex-wrap: wrap;
-      gap: clamp(24px, 5vw, 48px);
-      margin-top: 2.5rem;
-    }
-
-    .stat {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
+      gap: 48px;
+      margin-top: 3rem;
     }
 
     .stat strong {
-      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      color: var(--neon);
       font-weight: 700;
-      color: var(--green);
     }
 
     .stat span {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: var(--subtle);
+      display: block;
     }
 
     .panel {
-      background: linear-gradient(180deg, #141416, #0a0a0c);
-      border-radius: 24px;
-      padding: clamp(28px, 5vw, 44px);
-      box-shadow: 
-        0 0 0 1px rgba(255,255,255,0.07),
-        0 30px 80px rgba(0,0,0,0.6);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 20%, rgba(34,197,94,0.08), transparent 70%);
-      pointer-events: none;
+      background: var(--panel);
+      border-radius: 28px;
+      padding: clamp(32px, 6vw, 52px);
+      border: 1px solid rgba(34,197,94,0.15);
+      box-shadow: 0 30px 100px rgba(0,0,0,0.7), inset 0 0 60px rgba(34,197,94,0.05);
+      backdrop-filter: blur(8px);
     }
 
     .panel h2 {
-      font-size: clamp(1.5rem, 4vw, 1.8rem);
-      font-weight: 600;
-      margin-bottom: 0.8rem;
+      font-size: clamp(1.7rem, 4.5vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--neon);
     }
 
     .panel p {
-      font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+      font-size: 1.05rem;
       color: var(--subtle);
-      margin-bottom: 2rem;
-      max-width: 480px;
+      margin-bottom: 2.5rem;
     }
 
     .slider-group {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
     }
 
     .slider-card {
-      background: rgba(255,255,255,0.015);
-      border-radius: 16px;
-      padding: 18px 22px;
-      border: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.02);
+      border-radius: 20px;
+      padding: 20px 24px;
+      border: 1px solid rgba(255,255,255,0.06);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      transition: all 0.3s ease;
+      gap: 24px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(4px);
     }
 
     .slider-card.active {
-      background: rgba(34,197,94,0.08);
-      border-color: rgba(34,197,94,0.25);
-      box-shadow: 0 0 24px var(--glow);
-      transform: translateY(-2px);
+      background: rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.4);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: var(--neon-glow);
     }
 
     .slider-info strong {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       font-weight: 600;
-      display: block;
+      margin-bottom: 4px;
     }
 
     .slider-info span {
-      font-size: 0.82rem;
+      font-size: 0.88rem;
       color: var(--subtle);
-      line-height: 1.4;
+      line-height: 1.45;
     }
 
     .toggle {
       position: relative;
-      width: 56px;
-      height: 32px;
+      width: 60px;
+      height: 34px;
       background: #1e293b;
       border-radius: 999px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.4s ease;
       flex-shrink: 0;
     }
 
@@ -206,113 +255,105 @@
       position: absolute;
       top: 4px;
       left: 4px;
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       background: white;
       border-radius: 50%;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
 
     .toggle input:checked + .knob {
-      transform: translateX(24px);
-      background: var(--green);
-      box-shadow: 0 0 16px var(--glow);
+      transform: translateX(26px);
+      background: var(--neon);
+      box-shadow: 0 0 20px var(--neon-glow);
     }
 
     .toggle input:checked ~ .toggle {
       background: #134e2d;
+      box-shadow: inset 0 0 20px rgba(34,197,94,0.5);
     }
 
     .footer-note {
-      margin-top: 2rem;
-      font-size: 0.82rem;
+      margin-top: 2.5rem;
+      font-size: 0.9rem;
       color: var(--subtle);
       line-height: 1.6;
-      opacity: 0.85;
+      text-align: center;
     }
 
     @media (max-width: 1024px) {
       .hero {
         grid-template-columns: 1fr;
-        gap: 64px;
+        gap: 80px;
       }
     }
 
     @media (max-width: 640px) {
-      header {
-        padding: 16px 24px;
-      }
-
-      main {
-        padding: 64px 24px 100px;
-      }
-
-      .hero-text h1 {
-        font-size: 2.4rem;
-      }
-
-      .hero-stats {
-        gap: 32px;
-      }
-
-      .panel {
-        padding: 28px 24px;
-      }
-
+      main { padding: 80px 20px 120px; }
+      .hero-text h1 { font-size: 2.6rem; }
+      .email-form { flex-direction: column; }
+      .email-btn { padding: 14px; width: 100%; border-radius: 16px; }
       .slider-card {
         flex-direction: column;
         align-items: flex-start;
         gap: 16px;
       }
-
-      .toggle {
-        align-self: flex-end;
-      }
+      .toggle { align-self: flex-end; }
     }
   </style>
 </head>
 <body>
 
+  <canvas id="bg-canvas"></canvas>
+
   <header>
     <div class="logo">UNPRINCIPLED INC.</div>
-    <button class="cta">Join Early Access</button>
+    <button class="cta">Join Now</button>
   </header>
 
   <main>
     <section class="hero">
       <div class="hero-text">
-        <h1>Monetize your data.<br>Earn real gigs.</h1>
-        <p>
-          Share what you're comfortable with. Get paid instantly. Unlock better opportunities the more you contribute.
-        </p>
+        <h1>Turn your data<br>into real money.</h1>
+        <p>Share what you want. Get paid instantly. The more you unlock, the bigger the gigs.</p>
+
+        <form class="email-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <input 
+            type="email" 
+            name="email" 
+            class="email-input" 
+            placeholder="Your email" 
+            required
+          >
+          <button type="submit" class="email-btn">Get Early Access</button>
+        </form>
 
         <div class="hero-stats">
           <div class="stat">
             <strong>$0</strong>
-            <span>fees</span>
+            <span>fees ever</span>
           </div>
           <div class="stat">
             <strong>100%</strong>
-            <span>your data, your rules</span>
+            <span>your control</span>
           </div>
           <div class="stat">
             <strong>Instant</strong>
-            <span>payout tracking</span>
+            <span>payouts</span>
           </div>
         </div>
       </div>
 
       <div class="panel">
-        <h2>Choose what pays you</h2>
-        <p>Toggle on → earn more. Each level unlocks higher-value gigs.</p>
+        <h2>Unlock earnings by sharing</h2>
+        <p>Flip switches → earn more. Each one opens better-paying opportunities.</p>
 
         <div class="slider-group">
-
           <div class="slider-card">
             <div class="slider-info">
               <strong>Email</strong>
-              <span>Get exclusive gig alerts first</span>
+              <span>Exclusive alerts & first dibs on gigs</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -323,7 +364,7 @@
           <div class="slider-card">
             <div class="slider-info">
               <strong>Phone</strong>
-              <span>Priority invites + fast-fill gigs</span>
+              <span>Priority access + same-day fill gigs</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -334,7 +375,7 @@
           <div class="slider-card">
             <div class="slider-info">
               <strong>Referrals</strong>
-              <span>Earn $50–$200 per successful friend</span>
+              <span>$50–$200 bonus per friend who earns</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -345,7 +386,7 @@
           <div class="slider-card">
             <div class="slider-info">
               <strong>Short Videos</strong>
-              <span>Get paid per upload for training data</span>
+              <span>Paid uploads for AI training content</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -355,8 +396,8 @@
 
           <div class="slider-card">
             <div class="slider-info">
-              <strong>Skills & Portfolio</strong>
-              <span>Unlock premium, high-rate gigs</span>
+              <strong>Skills & Work History</strong>
+              <span>Premium gigs at 2–5× rates</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
@@ -367,24 +408,24 @@
           <div class="slider-card">
             <div class="slider-info">
               <strong>Location Data</strong>
-              <span>Access hyper-local, top-paying tasks</span>
+              <span>Local high-pay tasks only you see</span>
             </div>
             <label class="toggle">
               <input type="checkbox" onchange="toggleSwitch(this)">
               <div class="knob"></div>
             </label>
           </div>
-
         </div>
 
         <div class="footer-note">
-          Everything encrypted. You own it. Revoke access anytime. More sharing = more earnings.
+          Encrypted • You own everything • Revoke anytime • More shares = more cash
         </div>
       </div>
     </section>
   </main>
 
   <script>
+    // Toggle functionality + card activation
     function toggleSwitch(input) {
       const card = input.closest('.slider-card');
       const toggle = input.parentElement;
@@ -398,12 +439,45 @@
       }
     }
 
-    // Initialize on load
     document.querySelectorAll('.toggle input').forEach(input => {
-      if (input.checked) {
-        toggleSwitch(input);
-      }
+      if (input.checked) toggleSwitch(input);
     });
+
+    // Subtle background particles/neon glow
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for (let i = 0; i < 40; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        radius: Math.random() * 1.5 + 0.5,
+        speed: Math.random() * 0.3 + 0.1,
+        alpha: Math.random() * 0.4 + 0.2
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        p.y += p.speed;
+        if (p.y > h) p.y = -10;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(34,197,94,${p.alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
   </script>
 
 </body>
