@@ -8,10 +8,10 @@
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Helvetica Neue', Arial, sans-serif; }
         body { background:#000000; color:#ffffff; overflow-x:hidden; scroll-behavior:smooth; }
 
-        /* Hero with Animated Canvas */
+        /* Hero with Enhanced Animated Canvas */
         header {
             position: relative;
-            height: 60vh;
+            height: 50vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -25,14 +25,14 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 1;
-            filter: grayscale(100%) contrast(120%);
+            filter: contrast(130%) brightness(1.1);
         }
 
         .overlay {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
             z-index: 2;
         }
 
@@ -43,16 +43,16 @@
         }
 
         header h1 {
-            font-size: 5rem;
+            font-size: 6rem;
             font-weight: 900;
-            letter-spacing: 4px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.9);
-            animation: fadeIn 2s ease-out;
+            letter-spacing: 5px;
+            text-shadow: 0 5px 25px rgba(0,0,0,0.9);
+            animation: pulseGlow 2s infinite alternate ease-in-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes pulseGlow {
+            0% { text-shadow: 0 0 10px #ffffff; }
+            100% { text-shadow: 0 0 20px #ffffff; }
         }
 
         /* Navigation */
@@ -76,69 +76,132 @@
             text-decoration:none;
             font-weight:500;
             opacity: 0.8;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
         }
 
-        nav ul li a:hover { opacity: 1; }
+        nav ul li a:hover { opacity: 1; transform: scale(1.1); }
 
-        /* Game Interface */
-        #game-interface {
+        /* Game Dashboard */
+        #game-dashboard {
             padding: 4rem 10%;
             text-align: center;
         }
 
-        .currency-bar {
+        .status-bar {
             display: flex;
             justify-content: center;
-            gap: 4rem;
-            margin-bottom: 4rem;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
         }
 
-        .currency {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 1rem 2rem;
-            font-size: 1.4rem;
+        .status-item {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.3rem;
             transition: all 0.3s;
+            position: relative;
         }
 
-        .currency span { font-weight: bold; }
-
-        .currency.free { color: #aaffaa; }
-
-        .currency.premium { color: #ffcc00; }
-
-        @keyframes gain {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.5) translateY(-20px); opacity: 0; }
+        .status-item:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
         }
+
+        .status-item.free { color: #00ff85; }
+
+        .status-item.premium { color: #ffd700; }
 
         .gain-animation {
             position: absolute;
-            color: #aaffaa;
-            font-size: 1.2rem;
-            animation: gain 1s ease-out forwards;
+            color: #00ff85;
+            font-size: 1.4rem;
+            animation: riseFade 1.5s ease-out forwards;
         }
 
-        /* Marketplace Grid */
+        @keyframes riseFade {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-30px); opacity: 0; }
+        }
+
+        /* Progress Timer */
+        .progress-timer {
+            max-width: 400px;
+            margin: 0 auto 3rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: linear-gradient(to right, #00ff85, #00bfff);
+            width: 0;
+            transition: width 0.1s linear;
+        }
+
+        .timer-text {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1rem;
+            color: #ffffff;
+            opacity: 0.7;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+        }
+
+        /* Marketplace */
         .market-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .market-card {
-            perspective: 1000px;
+            perspective: 1200px;
+            transition: transform 0.3s;
+        }
+
+        .market-card:hover {
+            transform: scale(1.03);
         }
 
         .card-inner {
             position: relative;
             width: 100%;
-            height: 350px;
-            transition: transform 0.6s;
+            height: 380px;
+            transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             transform-style: preserve-3d;
         }
 
@@ -149,61 +212,62 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
         .card-front {
-            background: #111111;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: #0a0a0a;
         }
 
         .card-front img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(100%);
-            transition: filter 0.3s;
+            filter: grayscale(50%) brightness(0.9);
+            transition: filter 0.5s;
         }
 
-        .market-card:hover .card-front img { filter: grayscale(0%); }
+        .market-card:hover .card-front img { filter: grayscale(0%) brightness(1.1); }
 
         .card-back {
-            background: rgba(255,255,255,0.05);
+            background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.8));
             transform: rotateY(180deg);
-            padding: 2rem;
+            padding: 2.5rem;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
         }
 
-        .card-back h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .card-back h3 { font-size: 1.6rem; margin-bottom: 1rem; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
 
         .card-back .cost {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-bottom: 1.5rem;
+            font-weight: bold;
         }
 
-        .card-back .cost.free { color: #aaffaa; }
+        .card-back .cost.free { color: #00ff85; }
 
-        .card-back .cost.premium { color: #ffcc00; }
+        .card-back .cost.premium { color: #ffd700; }
 
         .buy-btn {
-            background: transparent;
-            border: 1px solid #ffffff;
-            color: #ffffff;
-            padding: 0.8rem 2rem;
+            background: linear-gradient(to right, #00ff85, #00bfff);
+            border: none;
+            color: #000000;
+            padding: 1rem 2.5rem;
             border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .buy-btn:hover {
-            background: rgba(255,255,255,0.1);
-            transform: scale(1.05);
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,255,133,0.5);
         }
     </style>
 </head>
@@ -211,8 +275,11 @@
 
     <nav id="nav">
         <ul>
-            <li><a href="#">Realm</a></li>
+            <li><a href="#">Tank</a></li>
+            <li><a href="#">Breed</a></li>
+            <li><a href="#">Battle</a></li>
             <li><a href="#">Market</a></li>
+            <li><a href="#">Clan</a></li>
             <li><a href="#">Sign Up</a></li>
         </ul>
     </nav>
@@ -225,20 +292,35 @@
         </div>
     </header>
 
-    <section id="game-interface">
-        <div class="currency-bar">
-            <div class="currency free">Betta Coins: <span id="free-coins">0</span></div>
-            <div class="currency premium">Gems: <span id="premium-gems">0</span></div>
+    <section id="game-dashboard">
+        <div class="status-bar">
+            <div class="status-item free">Betta Coins: <span id="free-coins">0</span></div>
+            <div class="status-item premium">Gems: <span id="premium-gems">0</span></div>
+            <div class="status-item">Level: <span>1</span></div>
+            <div class="status-item">Energy: <span>30/30</span></div>
         </div>
+
+        <div class="progress-timer">
+            <div class="progress-bar" id="progress-bar"></div>
+            <div class="timer-text" id="timer-text">Next Reward in 10s</div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn" onclick="promptSignup()">Breed Bettas</button>
+            <button class="action-btn" onclick="promptSignup()">Enter Arena</button>
+            <button class="action-btn" onclick="promptSignup()">Gather Resources</button>
+            <button class="action-btn" onclick="promptSignup()">Join Clan</button>
+        </div>
+
         <div class="market-grid">
             <div class="market-card">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="https://via.placeholder.com/300x350/111111/222222?text=Halfmoon" alt="Halfmoon Betta">
+                        <img src="https://via.placeholder.com/300x380/0a0a0a/1a1a1a?text=Halfmoon+Betta" alt="Halfmoon Betta">
                     </div>
                     <div class="card-back">
-                        <h3>Halfmoon Betta</h3>
-                        <div class="cost free">100 Coins</div>
+                        <h3>Elite Halfmoon</h3>
+                        <div class="cost free">150 Coins</div>
                         <button class="buy-btn" onclick="promptSignup()">Acquire</button>
                     </div>
                 </div>
@@ -246,11 +328,11 @@
             <div class="market-card">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="https://via.placeholder.com/300x350/111111/222222?text=Dragon+Scale" alt="Dragon Scale Betta">
+                        <img src="https://via.placeholder.com/300x380/0a0a0a/1a1a1a?text=Dragon+Scale" alt="Dragon Scale Betta">
                     </div>
                     <div class="card-back">
-                        <h3>Dragon Scale</h3>
-                        <div class="cost premium">50 Gems</div>
+                        <h3>Dragon Scale Pair</h3>
+                        <div class="cost premium">75 Gems</div>
                         <button class="buy-btn" onclick="promptSignup()">Acquire</button>
                     </div>
                 </div>
@@ -258,50 +340,65 @@
             <div class="market-card">
                 <div class="card-inner">
                     <div class="card-front">
-                        <img src="https://via.placeholder.com/300x350/111111/222222?text=Koi+Betta" alt="Koi Betta">
+                        <img src="https://via.placeholder.com/300x380/0a0a0a/1a1a1a?text=Koi+Variant" alt="Koi Betta">
                     </div>
                     <div class="card-back">
-                        <h3>Koi Variant</h3>
-                        <div class="cost free">200 Coins</div>
+                        <h3>Rare Koi Spawn</h3>
+                        <div class="cost free">250 Coins</div>
                         <button class="buy-btn" onclick="promptSignup()">Acquire</button>
                     </div>
                 </div>
             </div>
-            <!-- Add more cards as needed -->
+            <div class="market-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://via.placeholder.com/300x380/0a0a0a/1a1a1a?text=Plakat+Fighter" alt="Plakat Betta">
+                    </div>
+                    <div class="card-back">
+                        <h3>Plakat Fighter</h3>
+                        <div class="cost premium">40 Gems</div>
+                        <button class="buy-btn" onclick="promptSignup()">Acquire</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <script>
-        // Canvas Animation
+        // Enhanced Canvas Animation with Fish-like Particles
         const canvas = document.getElementById('betta-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        class Particle {
+        class BettaParticle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 5 + 1;
-                this.speedX = Math.random() * 2 - 1;
-                this.speedY = Math.random() * 2 - 1;
+                this.size = Math.random() * 8 + 3;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                this.wave = Math.random() * Math.PI * 2;
             }
             update() {
                 this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.size > 0.2) this.size -= 0.01;
+                this.y += this.speedY + Math.sin(this.wave) * 0.5;
+                this.wave += 0.05;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                if (this.size > 0.2) this.size -= 0.005;
             }
             draw() {
-                ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                ctx.fillStyle = 'rgba(255,255,255,0.4)';
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.ellipse(this.x, this.y, this.size, this.size / 2, 0, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
         let particles = [];
-        for (let i = 0; i < 50; i++) {
-            particles.push(new Particle());
+        for (let i = 0; i < 80; i++) {
+            particles.push(new BettaParticle());
         }
 
         function animateCanvas() {
@@ -309,7 +406,7 @@
             particles.forEach((p, i) => {
                 p.update();
                 p.draw();
-                if (p.size <= 0.2) particles[i] = new Particle();
+                if (p.size <= 0.2) particles[i] = new BettaParticle();
             });
             requestAnimationFrame(animateCanvas);
         }
@@ -328,27 +425,43 @@
         // Game Timer & Points
         let freeCoins = 0;
         const freeCoinsEl = document.getElementById('free-coins');
-        const currencyBar = document.querySelector('.currency-bar');
+        const progressBar = document.getElementById('progress-bar');
+        const timerText = document.getElementById('timer-text');
+
+        let timeLeft = 10;
+        const interval = 10000; // 10 seconds
+
+        function updateTimer() {
+            timeLeft--;
+            progressBar.style.width = `${(10 - timeLeft) * 10}%`;
+            timerText.textContent = `Next Reward in ${timeLeft}s`;
+            if (timeLeft <= 0) {
+                addPoints();
+                timeLeft = 10;
+            }
+        }
 
         function addPoints() {
-            freeCoins += 1;
+            freeCoins += 5; // Increased reward for fun
             freeCoinsEl.textContent = freeCoins;
 
             // Gain Animation
             const gainEl = document.createElement('div');
             gainEl.classList.add('gain-animation');
-            gainEl.textContent = '+1';
-            gainEl.style.left = `${freeCoinsEl.getBoundingClientRect().left + 20}px`;
-            gainEl.style.top = `${freeCoinsEl.getBoundingClientRect().top - 20}px`;
+            gainEl.textContent = '+5';
+            const rect = freeCoinsEl.getBoundingClientRect();
+            gainEl.style.left = `${rect.left + rect.width / 2}px`;
+            gainEl.style.top = `${rect.top - 10}px`;
             document.body.appendChild(gainEl);
-            setTimeout(() => gainEl.remove(), 1000);
+            setTimeout(() => gainEl.remove(), 1500);
         }
 
-        setInterval(addPoints, 10000); // Every 10 seconds
+        setInterval(updateTimer, 1000);
+        setInterval(addPoints, interval); // Still add points every 10s
 
         // Signup Prompt
         function promptSignup() {
-            alert('Sign up to acquire items and fully engage in Betta Realm!');
+            alert('Sign up to unlock full actions, breeding, battles, and real trades in Betta Realm!');
         }
     </script>
 
