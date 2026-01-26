@@ -1,677 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pick Your Side. Fill It First.</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #060609;
-      --panel: rgba(18, 18, 20, 0.85);
-      --accent: #ffffff;
-      --subtle: #a1a1aa;
-      --neon: #22c55e;
-      --neon-glow: 0 0 24px rgba(34, 197, 94, 0.65);
-      --gold: #facc15;
-      --silver: #a1a1aa;
-      --tier2: #6366f1;
-      --mystery: #ec4899;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betta Babies - Premium Tropical Fish Marketplace</title>
+    <style>
+        /* Reset and Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', system-ui, sans-serif;
-    }
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-    body {
-      background: var(--bg);
-      color: var(--accent);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+        /* Header / Hero Section */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1920x1080?text=Betta+Fish+Hero') no-repeat center/cover;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      padding: 20px clamp(20px, 6vw, 48px);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      display: flex;
-      justify-content: center;
-    }
+        header h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease-out;
+        }
 
-    .logo {
-      font-size: clamp(1.3rem, 4vw, 1.7rem);
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      background: linear-gradient(90deg, #fff, var(--neon));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      white-space: nowrap;
-    }
+        header p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.5s;
+            animation-fill-mode: both;
+        }
 
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: clamp(60px, 10vw, 120px) clamp(20px, 6vw, 48px) 140px;
-    }
+        .cta-button {
+            background-color: #00bfff;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background-color 0.3s, transform 0.3s;
+        }
 
-    .hero {
-      text-align: center;
-      max-width: 760px;
-      margin: 0 auto 72px;
-    }
+        .cta-button:hover {
+            background-color: #008cff;
+            transform: scale(1.05);
+        }
 
-    .hero h1 {
-      font-size: clamp(2.8rem, 7vw, 4.6rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.2rem;
-      background: linear-gradient(90deg, #fff, var(--neon));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .hero p {
-      font-size: clamp(1.1rem, 2.8vw, 1.35rem);
-      color: var(--subtle);
-      line-height: 1.55;
-      margin-bottom: 2.5rem;
-    }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-    .hero .tagline {
-      font-size: 1rem;
-      color: var(--subtle);
-      opacity: 0.9;
-    }
+        /* Navigation */
+        nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 5%;
+            background: rgba(0, 0, 0, 0.3);
+        }
 
-    /* ---------- GRID LAYOUT ---------- */
-    .teams-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      margin-bottom: 48px;
-    }
+        nav .logo {
+            font-size: 1.5rem;
+            color: white;
+            text-decoration: none;
+        }
 
-    .mystery-row {
-      display: flex;
-      justify-content: center;
-    }
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
 
-    /* ---------- CARD ---------- */
-    .team-card {
-      background: var(--panel);
-      border-radius: 28px;
-      padding: 40px 32px;
-      border: 1px solid rgba(255,255,255,0.08);
-      text-align: center;
-      transition: all 0.4s ease;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.45);
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      max-width: 520px;
-    }
+        nav ul li {
+            margin-left: 2rem;
+        }
 
-    .team-card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--neon-glow);
-      border-color: rgba(34,197,94,0.3);
-    }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
 
-    .team-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 0.4rem;
-      letter-spacing: -0.02em;
-    }
+        nav ul li a:hover {
+            color: #00bfff;
+        }
 
-    .team-title.visionary {
-      background: linear-gradient(90deg, var(--gold), var(--neon));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        /* Sections */
+        section {
+            padding: 5rem 10%;
+            text-align: center;
+        }
 
-    .team-title.underdog {
-      background: linear-gradient(90deg, var(--silver), var(--neon));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        section h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #00bfff;
+        }
 
-    .team-title.mystery {
-      background: linear-gradient(90deg, var(--mystery), #8b5cf6, #22c55e);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        /* About Section */
+        #about {
+            background-color: #fff;
+        }
 
-    .team-subtitle {
-      font-size: 1rem;
-      color: var(--subtle);
-      margin-bottom: 1.4rem;
-    }
+        #about p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+        }
 
-    .price {
-      font-size: 3.2rem;
-      font-weight: 800;
-      margin-bottom: 0.8rem;
-      color: var(--neon);
-    }
+        /* Featured Bettas */
+        #featured {
+            background: linear-gradient(to bottom, #f0f8ff, #e0f7fa);
+        }
 
-    .price.mystery {
-      color: var(--mystery);
-    }
+        .betta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
 
-    .spots {
-      font-size: 1.05rem;
-      color: var(--subtle);
-      margin-bottom: 1.6rem;
-      font-weight: 500;
-    }
+        .betta-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
 
-    .tier-badge {
-      display: inline-block;
-      margin-top: 6px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      color: var(--subtle);
-    }
+        .betta-card:hover {
+            transform: translateY(-10px);
+        }
 
-    .tier-badge.secondary {
-      background: rgba(99,102,241,0.2);
-      color: #c7d2fe;
-      border: 1px solid rgba(99,102,241,0.35);
-    }
+        .betta-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
 
-    .tier-badge.mystery {
-      background: rgba(236,72,153,0.2);
-      color: #fbcfe8;
-      border: 1px solid rgba(236,72,153,0.4);
-    }
+        .betta-card h3 {
+            padding: 1rem;
+            font-size: 1.5rem;
+            color: #333;
+        }
 
-    .progress-wrapper {
-      margin: 0 auto 1.6rem;
-      max-width: 260px;
-    }
+        .betta-card p {
+            padding: 0 1rem 1rem;
+            font-size: 1rem;
+        }
 
-    .progress-bar {
-      height: 14px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 999px;
-      overflow: hidden;
-      box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
-    }
+        .betta-card .price {
+            font-weight: bold;
+            color: #00bfff;
+        }
 
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--neon), #16a34a);
-      width: 0%;
-      transition: width 0.4s ease;
-    }
+        /* How It Works */
+        #how-it-works {
+            background-color: #fff;
+        }
 
-    .progress-fill.mystery {
-      background: linear-gradient(90deg, var(--mystery), #8b5cf6, #22c55e);
-    }
+        .steps {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
 
-    .progress-label {
-      font-size: 0.85rem;
-      color: var(--subtle);
-      margin-top: 6px;
-    }
+        .step {
+            max-width: 300px;
+            margin: 1rem;
+        }
 
-    .team-card ul {
-      list-style: none;
-      margin-bottom: 2.2rem;
-      text-align: left;
-      max-width: 90%;
-      margin-left: auto;
-      margin-right: auto;
-    }
+        .step h3 {
+            font-size: 1.8rem;
+            color: #00bfff;
+            margin-bottom: 1rem;
+        }
 
-    .team-card li {
-      font-size: 1rem;
-      color: var(--accent);
-      margin-bottom: 0.7rem;
-      position: relative;
-      padding-left: 22px;
-    }
+        /* Testimonials */
+        #testimonials {
+            background: linear-gradient(to bottom, #e0f7fa, #b3e5fc);
+        }
 
-    .team-card li:before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: var(--neon);
-      font-weight: bold;
-    }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
 
-    .team-card li.mystery:before {
-      content: '✦';
-      color: var(--mystery);
-    }
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    /* ---------- BUTTONS (UNIFIED) ---------- */
-    .action-button {
-      display: block;
-      width: 100%;
-      height: 58px;
-      background: linear-gradient(135deg, var(--neon), #16a34a);
-      color: #000;
-      border: none;
-      border-radius: 16px;
-      font-weight: 800;
-      font-size: 1.05rem;
-      cursor: pointer;
-      transition: all 0.35s ease;
-      box-shadow: 0 0 0 0 rgba(34,197,94,0.4);
-    }
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
 
-    .action-button:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--neon-glow);
-    }
+        .testimonial cite {
+            display: block;
+            text-align: right;
+            font-weight: bold;
+        }
 
-    .action-button.secondary {
-      background: linear-gradient(135deg, #6366f1, #4338ca);
-      color: #fff;
-      box-shadow: 0 0 0 0 rgba(99,102,241,0.35);
-    }
+        /* Contact */
+        #contact {
+            background-color: #fff;
+        }
 
-    .action-button.mystery {
-      background: linear-gradient(135deg, var(--mystery), #8b5cf6, #22c55e);
-      color: #fff;
-      box-shadow: 0 0 0 0 rgba(236,72,153,0.4);
-    }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
 
-    /* ---------- LEADERBOARD ---------- */
-    .leaderboard {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-      text-align: left;
-    }
+        form input, form textarea {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
 
-    .leaderboard h3 {
-      font-size: 1.1rem;
-      margin-bottom: 12px;
-      color: #fbcfe8;
-      letter-spacing: 0.05em;
-    }
+        form button {
+            background-color: #00bfff;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
 
-    .leaderboard-list {
-      list-style: none;
-    }
+        form button:hover {
+            background-color: #008cff;
+        }
 
-    .leaderboard-list li {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.95rem;
-      padding: 6px 0;
-      border-bottom: 1px dashed rgba(255,255,255,0.08);
-      color: #e5e7eb;
-    }
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
 
-    .leaderboard-list span {
-      color: var(--mystery);
-      font-weight: 700;
-    }
+        .social-links a {
+            color: white;
+            margin: 0 1rem;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
 
-    .footer-note {
-      text-align: center;
-      color: var(--subtle);
-      font-size: 0.95rem;
-      line-height: 1.7;
-      max-width: 760px;
-      margin: 80px auto 0;
-      opacity: 0.9;
-    }
+        .social-links a:hover {
+            color: #00bfff;
+        }
 
-    @media (max-width: 900px) {
-      .teams-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3rem;
+            }
+
+            section h2 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo">PICK A SIDE</div>
-  </header>
+    <nav>
+        <a href="#" class="logo">Betta Babies</a>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#featured">Featured Bettas</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-  <main>
+    <header>
+        <h1>Welcome to Betta Babies</h1>
+        <p>Your Premier Source for Stunning Tropical Bettas</p>
+        <a href="#featured" class="cta-button">Browse Our Bettas</a>
+    </header>
 
-    <section class="hero">
-      <h1>Pick Your Side.<br>Fill It First.</h1>
-      <p>
-        Two teams. Limited spots. One winner.
-        <br><br>
-        Whichever team sells out first unlocks a bonus pool for everyone in Tier 1 on that side.
-      </p>
-      <p class="tagline">
-        Or skip both and unlock something nobody else knows about.
-      </p>
+    <section id="about">
+        <h2>About Us</h2>
+        <p>At Betta Babies, we specialize in breeding high-quality tropical fish, with a focus on beautiful Betta fish. Follow us on YouTube and TikTok for breeding tips, behind-the-scenes, and more!</p>
     </section>
 
-    <!-- TOP ROW -->
-    <section class="teams-grid">
-
-      <!-- VISIONARY -->
-      <div class="team-card">
-        <div class="team-title visionary">Visionary</div>
-        <div class="team-subtitle">High stakes. High conviction.</div>
-        <div class="price" id="visionaryPrice">420 MATIC</div>
-        <div class="spots">
-          Tier 1 spots left: <strong><span id="visionarySpots">420</span></strong> / 420
-          <div class="tier-badge" id="visionaryTierBadge">Tier 1</div>
+    <section id="featured">
+        <h2>Featured Bettas</h2>
+        <div class="betta-grid">
+            <div class="betta-card">
+                <img src="https://via.placeholder.com/300x200?text=Blue+Betta" alt="Blue Betta">
+                <h3>Blue Dragon Betta</h3>
+                <p>Stunning iridescent scales with a fiery personality.</p>
+                <p class="price">$49.99</p>
+            </div>
+            <div class="betta-card">
+                <img src="https://via.placeholder.com/300x200?text=Red+Betta" alt="Red Betta">
+                <h3>Red Galaxy Betta</h3>
+                <p>Vibrant colors that light up any aquarium.</p>
+                <p class="price">$59.99</p>
+            </div>
+            <div class="betta-card">
+                <img src="https://via.placeholder.com/300x200?text=Multicolor+Betta" alt="Multicolor Betta">
+                <h3>Multicolor Koi Betta</h3>
+                <p>Unique patterns inspired by traditional Koi fish.</p>
+                <p class="price">$69.99</p>
+            </div>
         </div>
-
-        <div class="progress-wrapper">
-          <div class="progress-bar">
-            <div class="progress-fill" id="visionaryProgress"></div>
-          </div>
-          <div class="progress-label" id="visionaryProgressLabel">0% filled</div>
-        </div>
-
-        <ul>
-          <li>Bonus pool access if your team fills first (Tier 1)</li>
-          <li>Early access to future drops & experiments</li>
-          <li>Public badge: Visionary</li>
-          <li>Bragging rights if you sell out first</li>
-        </ul>
-
-        <button class="action-button" id="visionaryButton" onclick="handleSignup('visionary')">
-          Join Visionary
-        </button>
-      </div>
-
-      <!-- UNDERDOG -->
-      <div class="team-card">
-        <div class="team-title underdog">Underdog</div>
-        <div class="team-subtitle">Low cost. High upside.</div>
-        <div class="price" id="underdogPrice">69 MATIC</div>
-        <div class="spots">
-          Tier 1 spots left: <strong><span id="underdogSpots">69</span></strong> / 69
-          <div class="tier-badge" id="underdogTierBadge">Tier 1</div>
-        </div>
-
-        <div class="progress-wrapper">
-          <div class="progress-bar">
-            <div class="progress-fill" id="underdogProgress"></div>
-          </div>
-          <div class="progress-label" id="underdogProgressLabel">0% filled</div>
-        </div>
-
-        <ul>
-          <li>Bonus pool access if your team fills first (Tier 1)</li>
-          <li>Entry into future community challenges</li>
-          <li>Public badge: Underdog</li>
-          <li>Proof you backed the long shot</li>
-        </ul>
-
-        <button class="action-button" id="underdogButton" onclick="handleSignup('underdog')">
-          Join Underdog
-        </button>
-      </div>
-
     </section>
 
-    <!-- MYSTERY ROW -->
-    <section class="mystery-row">
-
-      <div class="team-card">
-
-        <div class="team-title mystery">Mystery</div>
-        <div class="team-subtitle">For the coolest people only.</div>
-        <div class="price mystery">Any Amount</div>
-        <div class="spots">
-          No limits. No rules.
-          <div class="tier-badge mystery">Secret Tier</div>
+    <section id="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <h3>Step 1: Browse</h3>
+                <p>Explore our selection of premium Bettas.</p>
+            </div>
+            <div class="step">
+                <h3>Step 2: Select</h3>
+                <p>Choose your favorite and add to cart.</p>
+            </div>
+            <div class="step">
+                <h3>Step 3: Ship</h3>
+                <p>We safely ship to your door with care instructions.</p>
+            </div>
         </div>
-
-        <div class="progress-wrapper">
-          <div class="progress-bar">
-            <div class="progress-fill mystery" id="mysteryProgress"></div>
-          </div>
-          <div class="progress-label" id="mysteryProgressLabel">???% filled</div>
-        </div>
-
-        <ul>
-          <li class="mystery">Hidden rewards</li>
-          <li class="mystery">Surprise perks unlocked later</li>
-          <li class="mystery">Unannounced access</li>
-          <li class="mystery">Vibes only</li>
-        </ul>
-
-        <button class="action-button mystery" onclick="handleMystery()">
-          Enter the Unknown
-        </button>
-
-        <!-- LEADERBOARD -->
-        <div class="leaderboard">
-          <h3>TOP MYSTERY SUPPORTERS</h3>
-          <ul class="leaderboard-list" id="mysteryLeaderboard">
-            <li><em>No mystery supporters yet.</em></li>
-          </ul>
-        </div>
-
-      </div>
-
     </section>
 
-    <div class="footer-note">
-      Payments are sent directly on-chain to the project wallet. No middlemen. No hidden fees.
-      <br>
-      Tier 1 spots are limited. After Tier 1 fills, all new supporters enter Tier 2 (still allowed, fewer perks).
-    </div>
+    <section id="testimonials">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial">
+                <p>"The most beautiful Bettas I've ever seen! Healthy and vibrant."</p>
+                <cite>- Alex R.</cite>
+            </div>
+            <div class="testimonial">
+                <p>"Excellent service and fast shipping. Highly recommend!"</p>
+                <cite>- Jordan S.</cite>
+            </div>
+            <div class="testimonial">
+                <p>"Love the variety and quality. Subscribed to their YouTube too!"</p>
+                <cite>- Taylor M.</cite>
+            </div>
+        </div>
+    </section>
 
-  </main>
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form action="#" method="post">
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
 
-  <script>
-    /**********************
-     * CONFIG
-     **********************/
-    const RECEIVER_ADDRESS = "0xYOUR_WALLET_HERE"; // <-- Replace this
-    const POLYGON_CHAIN_ID = "0x89";
-
-    const TEAM_CONFIG = {
-      visionary: {
-        priceMatic: 420,
-        totalSpots: 420,
-        spotsLeft: 420,
-        tier1Filled: false,
-        tier2Count: 0
-      },
-      underdog: {
-        priceMatic: 69,
-        totalSpots: 69,
-        spotsLeft: 69,
-        tier1Filled: false,
-        tier2Count: 0
-      },
-      mystery: {
-        donations: [] // { wallet, amount }
-      }
-    };
-
-    /**********************
-     * WALLET + PAYMENT
-     **********************/
-    async function handleSignup(team) {
-      if (!window.ethereum) {
-        alert("Please install MetaMask or a Web3 wallet to continue.");
-        return;
-      }
-
-      const teamData = TEAM_CONFIG[team];
-      const isTier1 = teamData.spotsLeft > 0;
-
-      try {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const sender = accounts[0];
-
-        await ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: POLYGON_CHAIN_ID }]
-        });
-
-        const priceMatic = teamData.priceMatic;
-        const valueWei = "0x" + (priceMatic * 1e18).toString(16);
-
-        const txParams = {
-          from: sender,
-          to: RECEIVER_ADDRESS,
-          value: valueWei
-        };
-
-        await ethereum.request({
-          method: 'eth_sendTransaction',
-          params: [txParams],
-        });
-
-        if (isTier1) {
-          teamData.spotsLeft--;
-          if (teamData.spotsLeft === 0) {
-            teamData.tier1Filled = true;
-          }
-        } else {
-          teamData.tier2Count++;
-        }
-
-        updateUI();
-
-        alert(
-          isTier1
-            ? `Welcome to the ${team.toUpperCase()} team — Tier 1 secured!`
-            : `Welcome to the ${team.toUpperCase()} team — you're in Tier 2.`
-        );
-
-      } catch (err) {
-        console.error(err);
-        alert("Transaction failed or was cancelled.");
-      }
-    }
-
-    async function handleMystery() {
-      if (!window.ethereum) {
-        alert("Please install MetaMask or a Web3 wallet to continue.");
-        return;
-      }
-
-      const amount = prompt("Enter the amount of MATIC you want to donate:");
-      if (!amount || isNaN(amount) || Number(amount) <= 0) {
-        alert("Please enter a valid amount.");
-        return;
-      }
-
-      try {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const sender = accounts[0];
-
-        await ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: POLYGON_CHAIN_ID }]
-        });
-
-        const valueWei = "0x" + (Number(amount) * 1e18).toString(16);
-
-        const txParams = {
-          from: sender,
-          to: RECEIVER_ADDRESS,
-          value: valueWei
-        };
-
-        await ethereum.request({
-          method: 'eth_sendTransaction',
-          params: [txParams],
-        });
-
-        TEAM_CONFIG.mystery.donations.push({
-          wallet: sender,
-          amount: Number(amount)
-        });
-
-        updateUI();
-
-        alert("You’ve entered the mystery tier. Something cool is coming. 😎");
-
-      } catch (err) {
-        console.error(err);
-        alert("Transaction failed or was cancelled.");
-      }
-    }
-
-    /**********************
-     * UI UPDATE LOGIC
-     **********************/
-    function updateUI() {
-      updateTeamUI("visionary");
-      updateTeamUI("underdog");
-      updateMysteryUI();
-    }
-
-    function updateTeamUI(team) {
-      const t = TEAM_CONFIG[team];
-      const filled = t.totalSpots - t.spotsLeft;
-      const percent = Math.round((filled / t.totalSpots) * 100);
-
-      document.getElementById(`${team}Spots`).textContent = t.spotsLeft;
-      document.getElementById(`${team}Progress`).style.width = percent + "%";
-      document.getElementById(`${team}ProgressLabel`).textContent = `${percent}% filled`;
-
-      const badge = document.getElementById(`${team}TierBadge`);
-      const button = document.getElementById(`${team}Button`);
-
-      if (t.spotsLeft === 0) {
-        badge.textContent = "Tier 2";
-        badge.classList.add("secondary");
-        button.textContent = "Join Tier 2";
-        button.classList.add("secondary");
-      } else {
-        badge.textContent = "Tier 1";
-        badge.classList.remove("secondary");
-        button.textContent = "Join " + team.charAt(0).toUpperCase() + team.slice(1);
-        button.classList.remove("secondary");
-      }
-    }
-
-    function updateMysteryUI() {
-      const list = TEAM_CONFIG.mystery.donations
-        .sort((a, b) => b.amount - a.amount)
-        .slice(0, 10);
-
-      const leaderboard = document.getElementById("mysteryLeaderboard");
-      leaderboard.innerHTML = "";
-
-      if (list.length === 0) {
-        leaderboard.innerHTML = "<li><em>No mystery supporters yet.</em></li>";
-        document.getElementById("mysteryProgressLabel").textContent = "???% filled";
-        document.getElementById("mysteryProgress").style.width = "0%";
-        return;
-      }
-
-      list.forEach((entry, index) => {
-        const masked = entry.wallet.slice(0, 6) + "..." + entry.wallet.slice(-4);
-        const li = document.createElement("li");
-        li.innerHTML = `#${index + 1} ${masked} <span>${entry.amount} MATIC</span>`;
-        leaderboard.appendChild(li);
-      });
-
-      const percent = Math.min(100, TEAM_CONFIG.mystery.donations.length * 7);
-      document.getElementById("mysteryProgress").style.width = percent + "%";
-      document.getElementById("mysteryProgressLabel").textContent = `${percent}% filled`;
-    }
-
-    updateUI();
-  </script>
+    <footer>
+        <p>&copy; 2026 Betta Babies. All rights reserved.</p>
+        <div class="social-links">
+            <a href="https://youtube.com/yourchannel" target="_blank">YouTube</a>
+            <a href="https://tiktok.com/@yourhandle" target="_blank">TikTok</a>
+        </div>
+    </footer>
 
 </body>
 </html>
+```​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
