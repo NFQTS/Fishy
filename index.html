@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Betta Realm - Game & Marketplace Hybrid</title>
+    <title>Betta Realm</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Helvetica Neue', Arial, sans-serif; }
-        body { background:#000000; color:#ffffff; line-height:1.6; overflow-x:hidden; scroll-behavior:smooth; }
+        body { background:#000000; color:#ffffff; overflow-x:hidden; scroll-behavior:smooth; }
 
-        /* Hero with Animated Canvas Background */
+        /* Hero with Animated Canvas */
         header {
             position: relative;
-            height: 100vh;
+            height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -39,7 +39,6 @@
         .hero-content {
             position: relative;
             z-index: 3;
-            max-width: 800px;
             padding: 0 5%;
         }
 
@@ -47,42 +46,13 @@
             font-size: 5rem;
             font-weight: 900;
             letter-spacing: 4px;
-            margin-bottom: 1rem;
             text-shadow: 0 4px 20px rgba(0,0,0,0.9);
             animation: fadeIn 2s ease-out;
-        }
-
-        header p {
-            font-size: 1.8rem;
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            opacity: 0.9;
-            animation: fadeIn 2s ease-out 0.5s forwards;
         }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        .cta-button {
-            background: transparent;
-            border: 2px solid #ffffff;
-            color: #ffffff;
-            padding: 1.2rem 3rem;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            transition: all 0.4s ease;
-            animation: fadeIn 2s ease-out 1s forwards;
-            opacity: 0;
-        }
-
-        .cta-button:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(255,255,255,0.15);
         }
 
         /* Navigation */
@@ -111,77 +81,47 @@
 
         nav ul li a:hover { opacity: 1; }
 
-        /* Sections */
-        section {
-            padding: 10rem 10%;
+        /* Game Interface */
+        #game-interface {
+            padding: 4rem 10%;
             text-align: center;
-            position: relative;
         }
 
-        section h2 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            letter-spacing: 2px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out;
+        .currency-bar {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-bottom: 4rem;
         }
 
-        section.in-view h2 { opacity: 1; transform: translateY(0); }
-
-        section p {
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            font-size: 1.4rem;
-            opacity: 0.8;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out 0.3s;
-        }
-
-        section.in-view p { opacity: 1; transform: translateY(0); }
-
-        /* Game Features Grid */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
+        .currency {
             background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: all 1s ease-out 0.6s;
+            border-radius: 10px;
+            padding: 1rem 2rem;
+            font-size: 1.4rem;
+            transition: all 0.3s;
         }
 
-        section.in-view .feature-card { opacity: 1; transform: scale(1); }
+        .currency span { font-weight: bold; }
 
-        .feature-card:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        .currency.free { color: #aaffaa; }
+
+        .currency.premium { color: #ffcc00; }
+
+        @keyframes gain {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5) translateY(-20px); opacity: 0; }
         }
 
-        .feature-card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+        .gain-animation {
+            position: absolute;
+            color: #aaffaa;
+            font-size: 1.2rem;
+            animation: gain 1s ease-out forwards;
         }
 
-        .feature-card p { font-size: 1.1rem; margin: 0; }
-
-        /* Marketplace Demo */
-        #marketplace {
-            background: rgba(255,255,255,0.03);
-        }
-
+        /* Marketplace Grid */
         .market-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -192,12 +132,7 @@
 
         .market-card {
             perspective: 1000px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s ease-out 0.9s;
         }
-
-        section.in-view .market-card { opacity: 1; transform: translateY(0); }
 
         .card-inner {
             position: relative;
@@ -230,76 +165,71 @@
             height: 100%;
             object-fit: cover;
             filter: grayscale(100%);
+            transition: filter 0.3s;
         }
+
+        .market-card:hover .card-front img { filter: grayscale(0%); }
 
         .card-back {
             background: rgba(255,255,255,0.05);
             transform: rotateY(180deg);
             padding: 2rem;
-            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .card-back h3 { font-size: 1.5rem; margin-bottom: 1rem; }
 
-        .card-back p { font-size: 1rem; margin-bottom: 0.5rem; }
-
-        .card-back .price { font-weight: bold; font-size: 1.2rem; }
-
-        /* Footer */
-        footer {
-            padding: 4rem;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
+        .card-back .cost {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
-        footer p { opacity: 0.7; }
+        .card-back .cost.free { color: #aaffaa; }
 
-        /* Scroll Observer for Animations */
+        .card-back .cost.premium { color: #ffcc00; }
+
+        .buy-btn {
+            background: transparent;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .buy-btn:hover {
+            background: rgba(255,255,255,0.1);
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
 
     <nav id="nav">
         <ul>
-            <li><a href="#game">The Game</a></li>
-            <li><a href="#marketplace">Marketplace</a></li>
-            <li><a href="#hybrid">Hybrid Experience</a></li>
+            <li><a href="#">Realm</a></li>
+            <li><a href="#">Market</a></li>
+            <li><a href="#">Sign Up</a></li>
         </ul>
     </nav>
 
     <header>
-        <!-- Animated Canvas for Artistic Betta Simulation -->
         <canvas id="betta-canvas"></canvas>
         <div class="overlay"></div>
         <div class="hero-content">
             <h1>Betta Realm</h1>
-            <p>A persistent world where virtual breeding meets real-world trading — minimalist, artistic, and infinitely engaging.</p>
-            <a href="#game" class="cta-button">Enter the Realm</a>
         </div>
     </header>
 
-    <section id="game">
-        <h2>The Game</h2>
-        <p>Build your Betta empire in a persistent browser-based world. Breed, train, and battle virtual fish drawn from real genetics.</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>Genetic Breeding</h3>
-                <p>Simulate crosses with realistic traits — colors, fins, patterns evolve over generations.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Arena Battles</h3>
-                <p>Compete in elegant, turn-based duels. Strategy meets artistry in fluid animations.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Persistent World</h3>
-                <p>Your aquarium grows even offline. Daily events, alliances, and rare spawns keep it alive.</p>
-            </div>
+    <section id="game-interface">
+        <div class="currency-bar">
+            <div class="currency free">Betta Coins: <span id="free-coins">0</span></div>
+            <div class="currency premium">Gems: <span id="premium-gems">0</span></div>
         </div>
-    </section>
-
-    <section id="marketplace">
-        <h2>The Marketplace</h2>
-        <p>Seamless eBay-like trading for real Bettas, genetics, or in-game boosts. Buy virtual or physical — all in one flow.</p>
         <div class="market-grid">
             <div class="market-card">
                 <div class="card-inner">
@@ -307,10 +237,9 @@
                         <img src="https://via.placeholder.com/300x350/111111/222222?text=Halfmoon" alt="Halfmoon Betta">
                     </div>
                     <div class="card-back">
-                        <h3>Elite Halfmoon Pair</h3>
-                        <p>Proven breeders with marble genetics.</p>
-                        <p class="price">$120</p>
-                        <p>Link to game: Unlock virtual clone.</p>
+                        <h3>Halfmoon Betta</h3>
+                        <div class="cost free">100 Coins</div>
+                        <button class="buy-btn" onclick="promptSignup()">Acquire</button>
                     </div>
                 </div>
             </div>
@@ -320,10 +249,9 @@
                         <img src="https://via.placeholder.com/300x350/111111/222222?text=Dragon+Scale" alt="Dragon Scale Betta">
                     </div>
                     <div class="card-back">
-                        <h3>Dragon Scale Fry Lot</h3>
-                        <p>20+ high-grade fry ready to ship.</p>
-                        <p class="price">$150</p>
-                        <p>Game boost: Instant lineage unlock.</p>
+                        <h3>Dragon Scale</h3>
+                        <div class="cost premium">50 Gems</div>
+                        <button class="buy-btn" onclick="promptSignup()">Acquire</button>
                     </div>
                 </div>
             </div>
@@ -333,41 +261,18 @@
                         <img src="https://via.placeholder.com/300x350/111111/222222?text=Koi+Betta" alt="Koi Betta">
                     </div>
                     <div class="card-back">
-                        <h3>Rare Koi Variant</h3>
-                        <p>Unique patterns, trade for genetics.</p>
-                        <p class="price">Trade / $80</p>
-                        <p>Hybrid: Import to your virtual tank.</p>
+                        <h3>Koi Variant</h3>
+                        <div class="cost free">200 Coins</div>
+                        <button class="buy-btn" onclick="promptSignup()">Acquire</button>
                     </div>
                 </div>
             </div>
+            <!-- Add more cards as needed -->
         </div>
     </section>
-
-    <section id="hybrid">
-        <h2>The Hybrid</h2>
-        <p>Blur the lines: Purchase real fish to enhance your game avatar. Win in-game battles to earn marketplace credits. A slick, animated ecosystem where play meets profit.</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>Real-to-Virtual Sync</h3>
-                <p>Scan your bought Bettas to create digital twins with authentic traits.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Market Animations</h3>
-                <p>Fluid bids, live auctions with particle effects and smooth transitions.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Artistic Minimalism</h3>
-                <p>Every interaction feels like a masterpiece — subtle glows, elegant fades.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2026 Betta Realm — Where Art, Game, and Trade Converge</p>
-    </footer>
 
     <script>
-        // Simple Canvas Animation for Artistic Betta Particles
+        // Canvas Animation
         const canvas = document.getElementById('betta-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -399,33 +304,52 @@
             particles.push(new Particle());
         }
 
-        function animate() {
+        function animateCanvas() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach((p, i) => {
                 p.update();
                 p.draw();
                 if (p.size <= 0.2) particles[i] = new Particle();
             });
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateCanvas);
         }
-        animate();
+        animateCanvas();
 
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
 
-        // Scroll Effects
+        // Scroll Nav
         window.addEventListener('scroll', () => {
             document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-            
-            document.querySelectorAll('section').forEach(sec => {
-                const rect = sec.getBoundingClientRect();
-                if (rect.top < window.innerHeight * 0.75 && rect.bottom > 0) {
-                    sec.classList.add('in-view');
-                }
-            });
         });
+
+        // Game Timer & Points
+        let freeCoins = 0;
+        const freeCoinsEl = document.getElementById('free-coins');
+        const currencyBar = document.querySelector('.currency-bar');
+
+        function addPoints() {
+            freeCoins += 1;
+            freeCoinsEl.textContent = freeCoins;
+
+            // Gain Animation
+            const gainEl = document.createElement('div');
+            gainEl.classList.add('gain-animation');
+            gainEl.textContent = '+1';
+            gainEl.style.left = `${freeCoinsEl.getBoundingClientRect().left + 20}px`;
+            gainEl.style.top = `${freeCoinsEl.getBoundingClientRect().top - 20}px`;
+            document.body.appendChild(gainEl);
+            setTimeout(() => gainEl.remove(), 1000);
+        }
+
+        setInterval(addPoints, 10000); // Every 10 seconds
+
+        // Signup Prompt
+        function promptSignup() {
+            alert('Sign up to acquire items and fully engage in Betta Realm!');
+        }
     </script>
 
 </body>
