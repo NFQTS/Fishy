@@ -10,18 +10,14 @@
   <style>
     :root {
       --bg: #07080a;
-      --panel: rgba(18, 18, 22, 0.8);
+      --panel: rgba(18, 18, 22, 0.85);
       --text: #ffffff;
       --subtle: #a1a1aa;
       --accent: #22c55e;
       --border: rgba(255,255,255,0.08);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
@@ -37,26 +33,27 @@
     .container {
       max-width: 1100px;
       width: 100%;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 2.5rem;
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 3rem;
       backdrop-filter: blur(18px);
-    }
-
-    .left {
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
+      gap: 2.5rem;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 640px;
     }
 
     .logo {
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      font-size: 0.75rem;
       color: var(--accent);
     }
 
@@ -68,189 +65,165 @@
 
     .sub {
       color: var(--subtle);
-      font-size: 1.05rem;
+      font-size: 1rem;
       max-width: 42ch;
     }
 
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .pill {
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 0.4rem 0.75rem;
-      font-size: 0.75rem;
-      color: var(--subtle);
-      background: rgba(255,255,255,0.03);
-    }
-
-    .cta-row {
-      display: flex;
-      gap: 0.75rem;
-      margin-top: 0.75rem;
-    }
-
-    .btn {
-      appearance: none;
-      border: none;
-      border-radius: 999px;
-      padding: 0.6rem 1.1rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #041109;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.05);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(255,255,255,0.05);
-    }
-
-    .right {
+    .actions {
       display: grid;
-      grid-template-rows: repeat(4, 1fr);
-      gap: 0.9rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
     }
 
     .card {
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 1rem 1.1rem;
+      border-radius: 16px;
+      padding: 1.5rem;
       background: rgba(255,255,255,0.02);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.04);
     }
 
     .card-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-sub {
+      font-size: 0.85rem;
+      color: var(--subtle);
+    }
+
+    .hidden {
+      display: none;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--subtle);
+      line-height: 1.4;
+    }
+
+    .lesson {
+      margin-top: 0.75rem;
+      padding: 0.75rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      font-size: 0.8rem;
+    }
+
+    .preview {
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+
+    .preview-title {
       font-size: 0.75rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--subtle);
-      margin-bottom: 0.35rem;
+      margin-bottom: 0.75rem;
     }
 
-    .card-body {
-      font-size: 0.9rem;
-      line-height: 1.35;
+    .fish-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
     }
 
-    .card-foot {
-      font-size: 0.7rem;
-      color: var(--subtle);
-      margin-top: 0.5rem;
+    .fish {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 1 / 1;
+      background: #111;
     }
 
-    @media (max-width: 900px) {
-      .container {
-        grid-template-columns: 1fr;
-        padding: 2.2rem;
-      }
+    .fish video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-      h1 {
-        font-size: 2rem;
-      }
-
-      .right {
-        grid-template-rows: auto;
-      }
+    @media (max-width: 800px) {
+      h1 { font-size: 2rem; }
+      .actions { grid-template-columns: 1fr; }
+      .fish-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
   <main class="container">
-    <!-- LEFT PANEL -->
-    <section class="left">
+
+    <!-- Header -->
+    <section class="header">
       <div class="logo">COEXIST</div>
+      <h1>Stop exploitation. Build better systems.</h1>
+      <p class="sub">We don’t sell animals. We protect genetics and pay people for their data.</p>
+    </section>
 
-      <h1>We stop exploitation.  
-      We build systems that let life and intelligence coexist.</h1>
-
-      <p class="sub">
-        No animal sales. No data extraction. No manipulation.
-        We protect genetics, respect creators, and turn ethical systems into sustainable businesses.
-      </p>
-
-      <div class="pill-row">
-        <div class="pill">Animal welfare first</div>
-        <div class="pill">No live animal sales</div>
-        <div class="pill">Opt-in data ownership</div>
-        <div class="pill">AI revenue sharing</div>
-        <div class="pill">Genetics stewardship</div>
-        <div class="pill">Regenerative systems</div>
+    <!-- Actions -->
+    <section class="actions">
+      <!-- Become a Breeder -->
+      <div class="card" onclick="toggleSection('breeder')">
+        <div class="card-title">Become a breeder →</div>
+        <div class="card-sub">Free starter lesson • Ethical systems • Genetics access</div>
+        <div id="breeder" class="hidden">
+          <div class="lesson">
+            <strong>Free Lesson:</strong><br>
+            Step 1 — Tank setup for healthy breeding<br>
+            • Minimum size<br>
+            • Filtration & heat<br>
+            • Stress-free environment
+          </div>
+        </div>
       </div>
 
-      <div class="cta-row">
-        <button class="btn btn-primary">Join the Network</button>
-        <button class="btn btn-secondary">Read the Model</button>
+      <!-- Genetics Exchange -->
+      <div class="card" onclick="toggleSection('exchange')">
+        <div class="card-title">Explore the genetics exchange →</div>
+        <div class="card-sub">Rare lines • Verified breeders • Welfare-first</div>
+        <div id="exchange" class="hidden">
+          <div class="lesson">
+            Access rare genetics, track lineage, and exchange breeding rights — not animals.
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- RIGHT PANEL -->
-    <section class="right">
-      <div class="card">
-        <div>
-          <div class="card-title">Genetics Exchange</div>
-          <div class="card-body">
-            We don’t sell animals — we steward genetics.  
-            Breeders exchange verified lines through a welfare-first network.
-          </div>
+    <!-- Preview -->
+    <section class="preview">
+      <div class="preview-title">Genetics preview</div>
+      <div class="fish-grid">
+        <div class="fish">
+          <video autoplay muted loop playsinline src="https://cdn.coverr.co/videos/coverr-colorful-betta-fish-9060/1080p.mp4"></video>
         </div>
-        <div class="card-foot">Membership-based access • No retail sales</div>
-      </div>
-
-      <div class="card">
-        <div>
-          <div class="card-title">Ethical Data Marketplace</div>
-          <div class="card-body">
-            Upload your pet videos.  
-            Own your data.  
-            Get paid when AI uses it — transparently.
-          </div>
+        <div class="fish">
+          <video autoplay muted loop playsinline src="https://cdn.coverr.co/videos/coverr-fighting-fish-8454/1080p.mp4"></video>
         </div>
-        <div class="card-foot">Opt-in licensing • Revenue sharing • Full consent</div>
-      </div>
-
-      <div class="card">
-        <div>
-          <div class="card-title">Animal Welfare Infrastructure</div>
-          <div class="card-body">
-            No cups. No stress shipping. No exploitation.  
-            Animals live in enriched, large-tank environments — always.
-          </div>
+        <div class="fish">
+          <video autoplay muted loop playsinline src="https://cdn.coverr.co/videos/coverr-blue-betta-fish-8453/1080p.mp4"></video>
         </div>
-        <div class="card-foot">Rescue-first • Sanctuary-aligned</div>
-      </div>
-
-      <div class="card">
-        <div>
-          <div class="card-title">Regenerative Economics</div>
-          <div class="card-body">
-            We monetize systems — not beings.  
-            Memberships, data rights, education, and stewardship funding.
-          </div>
+        <div class="fish">
+          <video autoplay muted loop playsinline src="https://cdn.coverr.co/videos/coverr-red-betta-fish-8452/1080p.mp4"></video>
         </div>
-        <div class="card-foot">Ethics = Business model</div>
       </div>
     </section>
+
   </main>
+
+  <script>
+    function toggleSection(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === "block" ? "none" : "block";
+    }
+  </script>
 </body>
 </html>
