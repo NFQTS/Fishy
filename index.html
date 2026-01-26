@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Betta Babies Marketplace</title>
+    <title>Betta Babies - Breeding Mastery & Marketplace</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Helvetica Neue', Arial, sans-serif; }
         body { 
@@ -13,7 +13,7 @@
             overflow-x:hidden; 
         }
 
-        /* Navigation - Subtle & Elegant */
+        /* Navigation */
         nav {
             position: fixed;
             top: 0; width: 100%;
@@ -57,7 +57,7 @@
             color: #ffffff;
         }
 
-        /* Hero - Minimal with Subtle Video/Animation */
+        /* Hero */
         header {
             position: relative;
             height: 85vh;
@@ -128,14 +128,14 @@
             box-shadow: 0 10px 25px rgba(255,255,255,0.12);
         }
 
-        /* Marketplace - Clean Grid */
-        #marketplace {
-            padding: 10rem 8% 6rem;
-            max-width: 1600px;
+        /* Breeding Guide Section */
+        #breeding-guide {
+            padding: 10rem 8%;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        #marketplace h2 {
+        #breeding-guide h2 {
             font-size: 3.2rem;
             font-weight: 800;
             text-align: center;
@@ -144,10 +144,77 @@
             letter-spacing: 1px;
         }
 
+        .guide-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            background: #111111;
+            border-radius: 16px;
+            padding: 3rem;
+            border: 1px solid #222222;
+            transition: all 0.4s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-8px);
+            border-color: #333333;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+
+        .step img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            filter: brightness(0.9);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .step p {
+            font-size: 1.2rem;
+            color: #aaaaaa;
+            margin-bottom: 1.5rem;
+        }
+
+        .step .tip {
+            font-style: italic;
+            color: #888888;
+        }
+
+        /* Marketplace Integration */
+        #featured-market {
+            padding: 8rem 8%;
+            background: #0f0f0f;
+            text-align: center;
+        }
+
+        #featured-market h2 {
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            color: #ffffff;
+        }
+
         .market-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .market-card {
@@ -156,13 +223,6 @@
             overflow: hidden;
             border: 1px solid #222222;
             transition: all 0.5s ease;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .market-card.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .market-card:hover {
@@ -224,46 +284,6 @@
             transform: scale(1.05);
         }
 
-        /* Hidden Game Teaser */
-        #game-teaser {
-            padding: 8rem 8%;
-            text-align: center;
-            background: linear-gradient(to bottom, #0a0a0a, #000000);
-            opacity: 0.9;
-        }
-
-        #game-teaser h2 {
-            font-size: 2.8rem;
-            margin-bottom: 1.5rem;
-            color: #cccccc;
-        }
-
-        #game-teaser p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            color: #999999;
-        }
-
-        .game-stats {
-            display: inline-flex;
-            gap: 4rem;
-            margin-top: 2rem;
-            opacity: 0.7;
-            font-size: 1.1rem;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-item span {
-            display: block;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #ffffff;
-        }
-
         /* Footer */
         footer {
             padding: 4rem 8%;
@@ -276,7 +296,7 @@
             color: #777777;
         }
 
-        /* Scroll Reveal */
+        /* Smooth Scroll Reveal */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -294,94 +314,108 @@
     <nav id="nav">
         <a href="#" class="logo">Betta Babies</a>
         <ul>
-            <li><a href="#marketplace">Marketplace</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="#breeding-guide">Breeding Guide</a></li>
+            <li><a href="#featured-market">Featured</a></li>
             <li><a href="#join">Join</a></li>
         </ul>
     </nav>
 
     <header>
-        <!-- Replace with your high-quality Betta video (looped, muted) -->
         <video id="bg-video" autoplay muted loop playsinline>
-            <source src="https://example.com/your-premium-betta-video.mp4" type="video/mp4">
+            <source src="https://example.com/your-elegant-betta-breeding-video.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>Betta Babies</h1>
-            <p>The curated marketplace for exceptional Betta specimens and rare genetics.</p>
-            <a href="#marketplace" class="cta-button">Explore Collection</a>
+            <h1>Betta Mastery</h1>
+            <p>Unlock the art of breeding exceptional Bettas — knowledge shared by passionate breeders for those who seek excellence.</p>
+            <a href="#breeding-guide" class="cta-button">Learn to Breed</a>
         </div>
     </header>
 
-    <section id="marketplace">
-        <h2>Curated Selections</h2>
+    <section id="breeding-guide">
+        <h2>The Art of Betta Breeding</h2>
+        <div class="guide-steps">
+            <div class="step reveal">
+                <img src="https://via.placeholder.com/300x200/111111/222222?text=Select+Breeders" alt="Selecting Betta Breeders">
+                <div class="step-content">
+                    <h3>Step 1: Selecting Your Breeders</h3>
+                    <p>Choose healthy, vibrant males and females with desirable traits like fin shape, color intensity, and scale patterns. Look for compatibility in size and temperament to ensure successful pairing.</p>
+                    <span class="tip">Tip: Quarantine new fish for 2-4 weeks to prevent disease transmission.</span>
+                </div>
+            </div>
+            <div class="step reveal">
+                <img src="https://via.placeholder.com/300x200/111111/222222?text=Conditioning" alt="Conditioning Bettas">
+                <div class="step-content">
+                    <h3>Step 2: Conditioning for Breeding</h3>
+                    <p>Feed high-protein live foods (brine shrimp, daphnia) for 1-2 weeks. Maintain water at 78-82°F with pristine quality. Introduce the pair gradually using a chimney or divider to build interest without aggression.</p>
+                    <span class="tip">Tip: Females show vertical bars when ready; males build bubble nests.</span>
+                </div>
+            </div>
+            <div class="step reveal">
+                <img src="https://via.placeholder.com/300x200/111111/222222?text=Spawning" alt="Betta Spawning">
+                <div class="step-content">
+                    <h3>Step 3: The Spawning Process</h3>
+                    <p>Remove the divider and supervise. The male wraps around the female to fertilize eggs. Collect eggs in the bubble nest. Remove the female post-spawn to avoid injury; male guards the nest.</p>
+                    <span class="tip">Tip: Dim lighting reduces stress; expect 100-500 eggs per spawn.</span>
+                </div>
+            </div>
+            <div class="step reveal">
+                <img src="https://via.placeholder.com/300x200/111111/222222?text=Raising+Fry" alt="Raising Betta Fry">
+                <div class="step-content">
+                    <h3>Step 4: Raising Fry</h3>
+                    <p>Eggs hatch in 24-48 hours. Feed infusoria or micro-worms initially, transitioning to baby brine shrimp. Perform small water changes daily. Separate fry at 4-6 weeks to prevent fighting.</p>
+                    <span class="tip">Tip: Use aged water; monitor for deformities to cull early for quality lines.</span>
+                </div>
+            </div>
+            <div class="step reveal">
+                <img src="https://via.placeholder.com/300x200/111111/222222?text=Genetics" alt="Betta Genetics">
+                <div class="step-content">
+                    <h3>Step 5: Understanding Genetics</h3>
+                    <p>Track traits like dominant/recessive colors (e.g., red dominant over blue). Experiment with line breeding for stability or outcrossing for vigor. Document pedigrees for consistent results.</p>
+                    <span class="tip">Tip: Start with simple crosses; advanced tools like Punnett squares help predict outcomes.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured-market">
+        <h2>Featured from Our Community</h2>
         <div class="market-grid">
-            <!-- Sample cards - replace images & details -->
             <div class="market-card reveal">
                 <img src="https://via.placeholder.com/400x280/111111/222222?text=Platinum+Dragon" alt="Platinum Dragon Betta">
                 <div class="card-info">
                     <h3>Platinum Dragon Pair</h3>
-                    <span class="type">Dragon Scale · Proven Breeders</span>
+                    <span class="type">Dragon Scale · Bred for Iridescence</span>
                     <div class="price">$185</div>
-                    <button class="buy-btn" onclick="promptSignup()">Inquire</button>
+                    <button class="buy-btn" onclick="promptJoin()">Connect</button>
                 </div>
             </div>
             <div class="market-card reveal">
                 <img src="https://via.placeholder.com/400x280/111111/222222?text=Marble+Halfmoon" alt="Marble Halfmoon">
                 <div class="card-info">
-                    <h3>Marble Halfmoon Female</h3>
-                    <span class="type">Halfmoon · High Grade</span>
-                    <div class="price">$95</div>
-                    <button class="buy-btn" onclick="promptSignup()">Inquire</button>
+                    <h3>Marble Halfmoon Line</h3>
+                    <span class="type">Halfmoon · Stable Genetics</span>
+                    <div class="price">$95 / Fry Lot</div>
+                    <button class="buy-btn" onclick="promptJoin()">Connect</button>
                 </div>
             </div>
             <div class="market-card reveal">
                 <img src="https://via.placeholder.com/400x280/111111/222222?text=Koi+Spawn" alt="Koi Spawn">
                 <div class="card-info">
-                    <h3>Koi Pattern Fry Lot (15+)</h3>
-                    <span class="type">Koi/Multicolor · F1 Generation</span>
-                    <div class="price">$140</div>
-                    <button class="buy-btn" onclick="promptSignup()">Inquire</button>
+                    <h3>Koi Pattern Genetics</h3>
+                    <span class="type">Koi · Trade for Diversity</span>
+                    <div class="price">Trade / $140</div>
+                    <button class="buy-btn" onclick="promptJoin()">Connect</button>
                 </div>
-            </div>
-            <div class="market-card reveal">
-                <img src="https://via.placeholder.com/400x280/111111/222222?text=Alien+Hybrid" alt="Alien Hybrid">
-                <div class="card-info">
-                    <h3>Alien Hybrid Male</h3>
-                    <span class="type">Wild-Type Hybrid · Rare</span>
-                    <div class="price">$220</div>
-                    <button class="buy-btn" onclick="promptSignup()">Inquire</button>
-                </div>
-            </div>
-            <!-- Add more as needed -->
-        </div>
-    </section>
-
-    <section id="game-teaser" class="reveal">
-        <h2>Discover More</h2>
-        <p>Behind the marketplace lies a private cultivation system for members — track lineages, simulate crosses, and unlock exclusive insights into your breeding program.</p>
-        <div class="game-stats">
-            <div class="stat-item">
-                <span>1,247</span>
-                Active Lines
-            </div>
-            <div class="stat-item">
-                <span>89</span>
-                Member Breeders
-            </div>
-            <div class="stat-item">
-                <span>4.2k</span>
-                Simulated Spawns
             </div>
         </div>
     </section>
 
     <footer>
-        <p>© 2026 Betta Babies — Exclusive Network for Discerning Breeders</p>
+        <p>© 2026 Betta Babies — Empowering Breeders Through Knowledge</p>
     </footer>
 
     <script>
-        // Scroll Effects
         window.addEventListener('scroll', () => {
             document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 100);
 
@@ -393,7 +427,6 @@
             });
         });
 
-        // Trigger initial reveal for above-fold elements
         setTimeout(() => {
             document.querySelectorAll('.reveal').forEach(el => {
                 const rect = el.getBoundingClientRect();
@@ -403,10 +436,11 @@
             });
         }, 300);
 
-        function promptSignup() {
-            alert('Members-only access. Sign up to inquire, view full pedigrees, and unlock the cultivation system.');
+        function promptJoin() {
+            alert('Join our breeder community to connect, trade genetics, and access advanced breeding tools.');
         }
     </script>
 
 </body>
 </html>
+```​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
