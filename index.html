@@ -3,73 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Betta Babies - Premium Tropical Fish Marketplace</title>
+    <title>Betta Babies - Breeder Network & Marketplace</title>
     <style>
         /* Reset and Global Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
         }
 
         body {
-            background-color: #f0f8ff;
-            color: #333;
+            background-color: #0f0f0f;
+            color: #e0e0e0;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
         /* Header / Hero Section */
         header {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1920x1080?text=Betta+Fish+Hero') no-repeat center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), 
+                        url('https://via.placeholder.com/1920x1080/111111/222222?text=Betta+Network+Hero') no-repeat center/cover;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: white;
             position: relative;
         }
 
         header h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            animation: fadeInDown 1s ease-out;
+            font-size: 4.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 1.2rem;
+            color: #ffffff;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.8);
         }
 
         header p {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease-out 0.5s;
-            animation-fill-mode: both;
+            font-size: 1.6rem;
+            max-width: 800px;
+            margin-bottom: 2.5rem;
+            color: #cccccc;
         }
 
         .cta-button {
-            background-color: #00bfff;
-            color: white;
-            padding: 1rem 2rem;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 1.2rem 3rem;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            transition: background-color 0.3s, transform 0.3s;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255,255,255,0.15);
         }
 
         .cta-button:hover {
-            background-color: #008cff;
-            transform: scale(1.05);
+            background-color: #dddddd;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(255,255,255,0.25);
         }
 
-        /* Animations */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
+        .secondary-cta {
+            background: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            margin-left: 1.5rem;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
+        .secondary-cta:hover {
+            background: rgba(255,255,255,0.1);
         }
 
         /* Navigation */
@@ -79,330 +85,291 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
-            padding: 1rem 5%;
-            background: rgba(0, 0, 0, 0.3);
+            align-items: center;
+            padding: 1.5rem 6%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
         }
 
         nav .logo {
-            font-size: 1.5rem;
-            color: white;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ffffff;
             text-decoration: none;
+            letter-spacing: 1px;
         }
 
         nav ul {
             list-style: none;
             display: flex;
-        }
-
-        nav ul li {
-            margin-left: 2rem;
+            gap: 2.5rem;
         }
 
         nav ul li a {
-            color: white;
+            color: #dddddd;
             text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s;
         }
 
         nav ul li a:hover {
-            color: #00bfff;
+            color: #ffffff;
         }
 
         /* Sections */
         section {
-            padding: 5rem 10%;
+            padding: 8rem 8%;
             text-align: center;
         }
 
         section h2 {
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            color: #00bfff;
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 2.5rem;
+            color: #ffffff;
+            letter-spacing: 1px;
         }
 
-        /* About Section */
-        #about {
-            background-color: #fff;
+        /* About / Mission */
+        #mission {
+            background: #111111;
         }
 
-        #about p {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.2rem;
+        #mission p {
+            max-width: 900px;
+            margin: 0 auto 2rem;
+            font-size: 1.3rem;
+            color: #bbbbbb;
         }
 
-        /* Featured Bettas */
-        #featured {
-            background: linear-gradient(to bottom, #f0f8ff, #e0f7fa);
+        /* Features / Breeder Network */
+        #network {
+            background: #0a0a0a;
         }
 
-        .betta-grid {
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .betta-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+        .feature-card {
+            background: #1a1a1a;
+            border: 1px solid #333333;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            transition: all 0.4s ease;
         }
 
-        .betta-card:hover {
-            transform: translateY(-10px);
+        .feature-card:hover {
+            transform: translateY(-12px);
+            border-color: #555555;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
 
-        .betta-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .betta-card h3 {
-            padding: 1rem;
-            font-size: 1.5rem;
-            color: #333;
-        }
-
-        .betta-card p {
-            padding: 0 1rem 1rem;
-            font-size: 1rem;
-        }
-
-        .betta-card .price {
-            font-weight: bold;
-            color: #00bfff;
-        }
-
-        /* How It Works */
-        #how-it-works {
-            background-color: #fff;
-        }
-
-        .steps {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .step {
-            max-width: 300px;
-            margin: 1rem;
-        }
-
-        .step h3 {
+        .feature-card h3 {
             font-size: 1.8rem;
-            color: #00bfff;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            color: #ffffff;
         }
 
-        /* Testimonials */
-        #testimonials {
-            background: linear-gradient(to bottom, #e0f7fa, #b3e5fc);
+        .feature-card p {
+            color: #aaaaaa;
+            font-size: 1.1rem;
         }
 
-        .testimonial-grid {
+        /* Featured Listings */
+        #listings {
+            background: #111111;
+        }
+
+        .listing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-        }
-
-        .testimonial {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .testimonial p {
-            font-style: italic;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial cite {
-            display: block;
-            text-align: right;
-            font-weight: bold;
-        }
-
-        /* Contact */
-        #contact {
-            background-color: #fff;
-        }
-
-        form {
-            max-width: 600px;
+            max-width: 1400px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
         }
 
-        form input, form textarea {
+        .listing-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s;
+        }
+
+        .listing-card:hover {
+            transform: translateY(-10px);
+            border-color: #444444;
+        }
+
+        .listing-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid #333333;
+        }
+
+        .listing-info {
+            padding: 1.5rem;
+        }
+
+        .listing-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: #ffffff;
+        }
+
+        .listing-info .price,
+        .listing-info .type {
+            font-weight: bold;
+            color: #cccccc;
+        }
+
+        .listing-info .type {
+            display: inline-block;
+            background: #222222;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
             margin-bottom: 1rem;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-
-        form button {
-            background-color: #00bfff;
-            color: white;
-            padding: 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        form button:hover {
-            background-color: #008cff;
         }
 
         /* Footer */
         footer {
-            background-color: #333;
-            color: white;
-            padding: 2rem;
+            background: #000000;
+            padding: 4rem 8% 2rem;
             text-align: center;
+            border-top: 1px solid #222222;
+        }
+
+        footer p {
+            color: #888888;
+            margin-bottom: 1.5rem;
         }
 
         .social-links a {
-            color: white;
-            margin: 0 1rem;
+            color: #cccccc;
+            margin: 0 1.5rem;
+            font-size: 1.4rem;
             text-decoration: none;
-            font-size: 1.2rem;
             transition: color 0.3s;
         }
 
         .social-links a:hover {
-            color: #00bfff;
+            color: #ffffff;
         }
 
-        /* Responsive Design */
+        /* Responsive */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 3rem;
-            }
-
-            section h2 {
-                font-size: 2.5rem;
-            }
-
-            nav ul {
-                flex-direction: column;
-            }
-
-            nav ul li {
-                margin: 0.5rem 0;
-            }
+            header h1 { font-size: 3.2rem; }
+            section h2 { font-size: 2.6rem; }
+            nav { flex-direction: column; padding: 1.2rem; }
+            nav ul { margin-top: 1rem; flex-direction: column; gap: 1rem; }
+            .cta-button, .secondary-cta { margin: 0.8rem; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">Betta Babies</a>
+        <a href="#" class="logo">BETTA BABIES</a>
         <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#featured">Featured Bettas</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#testimonials">Testimonials</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#mission">Mission</a></li>
+            <li><a href="#network">For Breeders</a></li>
+            <li><a href="#listings">Marketplace</a></li>
+            <li><a href="#join">Join Network</a></li>
         </ul>
     </nav>
 
     <header>
-        <h1>Welcome to Betta Babies</h1>
-        <p>Your Premier Source for Stunning Tropical Bettas</p>
-        <a href="#featured" class="cta-button">Browse Our Bettas</a>
+        <h1>Betta Breeders Network</h1>
+        <p>A modern marketplace & community connecting serious Betta breeders — sell, trade genetics, collaborate, and elevate the hobby together.</p>
+        <div>
+            <a href="#listings" class="cta-button">Browse Listings</a>
+            <a href="#join" class="cta-button secondary-cta">Join as Breeder</a>
+        </div>
     </header>
 
-    <section id="about">
-        <h2>About Us</h2>
-        <p>At Betta Babies, we specialize in breeding high-quality tropical fish, with a focus on beautiful Betta fish. Follow us on YouTube and TikTok for breeding tips, behind-the-scenes, and more!</p>
+    <section id="mission">
+        <h2>Our Mission</h2>
+        <p>We’re building the premier platform where passionate Betta breeders connect, trade high-quality genetics, sell exceptional fish, and grow the tropical fish community together.</p>
+        <p>Whether you're looking to move fry, acquire rare lines, or find trusted partners — Betta Babies is your hub.</p>
     </section>
 
-    <section id="featured">
-        <h2>Featured Bettas</h2>
-        <div class="betta-grid">
-            <div class="betta-card">
-                <img src="https://via.placeholder.com/300x200?text=Blue+Betta" alt="Blue Betta">
-                <h3>Blue Dragon Betta</h3>
-                <p>Stunning iridescent scales with a fiery personality.</p>
-                <p class="price">$49.99</p>
+    <section id="network">
+        <h2>For Breeders</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>List & Sell</h3>
+                <p>Showcase your best spawns and adults to a targeted audience of enthusiasts and fellow breeders.</p>
             </div>
-            <div class="betta-card">
-                <img src="https://via.placeholder.com/300x200?text=Red+Betta" alt="Red Betta">
-                <h3>Red Galaxy Betta</h3>
-                <p>Vibrant colors that light up any aquarium.</p>
-                <p class="price">$59.99</p>
+            <div class="feature-card">
+                <h3>Genetics Exchange</h3>
+                <p>Post wanted ads, offer trades, or collaborate on line development with vetted members.</p>
             </div>
-            <div class="betta-card">
-                <img src="https://via.placeholder.com/300x200?text=Multicolor+Betta" alt="Multicolor Betta">
-                <h3>Multicolor Koi Betta</h3>
-                <p>Unique patterns inspired by traditional Koi fish.</p>
-                <p class="price">$69.99</p>
+            <div class="feature-card">
+                <h3>Community Focus</h3>
+                <p>Connect with serious breeders only — share knowledge, get feedback, and build long-term relationships.</p>
             </div>
         </div>
     </section>
 
-    <section id="how-it-works">
-        <h2>How It Works</h2>
-        <div class="steps">
-            <div class="step">
-                <h3>Step 1: Browse</h3>
-                <p>Explore our selection of premium Bettas.</p>
+    <section id="listings">
+        <h2>Featured Marketplace Listings</h2>
+        <div class="listing-grid">
+            <div class="listing-card">
+                <img src="https://via.placeholder.com/400x220/222222/444444?text=Platinum+Dragon" alt="Platinum Dragon Betta">
+                <div class="listing-info">
+                    <div class="type">For Sale</div>
+                    <h3>Platinum Dragon Pair</h3>
+                    <p>High-grade iridescent platinum with dragon scaling • Proven breeders</p>
+                    <p class="price">$180</p>
+                </div>
             </div>
-            <div class="step">
-                <h3>Step 2: Select</h3>
-                <p>Choose your favorite and add to cart.</p>
+
+            <div class="listing-card">
+                <img src="https://via.placeholder.com/400x220/222222/444444?text=Cambodian+Line" alt="Cambodian Line">
+                <div class="listing-info">
+                    <div class="type">Genetics Trade</div>
+                    <h3>Pure Cambodian Line</h3>
+                    <p>Looking to trade for high-contrast marble or metallic genetics</p>
+                    <p class="price">Trade Only</p>
+                </div>
             </div>
-            <div class="step">
-                <h3>Step 3: Ship</h3>
-                <p>We safely ship to your door with care instructions.</p>
+
+            <div class="listing-card">
+                <img src="https://via.placeholder.com/400x220/222222/444444?text=Halfmoon+Spawn" alt="Halfmoon Spawn">
+                <div class="listing-info">
+                    <div class="type">For Sale</div>
+                    <h3>Premium Halfmoon Spawn (20+ fry)</h3>
+                    <p>From doubletail x super delta cross • Excellent form & color</p>
+                    <p class="price">$120 / lot</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="testimonials">
-        <h2>What Our Customers Say</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial">
-                <p>"The most beautiful Bettas I've ever seen! Healthy and vibrant."</p>
-                <cite>- Alex R.</cite>
-            </div>
-            <div class="testimonial">
-                <p>"Excellent service and fast shipping. Highly recommend!"</p>
-                <cite>- Jordan S.</cite>
-            </div>
-            <div class="testimonial">
-                <p>"Love the variety and quality. Subscribed to their YouTube too!"</p>
-                <cite>- Taylor M.</cite>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <form action="#" method="post">
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
+    <section id="join" style="background:#0a0a0a;">
+        <h2>Join the Network</h2>
+        <p style="font-size:1.4rem; max-width:700px; margin:0 auto 3rem; color:#bbbbbb;">
+            We're currently in early access for serious breeders only.<br>
+            Apply today and help shape the future of Betta breeding.
+        </p>
+        <a href="#" class="cta-button" style="font-size:1.4rem; padding:1.4rem 4rem;">Apply to Join</a>
     </section>
 
     <footer>
-        <p>&copy; 2026 Betta Babies. All rights reserved.</p>
+        <p>© 2026 Betta Babies — Built for Breeders, by Breeders</p>
         <div class="social-links">
-            <a href="https://youtube.com/yourchannel" target="_blank">YouTube</a>
-            <a href="https://tiktok.com/@yourhandle" target="_blank">TikTok</a>
+            <a href="https://youtube.com" target="_blank">YouTube</a>
+            <a href="https://tiktok.com" target="_blank">TikTok</a>
+            <a href="https://x.com/UnprincipledInc" target="_blank">X</a>
         </div>
     </footer>
 
 </body>
 </html>
-```​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
