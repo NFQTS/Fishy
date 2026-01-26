@@ -1,446 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Betta Babies - Breeding Mastery & Marketplace</title>
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Helvetica Neue', Arial, sans-serif; }
-        body { 
-            background:#0a0a0a; 
-            color:#e0e0e0; 
-            line-height:1.6; 
-            overflow-x:hidden; 
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coexist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080a;
+      --panel: rgba(18, 18, 22, 0.8);
+      --text: #ffffff;
+      --subtle: #a1a1aa;
+      --accent: #22c55e;
+      --border: rgba(255,255,255,0.08);
+    }
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0; width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 6%;
-            background: rgba(10,10,10,0.7);
-            backdrop-filter: blur(12px);
-            z-index: 100;
-            transition: all 0.4s ease;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        nav.scrolled {
-            background: rgba(10,10,10,0.95);
-            padding: 1rem 6%;
-        }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: radial-gradient(1200px 600px at 50% -10%, rgba(34,197,94,0.12), transparent 60%), var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
 
-        nav .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-decoration: none;
-        }
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2.5rem;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 3rem;
+      backdrop-filter: blur(18px);
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 3rem;
-        }
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
 
-        nav ul li a {
-            color: #cccccc;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+    .logo {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
 
-        nav ul li a:hover {
-            color: #ffffff;
-        }
+    h1 {
+      font-size: 2.4rem;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
 
-        /* Hero */
-        header {
-            position: relative;
-            height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            overflow: hidden;
-        }
+    .sub {
+      color: var(--subtle);
+      font-size: 1.05rem;
+      max-width: 42ch;
+    }
 
-        #bg-video {
-            position: absolute;
-            top: 50%; left: 50%;
-            min-width: 100%; min-height: 100%;
-            width: auto; height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(0.6) contrast(1.1) grayscale(30%);
-        }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
 
-        .hero-overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85) 70%);
-        }
+    .pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.75rem;
+      color: var(--subtle);
+      background: rgba(255,255,255,0.03);
+    }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            padding: 0 5%;
-        }
+    .cta-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
 
-        header h1 {
-            font-size: 5.5rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            margin-bottom: 1rem;
-            color: #ffffff;
-            text-shadow: 0 4px 30px rgba(0,0,0,0.8);
-        }
+    .btn {
+      appearance: none;
+      border: none;
+      border-radius: 999px;
+      padding: 0.6rem 1.1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
 
-        header p {
-            font-size: 1.6rem;
-            max-width: 700px;
-            margin: 0 auto 2.5rem;
-            color: #bbbbbb;
-            opacity: 0.9;
-        }
+    .btn-primary {
+      background: var(--accent);
+      color: #041109;
+    }
 
-        .cta-button {
-            background: transparent;
-            border: 2px solid #ffffff;
-            color: #ffffff;
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
-            font-size: 1.3rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.4s ease;
-        }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+    }
 
-        .cta-button:hover {
-            background: rgba(255,255,255,0.08);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px rgba(255,255,255,0.12);
-        }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
 
-        /* Breeding Guide Section */
-        #breeding-guide {
-            padding: 10rem 8%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.05);
+    }
 
-        #breeding-guide h2 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 4rem;
-            color: #ffffff;
-            letter-spacing: 1px;
-        }
+    .right {
+      display: grid;
+      grid-template-rows: repeat(4, 1fr);
+      gap: 0.9rem;
+    }
 
-        .guide-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 4rem;
-        }
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem 1.1rem;
+      background: rgba(255,255,255,0.02);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 
-        .step {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-            background: #111111;
-            border-radius: 16px;
-            padding: 3rem;
-            border: 1px solid #222222;
-            transition: all 0.4s ease;
-        }
+    .card-title {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 0.35rem;
+    }
 
-        .step:hover {
-            transform: translateY(-8px);
-            border-color: #333333;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-        }
+    .card-body {
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
 
-        .step img {
-            width: 300px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            filter: brightness(0.9);
-        }
+    .card-foot {
+      font-size: 0.7rem;
+      color: var(--subtle);
+      margin-top: 0.5rem;
+    }
 
-        .step-content {
-            flex: 1;
-        }
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+        padding: 2.2rem;
+      }
 
-        .step h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #ffffff;
-        }
+      h1 {
+        font-size: 2rem;
+      }
 
-        .step p {
-            font-size: 1.2rem;
-            color: #aaaaaa;
-            margin-bottom: 1.5rem;
-        }
-
-        .step .tip {
-            font-style: italic;
-            color: #888888;
-        }
-
-        /* Marketplace Integration */
-        #featured-market {
-            padding: 8rem 8%;
-            background: #0f0f0f;
-            text-align: center;
-        }
-
-        #featured-market h2 {
-            font-size: 3rem;
-            margin-bottom: 4rem;
-            color: #ffffff;
-        }
-
-        .market-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 3rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .market-card {
-            background: #111111;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid #222222;
-            transition: all 0.5s ease;
-        }
-
-        .market-card:hover {
-            transform: translateY(-12px);
-            border-color: #444444;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-        }
-
-        .market-card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-
-        .market-card:hover img {
-            transform: scale(1.08);
-        }
-
-        .card-info {
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .card-info h3 {
-            font-size: 1.6rem;
-            margin-bottom: 0.8rem;
-            color: #ffffff;
-        }
-
-        .card-info .type {
-            font-size: 1rem;
-            color: #888888;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .card-info .price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 1.5rem;
-        }
-
-        .buy-btn {
-            background: #ffffff;
-            color: #000000;
-            padding: 0.9rem 2.2rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .buy-btn:hover {
-            background: #dddddd;
-            transform: scale(1.05);
-        }
-
-        /* Footer */
-        footer {
-            padding: 4rem 8%;
-            text-align: center;
-            border-top: 1px solid #222222;
-            background: #000000;
-        }
-
-        footer p {
-            color: #777777;
-        }
-
-        /* Smooth Scroll Reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1.2s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+      .right {
+        grid-template-rows: auto;
+      }
+    }
+  </style>
 </head>
 <body>
+  <main class="container">
+    <!-- LEFT PANEL -->
+    <section class="left">
+      <div class="logo">COEXIST</div>
 
-    <nav id="nav">
-        <a href="#" class="logo">Betta Babies</a>
-        <ul>
-            <li><a href="#breeding-guide">Breeding Guide</a></li>
-            <li><a href="#featured-market">Featured</a></li>
-            <li><a href="#join">Join</a></li>
-        </ul>
-    </nav>
+      <h1>We stop exploitation.  
+      We build systems that let life and intelligence coexist.</h1>
 
-    <header>
-        <video id="bg-video" autoplay muted loop playsinline>
-            <source src="https://example.com/your-elegant-betta-breeding-video.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>Betta Mastery</h1>
-            <p>Unlock the art of breeding exceptional Bettas — knowledge shared by passionate breeders for those who seek excellence.</p>
-            <a href="#breeding-guide" class="cta-button">Learn to Breed</a>
-        </div>
-    </header>
+      <p class="sub">
+        No animal sales. No data extraction. No manipulation.
+        We protect genetics, respect creators, and turn ethical systems into sustainable businesses.
+      </p>
 
-    <section id="breeding-guide">
-        <h2>The Art of Betta Breeding</h2>
-        <div class="guide-steps">
-            <div class="step reveal">
-                <img src="https://via.placeholder.com/300x200/111111/222222?text=Select+Breeders" alt="Selecting Betta Breeders">
-                <div class="step-content">
-                    <h3>Step 1: Selecting Your Breeders</h3>
-                    <p>Choose healthy, vibrant males and females with desirable traits like fin shape, color intensity, and scale patterns. Look for compatibility in size and temperament to ensure successful pairing.</p>
-                    <span class="tip">Tip: Quarantine new fish for 2-4 weeks to prevent disease transmission.</span>
-                </div>
-            </div>
-            <div class="step reveal">
-                <img src="https://via.placeholder.com/300x200/111111/222222?text=Conditioning" alt="Conditioning Bettas">
-                <div class="step-content">
-                    <h3>Step 2: Conditioning for Breeding</h3>
-                    <p>Feed high-protein live foods (brine shrimp, daphnia) for 1-2 weeks. Maintain water at 78-82°F with pristine quality. Introduce the pair gradually using a chimney or divider to build interest without aggression.</p>
-                    <span class="tip">Tip: Females show vertical bars when ready; males build bubble nests.</span>
-                </div>
-            </div>
-            <div class="step reveal">
-                <img src="https://via.placeholder.com/300x200/111111/222222?text=Spawning" alt="Betta Spawning">
-                <div class="step-content">
-                    <h3>Step 3: The Spawning Process</h3>
-                    <p>Remove the divider and supervise. The male wraps around the female to fertilize eggs. Collect eggs in the bubble nest. Remove the female post-spawn to avoid injury; male guards the nest.</p>
-                    <span class="tip">Tip: Dim lighting reduces stress; expect 100-500 eggs per spawn.</span>
-                </div>
-            </div>
-            <div class="step reveal">
-                <img src="https://via.placeholder.com/300x200/111111/222222?text=Raising+Fry" alt="Raising Betta Fry">
-                <div class="step-content">
-                    <h3>Step 4: Raising Fry</h3>
-                    <p>Eggs hatch in 24-48 hours. Feed infusoria or micro-worms initially, transitioning to baby brine shrimp. Perform small water changes daily. Separate fry at 4-6 weeks to prevent fighting.</p>
-                    <span class="tip">Tip: Use aged water; monitor for deformities to cull early for quality lines.</span>
-                </div>
-            </div>
-            <div class="step reveal">
-                <img src="https://via.placeholder.com/300x200/111111/222222?text=Genetics" alt="Betta Genetics">
-                <div class="step-content">
-                    <h3>Step 5: Understanding Genetics</h3>
-                    <p>Track traits like dominant/recessive colors (e.g., red dominant over blue). Experiment with line breeding for stability or outcrossing for vigor. Document pedigrees for consistent results.</p>
-                    <span class="tip">Tip: Start with simple crosses; advanced tools like Punnett squares help predict outcomes.</span>
-                </div>
-            </div>
-        </div>
+      <div class="pill-row">
+        <div class="pill">Animal welfare first</div>
+        <div class="pill">No live animal sales</div>
+        <div class="pill">Opt-in data ownership</div>
+        <div class="pill">AI revenue sharing</div>
+        <div class="pill">Genetics stewardship</div>
+        <div class="pill">Regenerative systems</div>
+      </div>
+
+      <div class="cta-row">
+        <button class="btn btn-primary">Join the Network</button>
+        <button class="btn btn-secondary">Read the Model</button>
+      </div>
     </section>
 
-    <section id="featured-market">
-        <h2>Featured from Our Community</h2>
-        <div class="market-grid">
-            <div class="market-card reveal">
-                <img src="https://via.placeholder.com/400x280/111111/222222?text=Platinum+Dragon" alt="Platinum Dragon Betta">
-                <div class="card-info">
-                    <h3>Platinum Dragon Pair</h3>
-                    <span class="type">Dragon Scale · Bred for Iridescence</span>
-                    <div class="price">$185</div>
-                    <button class="buy-btn" onclick="promptJoin()">Connect</button>
-                </div>
-            </div>
-            <div class="market-card reveal">
-                <img src="https://via.placeholder.com/400x280/111111/222222?text=Marble+Halfmoon" alt="Marble Halfmoon">
-                <div class="card-info">
-                    <h3>Marble Halfmoon Line</h3>
-                    <span class="type">Halfmoon · Stable Genetics</span>
-                    <div class="price">$95 / Fry Lot</div>
-                    <button class="buy-btn" onclick="promptJoin()">Connect</button>
-                </div>
-            </div>
-            <div class="market-card reveal">
-                <img src="https://via.placeholder.com/400x280/111111/222222?text=Koi+Spawn" alt="Koi Spawn">
-                <div class="card-info">
-                    <h3>Koi Pattern Genetics</h3>
-                    <span class="type">Koi · Trade for Diversity</span>
-                    <div class="price">Trade / $140</div>
-                    <button class="buy-btn" onclick="promptJoin()">Connect</button>
-                </div>
-            </div>
+    <!-- RIGHT PANEL -->
+    <section class="right">
+      <div class="card">
+        <div>
+          <div class="card-title">Genetics Exchange</div>
+          <div class="card-body">
+            We don’t sell animals — we steward genetics.  
+            Breeders exchange verified lines through a welfare-first network.
+          </div>
         </div>
+        <div class="card-foot">Membership-based access • No retail sales</div>
+      </div>
+
+      <div class="card">
+        <div>
+          <div class="card-title">Ethical Data Marketplace</div>
+          <div class="card-body">
+            Upload your pet videos.  
+            Own your data.  
+            Get paid when AI uses it — transparently.
+          </div>
+        </div>
+        <div class="card-foot">Opt-in licensing • Revenue sharing • Full consent</div>
+      </div>
+
+      <div class="card">
+        <div>
+          <div class="card-title">Animal Welfare Infrastructure</div>
+          <div class="card-body">
+            No cups. No stress shipping. No exploitation.  
+            Animals live in enriched, large-tank environments — always.
+          </div>
+        </div>
+        <div class="card-foot">Rescue-first • Sanctuary-aligned</div>
+      </div>
+
+      <div class="card">
+        <div>
+          <div class="card-title">Regenerative Economics</div>
+          <div class="card-body">
+            We monetize systems — not beings.  
+            Memberships, data rights, education, and stewardship funding.
+          </div>
+        </div>
+        <div class="card-foot">Ethics = Business model</div>
+      </div>
     </section>
-
-    <footer>
-        <p>© 2026 Betta Babies — Empowering Breeders Through Knowledge</p>
-    </footer>
-
-    <script>
-        window.addEventListener('scroll', () => {
-            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 100);
-
-            document.querySelectorAll('.reveal').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight * 0.85) {
-                    el.classList.add('active');
-                }
-            });
-        });
-
-        setTimeout(() => {
-            document.querySelectorAll('.reveal').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight) {
-                    el.classList.add('active');
-                }
-            });
-        }, 300);
-
-        function promptJoin() {
-            alert('Join our breeder community to connect, trade genetics, and access advanced breeding tools.');
-        }
-    </script>
-
+  </main>
 </body>
 </html>
-```​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​
