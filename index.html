@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Betta Babies Marketplace - Discover Premium Bettas</title>
+    <title>Betta Realm - Game & Marketplace Hybrid</title>
     <style>
         * { margin:0; padding:0; box-sizing:border-box; font-family:'Helvetica Neue', Arial, sans-serif; }
-        body { background:#0f0f0f; color:#e0e0e0; line-height:1.6; overflow-x:hidden; }
+        body { background:#000000; color:#ffffff; line-height:1.6; overflow-x:hidden; scroll-behavior:smooth; }
 
-        /* Hero with Video */
+        /* Hero with Animated Canvas Background */
         header {
             position: relative;
-            height: 70vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -20,428 +20,413 @@
             overflow: hidden;
         }
 
-        .video-bg {
+        #betta-canvas {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            object-fit: cover;
             z-index: 1;
+            filter: grayscale(100%) contrast(120%);
         }
 
         .overlay {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9));
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
             z-index: 2;
         }
 
         .hero-content {
             position: relative;
             z-index: 3;
-            max-width: 900px;
+            max-width: 800px;
             padding: 0 5%;
         }
 
         header h1 {
-            font-size: 4.5rem;
+            font-size: 5rem;
             font-weight: 900;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
             margin-bottom: 1rem;
-            color: #ffffff;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+            text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+            animation: fadeIn 2s ease-out;
         }
 
         header p {
-            font-size: 1.6rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            color: #cccccc;
+            font-size: 1.8rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+            animation: fadeIn 2s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .cta-button {
-            background: #ffffff;
-            color: #000000;
-            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            padding: 1.2rem 3rem;
             text-decoration: none;
             border-radius: 50px;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+            transition: all 0.4s ease;
+            animation: fadeIn 2s ease-out 1s forwards;
+            opacity: 0;
         }
 
         .cta-button:hover {
-            background: #dddddd;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(255,255,255,0.15);
         }
 
         /* Navigation */
         nav {
-            position: absolute;
+            position: fixed;
             top: 0; width: 100%;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1.2rem 5%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
-            z-index: 4;
+            display: flex; justify-content: center;
+            padding: 1rem;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            transition: background 0.3s;
         }
 
-        nav .logo { font-size:1.6rem; font-weight:900; color:#ffffff; text-decoration:none; }
+        nav.scrolled { background: rgba(0,0,0,0.9); }
 
-        nav ul { list-style:none; display:flex; gap:2rem; }
+        nav ul { list-style:none; display:flex; gap:3rem; }
 
-        nav ul li a { color:#dddddd; text-decoration:none; font-weight:500; transition:color 0.3s; }
-
-        nav ul li a:hover { color:#ffffff; }
-
-        /* Marketplace Section */
-        #marketplace {
-            padding: 4rem 5%;
-            background: #111111;
+        nav ul li a {
+            color:#ffffff;
+            text-decoration:none;
+            font-weight:500;
+            opacity: 0.8;
+            transition: opacity 0.3s;
         }
 
-        #marketplace h2 {
-            font-size: 3rem;
-            font-weight: 800;
+        nav ul li a:hover { opacity: 1; }
+
+        /* Sections */
+        section {
+            padding: 10rem 10%;
             text-align: center;
-            margin-bottom: 3rem;
-            color: #ffffff;
+            position: relative;
         }
 
-        /* Filters */
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            max-width: 1200px;
+        section h2 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        section.in-view h2 { opacity: 1; transform: translateY(0); }
+
+        section p {
+            max-width: 800px;
             margin: 0 auto 3rem;
+            font-size: 1.4rem;
+            opacity: 0.8;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out 0.3s;
         }
 
-        .filter-btn {
-            background: #222222;
-            color: #ffffff;
-            padding: 0.8rem 1.5rem;
-            border: 1px solid #333333;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 1rem;
-        }
+        section.in-view p { opacity: 1; transform: translateY(0); }
 
-        .filter-btn.active {
-            background: #ffffff;
-            color: #000000;
-            border-color: #ffffff;
-        }
-
-        .filter-btn:hover {
-            background: #333333;
-        }
-
-        .filter-btn.active:hover {
-            background: #dddddd;
-        }
-
-        /* Listings Grid */
-        .listings-grid {
+        /* Game Features Grid */
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .listing-card {
-            background: #1a1a1a;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #2a2a2a;
-            transition: all 0.3s;
-            display: none; /* Hidden by default, shown via JS */
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 1s ease-out 0.6s;
         }
 
-        .listing-card.show {
-            display: block;
-        }
+        section.in-view .feature-card { opacity: 1; transform: scale(1); }
 
-        .listing-card:hover {
-            transform: translateY(-8px);
-            border-color: #444444;
+        .feature-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
-        .listing-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .listing-info {
-            padding: 1.5rem;
-        }
-
-        .listing-info .type-tag {
-            display: inline-block;
-            background: #333333;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
+        .feature-card h3 {
+            font-size: 1.8rem;
             margin-bottom: 1rem;
-            color: #bbbbbb;
         }
 
-        .listing-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-            color: #ffffff;
+        .feature-card p { font-size: 1.1rem; margin: 0; }
+
+        /* Marketplace Demo */
+        #marketplace {
+            background: rgba(255,255,255,0.03);
         }
 
-        .listing-info p {
-            font-size: 1rem;
-            color: #aaaaaa;
-            margin-bottom: 0.8rem;
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .listing-info .price {
-            font-weight: bold;
-            color: #ffffff;
-            font-size: 1.2rem;
+        .market-card {
+            perspective: 1000px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out 0.9s;
         }
 
-        .listing-info .breeder {
-            font-size: 0.9rem;
-            color: #888888;
-            margin-top: 0.5rem;
+        section.in-view .market-card { opacity: 1; transform: translateY(0); }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
         }
+
+        .market-card:hover .card-inner { transform: rotateY(180deg); }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .card-front {
+            background: #111111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+
+        .card-back {
+            background: rgba(255,255,255,0.05);
+            transform: rotateY(180deg);
+            padding: 2rem;
+            text-align: left;
+        }
+
+        .card-back h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+
+        .card-back p { font-size: 1rem; margin-bottom: 0.5rem; }
+
+        .card-back .price { font-weight: bold; font-size: 1.2rem; }
 
         /* Footer */
         footer {
-            background: #000000;
-            padding: 3rem;
+            padding: 4rem;
             text-align: center;
-            border-top: 1px solid #222222;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        footer p { color: #888888; margin-bottom: 1rem; }
+        footer p { opacity: 0.7; }
 
-        .social-links a {
-            color: #cccccc;
-            margin: 0 1rem;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover { color: #ffffff; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            header h1 { font-size: 3rem; }
-            header p { font-size: 1.3rem; }
-            .filters { flex-direction: column; align-items: center; }
-        }
+        /* Scroll Observer for Animations */
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="logo">BETTA BABIES</a>
+    <nav id="nav">
         <ul>
+            <li><a href="#game">The Game</a></li>
             <li><a href="#marketplace">Marketplace</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#hybrid">Hybrid Experience</a></li>
         </ul>
     </nav>
 
     <header>
-        <!-- Replace src with your Betta video MP4 -->
-        <video class="video-bg" autoplay muted loop playsinline>
-            <source src="https://example.com/premium-betta-swim.mp4" type="video/mp4">
-        </video>
+        <!-- Animated Canvas for Artistic Betta Simulation -->
+        <canvas id="betta-canvas"></canvas>
         <div class="overlay"></div>
         <div class="hero-content">
-            <h1>Premium Betta Marketplace</h1>
-            <p>Explore the finest selection of Bettas from top breeders — all in one elegant space.</p>
-            <a href="#marketplace" class="cta-button">Dive In</a>
+            <h1>Betta Realm</h1>
+            <p>A persistent world where virtual breeding meets real-world trading — minimalist, artistic, and infinitely engaging.</p>
+            <a href="#game" class="cta-button">Enter the Realm</a>
         </div>
     </header>
 
-    <section id="marketplace">
-        <h2>Betta Marketplace</h2>
-        <div class="filters">
-            <button class="filter-btn active" data-type="all">All Types</button>
-            <button class="filter-btn" data-type="halfmoon">Halfmoon</button>
-            <button class="filter-btn" data-type="crowntail">Crowntail</button>
-            <button class="filter-btn" data-type="plakat">Plakat</button>
-            <button class="filter-btn" data-type="doubletail">Doubletail</button>
-            <button class="filter-btn" data-type="veiltail">Veiltail</button>
-            <button class="filter-btn" data-type="delta">Delta</button>
-            <button class="filter-btn" data-type="superdelta">Super Delta</button>
-            <button class="filter-btn" data-type="rosetail">Rosetail</button>
-            <button class="filter-btn" data-type="elephantear">Elephant Ear</button>
-            <button class="filter-btn" data-type="dragonscale">Dragon Scale</button>
-            <button class="filter-btn" data-type="koi">Koi</button>
-            <button class="filter-btn" data-type="alien">Alien</button>
-        </div>
-        <div class="listings-grid">
-            <!-- Sample Listings (Add more, replace images with real ones) -->
-            <div class="listing-card show" data-type="halfmoon">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Halfmoon+Betta" alt="Halfmoon Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Halfmoon</span>
-                    <h3>Blue Marble Halfmoon</h3>
-                    <p>Stunning iridescent fins with marble patterning.</p>
-                    <p class="price">$65</p>
-                    <p class="breeder">By: BettaBabiesHQ</p>
-                </div>
+    <section id="game">
+        <h2>The Game</h2>
+        <p>Build your Betta empire in a persistent browser-based world. Breed, train, and battle virtual fish drawn from real genetics.</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Genetic Breeding</h3>
+                <p>Simulate crosses with realistic traits — colors, fins, patterns evolve over generations.</p>
             </div>
-            <div class="listing-card show" data-type="crowntail">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Crowntail+Betta" alt="Crowntail Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Crowntail</span>
-                    <h3>Red Crown Jewel</h3>
-                    <p>Fiery red with extended ray fins.</p>
-                    <p class="price">$45</p>
-                    <p class="breeder">By: EliteBreeders</p>
-                </div>
+            <div class="feature-card">
+                <h3>Arena Battles</h3>
+                <p>Compete in elegant, turn-based duels. Strategy meets artistry in fluid animations.</p>
             </div>
-            <div class="listing-card show" data-type="plakat">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Plakat+Betta" alt="Plakat Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Plakat</span>
-                    <h3>Shortfin Warrior</h3>
-                    <p>Aggressive swimmer with vibrant colors.</p>
-                    <p class="price">$35</p>
-                    <p class="breeder">By: BettaBabiesHQ</p>
-                </div>
+            <div class="feature-card">
+                <h3>Persistent World</h3>
+                <p>Your aquarium grows even offline. Daily events, alliances, and rare spawns keep it alive.</p>
             </div>
-            <div class="listing-card show" data-type="doubletail">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Doubletail+Betta" alt="Doubletail Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Doubletail</span>
-                    <h3>Twin Fin Galaxy</h3>
-                    <p>Double caudal fin with starry patterns.</p>
-                    <p class="price">$55</p>
-                    <p class="breeder">By: GeneticMasters</p>
-                </div>
-            </div>
-            <div class="listing-card show" data-type="veiltail">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Veiltail+Betta" alt="Veiltail Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Veiltail</span>
-                    <h3>Classic Veil Beauty</h3>
-                    <p>Flowing veil fins in metallic blue.</p>
-                    <p class="price">$30</p>
-                    <p class="breeder">By: BettaBabiesHQ</p>
-                </div>
-            </div>
-            <div class="listing-card show" data-type="delta">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Delta+Betta" alt="Delta Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Delta</span>
-                    <h3>Triangular Delta</h3>
-                    <p>Wide triangular tail spread.</p>
-                    <p class="price">$40</p>
-                    <p class="breeder">By: AquaPros</p>
-                </div>
-            </div>
-            <div class="listing-card show" data-type="superdelta">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Super+Delta" alt="Super Delta Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Super Delta</span>
-                    <h3>Ultra Wide Super</h3>
-                    <p>Enhanced delta with 180° spread.</p>
-                    <p class="price">$50</p>
-                    <p class="breeder">By: BettaBabiesHQ</p>
-                </div>
-            </div>
-            <div class="listing-card show" data-type="rosetail">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Rosetail+Betta" alt="Rosetail Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Rosetail</span>
-                    <h3>Rose Petal Fins</h3>
-                    <p>Feathery, rose-like finnage.</p>
-                    <p class="price">$60</p>
-                    <p class="breeder">By: FancyFins</p>
-                </div>
-            </div>
-            <div class="listing-card show" data-type="elephantear">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Elephant+Ear" alt="Elephant Ear Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Elephant Ear</span>
-                    <h3>Dumbo Jumbo</h3>
-                    <p>Large pectoral fins like elephant ears.</p>
-                    <p class="price">$55</p>
-                    <p class="breeder">By: BettaBabiesHQ</p>
-                </div>
-            </div>
-            <div class="listing-card show" data-type="dragonscale">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Dragon+Scale" alt="Dragon Scale Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Dragon Scale</span>
-                    <h3>Armored Dragon</h3>
-                    <p>Thick, metallic scales with shine.</p>
-                    <p class="price">$70</p>
-                    <p class="breeder">By: ScaleMasters</p>
-                </div>
-            </div>
-            <div class="listing-card show" data-type="koi">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Koi+Betta" alt="Koi Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Koi</span>
-                    <h3>Koi Pattern Wonder</h3>
-                    <p>Multicolor spots like koi carp.</p>
-                    <p class="price">$65</p>
-                    <p class="breeder">By: BettaBabiesHQ</p>
-                </div>
-            </div>
-            <div class="listing-card show" data-type="alien">
-                <img src="https://via.placeholder.com/300x200/222222/444444?text=Alien+Betta" alt="Alien Betta">
-                <div class="listing-info">
-                    <span class="type-tag">Alien</span>
-                    <h3>Hybrid Alien</h3>
-                    <p>Wild-type hybrid with unique traits.</p>
-                    <p class="price">$80</p>
-                    <p class="breeder">By: ExoticLines</p>
-                </div>
-            </div>
-            <!-- Add more cards as needed -->
         </div>
     </section>
 
-    <!-- Simple JS for Filters -->
+    <section id="marketplace">
+        <h2>The Marketplace</h2>
+        <p>Seamless eBay-like trading for real Bettas, genetics, or in-game boosts. Buy virtual or physical — all in one flow.</p>
+        <div class="market-grid">
+            <div class="market-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://via.placeholder.com/300x350/111111/222222?text=Halfmoon" alt="Halfmoon Betta">
+                    </div>
+                    <div class="card-back">
+                        <h3>Elite Halfmoon Pair</h3>
+                        <p>Proven breeders with marble genetics.</p>
+                        <p class="price">$120</p>
+                        <p>Link to game: Unlock virtual clone.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="market-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://via.placeholder.com/300x350/111111/222222?text=Dragon+Scale" alt="Dragon Scale Betta">
+                    </div>
+                    <div class="card-back">
+                        <h3>Dragon Scale Fry Lot</h3>
+                        <p>20+ high-grade fry ready to ship.</p>
+                        <p class="price">$150</p>
+                        <p>Game boost: Instant lineage unlock.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="market-card">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="https://via.placeholder.com/300x350/111111/222222?text=Koi+Betta" alt="Koi Betta">
+                    </div>
+                    <div class="card-back">
+                        <h3>Rare Koi Variant</h3>
+                        <p>Unique patterns, trade for genetics.</p>
+                        <p class="price">Trade / $80</p>
+                        <p>Hybrid: Import to your virtual tank.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hybrid">
+        <h2>The Hybrid</h2>
+        <p>Blur the lines: Purchase real fish to enhance your game avatar. Win in-game battles to earn marketplace credits. A slick, animated ecosystem where play meets profit.</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Real-to-Virtual Sync</h3>
+                <p>Scan your bought Bettas to create digital twins with authentic traits.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Market Animations</h3>
+                <p>Fluid bids, live auctions with particle effects and smooth transitions.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Artistic Minimalism</h3>
+                <p>Every interaction feels like a masterpiece — subtle glows, elegant fades.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Betta Realm — Where Art, Game, and Trade Converge</p>
+    </footer>
+
     <script>
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.listing-card');
+        // Simple Canvas Animation for Artistic Betta Particles
+        const canvas = document.getElementById('betta-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const type = btn.dataset.type;
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.01;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-                cards.forEach(card => {
-                    if (type === 'all' || card.dataset.type === type) {
-                        card.classList.add('show');
-                    } else {
-                        card.classList.remove('show');
-                    }
-                });
+        let particles = [];
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                p.update();
+                p.draw();
+                if (p.size <= 0.2) particles[i] = new Particle();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Scroll Effects
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+            
+            document.querySelectorAll('section').forEach(sec => {
+                const rect = sec.getBoundingClientRect();
+                if (rect.top < window.innerHeight * 0.75 && rect.bottom > 0) {
+                    sec.classList.add('in-view');
+                }
             });
         });
     </script>
-
-    <footer>
-        <p>© 2026 Betta Babies — Your Gateway to Premium Bettas</p>
-        <div class="social-links">
-            <a href="https://youtube.com" target="_blank">YouTube</a>
-            <a href="https://tiktok.com" target="_blank">TikTok</a>
-            <a href="https://x.com/UnprincipledInc" target="_blank">X</a>
-        </div>
-    </footer>
 
 </body>
 </html>
