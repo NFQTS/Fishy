@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FutureBetta™</title>
+  <title>babybettas</title>
   <style>
     :root {
       --bg: #000;
       --fg: #fff;
       --muted: #888;
-      --accent: #fff;
     }
 
     * {
@@ -22,20 +21,17 @@
     body {
       background: var(--bg);
       color: var(--fg);
+      text-align: center;
       overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
     }
 
     section {
       min-height: 100vh;
-      padding: 6rem 10vw;
+      padding: 6rem 8vw;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
     }
 
     h1, h2, h3 {
@@ -50,20 +46,20 @@
     }
 
     h2 {
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
       margin-bottom: 1rem;
     }
 
     p {
-      max-width: 700px;
+      max-width: 720px;
       line-height: 1.7;
       color: var(--muted);
       font-size: 1.05rem;
     }
 
     .btn {
-      margin-top: 2rem;
-      padding: 0.9rem 1.8rem;
+      margin-top: 2.5rem;
+      padding: 0.9rem 2rem;
       border: 1px solid var(--fg);
       background: transparent;
       color: var(--fg);
@@ -72,7 +68,6 @@
       font-size: 0.75rem;
       cursor: pointer;
       transition: all 0.3s ease;
-      width: fit-content;
     }
 
     .btn:hover {
@@ -80,74 +75,31 @@
       color: var(--bg);
     }
 
-    .hero {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.05), transparent 60%);
-      pointer-events: none;
-      animation: pulse 8s infinite alternate;
-    }
-
-    @keyframes pulse {
-      from { opacity: 0.2; }
-      to { opacity: 0.5; }
-    }
-
     .logo {
       position: fixed;
       top: 2rem;
-      left: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 0.8rem;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
       z-index: 10;
-      color: var(--fg);
-    }
-
-    .scroll {
-      position: fixed;
-      right: 3rem;
-      bottom: 2rem;
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-      transform: rotate(90deg);
-      transform-origin: right bottom;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 3rem;
-      margin-top: 4rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+      width: 100%;
+      max-width: 900px;
     }
 
     .card {
       border: 1px solid rgba(255,255,255,0.15);
       padding: 2rem;
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.04), transparent);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .card:hover::before {
-      opacity: 1;
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
 
     .card:hover {
@@ -155,27 +107,11 @@
       transform: translateY(-4px);
     }
 
-    .card h3 {
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-    }
-
     .divider {
       height: 1px;
       width: 100%;
       background: rgba(255,255,255,0.15);
       margin: 6rem 0;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 4rem 10vw;
-      color: var(--muted);
-      font-size: 0.8rem;
     }
 
     .fade-in {
@@ -188,107 +124,117 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    .step {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
 
-  <div class="logo">FutureBetta™</div>
-  <div class="scroll">Scroll</div>
+  <div class="logo">babybettas</div>
 
   <!-- HERO -->
-  <section class="hero fade-in">
-    <h1>We Don’t Sell Bettas.<br>We Fix the Industry.</h1>
+  <section class="fade-in">
+    <h1>Pick a Betta.<br>We Handle the Rest.</h1>
     <p>
-      The betta fish world is broken — weak genetics, bad advice, zero support.
-      FutureBetta exists to rebuild it from the ground up.
+      babybettas makes betta keeping simple. Choose your fish, choose your setup,
+      and get everything you need in one clean package.
     </p>
-    <button class="btn">Enter the Future</button>
+    <button class="btn">Build Your Betta Kit</button>
   </section>
 
-  <!-- PROBLEMS -->
+  <!-- HOW IT WORKS -->
   <section class="fade-in">
-    <h2>The Three Failures</h2>
-    <p>Every betta problem traces back to these industry-level mistakes.</p>
+    <h2>How It Works</h2>
+    <p>Three steps. One box. Zero confusion.</p>
 
     <div class="grid">
       <div class="card">
-        <h3>01 — Broken Genetics</h3>
-        <p>
-          Mass breeding prioritizes color over health, producing fragile fish
-          with short lifespans and chronic disease.
-        </p>
+        <div class="step">STEP 01</div>
+        <h3>Choose Your Betta</h3>
+        <p>Solo fish or breeding pair — your call.</p>
       </div>
 
       <div class="card">
-        <h3>02 — Misinformation</h3>
-        <p>
-          People are sold bowls, no heaters, no filters — and then blamed when
-          their fish suffers.
-        </p>
+        <div class="step">STEP 02</div>
+        <h3>Choose Your Setup</h3>
+        <p>Starter, Pro, or Breeder — all proven systems.</p>
       </div>
 
       <div class="card">
-        <h3>03 — Zero Support</h3>
-        <p>
-          When a fish gets sick, stressed, or stops eating, owners are left
-          alone with no real help.
-        </p>
+        <div class="step">STEP 03</div>
+        <h3>We Ship Everything</h3>
+        <p>Fish, tank, gear, food, and support — together.</p>
       </div>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- SOLUTION -->
+  <!-- PACKAGES -->
   <section class="fade-in">
-    <h2>Our System</h2>
-    <p>
-      We solve the root causes — not the symptoms.
-    </p>
+    <h2>Your Kit Options</h2>
+    <p>Simple packages built around real success.</p>
 
     <div class="grid">
       <div class="card">
-        <h3>Health-First Genetics</h3>
-        <p>
-          Every line is bred for longevity, immune strength, and behavior — then
-          color.
-        </p>
+        <h3>Solo Betta Kit</h3>
+        <p>Perfect for one betta. Clean, simple, beautiful setup.</p>
       </div>
 
       <div class="card">
-        <h3>Zero-Guesswork Systems</h3>
-        <p>
-          Every fish comes with a proven, minimalist tank system designed to
-          remove failure points.
-        </p>
+        <h3>Breeder Kit</h3>
+        <p>Designed for pairs and controlled breeding setups.</p>
       </div>
 
       <div class="card">
-        <h3>Lifetime Support</h3>
-        <p>
-          Real humans. Real help. Health diagnostics, care protocols, and direct
-          access when something feels off.
-        </p>
+        <h3>Custom Kit</h3>
+        <p>Tell us your goals and we’ll build it for you.</p>
       </div>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- MISSION -->
+  <!-- TRUST -->
   <section class="fade-in">
-    <h2>We Are Building the First Ethical Betta Company.</h2>
+    <h2>What You Get</h2>
     <p>
-      This is not a fish brand. It’s a system for creating healthier animals,
-      smarter owners, and a future where no betta is disposable.
+      Healthy fish. Simple systems. Real human support.
     </p>
-    <button class="btn">Join the Movement</button>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Health Guarantee</h3>
+        <p>Every fish is backed by our health promise.</p>
+      </div>
+
+      <div class="card">
+        <h3>Proven Gear</h3>
+        <p>No guesswork — only setups that actually work.</p>
+      </div>
+
+      <div class="card">
+        <h3>Human Support</h3>
+        <p>Text, email, or chat — real people, real help.</p>
+      </div>
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <div class="footer fade-in">
-    © 2026 FutureBetta™ — Designed for the next generation of fishkeeping.
-  </div>
+  <div class="divider"></div>
+
+  <!-- CTA -->
+  <section class="fade-in">
+    <h2>Build Your Betta Kit in Under 60 Seconds.</h2>
+    <p>
+      Pick your fish. Pick your setup. We’ll handle the rest.
+    </p>
+    <button class="btn">Start Building</button>
+  </section>
 
   <script>
     const observer = new IntersectionObserver(entries => {
