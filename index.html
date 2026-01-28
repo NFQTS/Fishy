@@ -3,227 +3,304 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Coexist</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>FutureBetta™</title>
   <style>
     :root {
-      --bg: #07080a;
-      --panel: rgba(18, 18, 22, 0.85);
-      --text: #ffffff;
-      --subtle: #a1a1aa;
-      --accent: #22c55e;
-      --border: rgba(255,255,255,0.08);
+      --bg: #000;
+      --fg: #fff;
+      --muted: #888;
+      --accent: #fff;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: radial-gradient(1200px 600px at 50% -10%, rgba(34,197,94,0.12), transparent 60%), var(--bg);
-      color: var(--text);
+      background: var(--bg);
+      color: var(--fg);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    section {
       min-height: 100vh;
+      padding: 6rem 10vw;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
-      padding: 2rem;
     }
 
-    .container {
-      max-width: 1100px;
-      width: 100%;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 3rem;
-      backdrop-filter: blur(18px);
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    .header {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 640px;
-    }
-
-    .logo {
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      font-size: 0.75rem;
-      color: var(--accent);
+    h1, h2, h3 {
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     h1 {
-      font-size: 2.4rem;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      margin-bottom: 1.5rem;
     }
 
-    .sub {
-      color: var(--subtle);
-      font-size: 1rem;
-      max-width: 42ch;
+    h2 {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      margin-bottom: 1rem;
     }
 
-    .actions {
+    p {
+      max-width: 700px;
+      line-height: 1.7;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .btn {
+      margin-top: 2rem;
+      padding: 0.9rem 1.8rem;
+      border: 1px solid var(--fg);
+      background: transparent;
+      color: var(--fg);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: fit-content;
+    }
+
+    .btn:hover {
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.05), transparent 60%);
+      pointer-events: none;
+      animation: pulse 8s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { opacity: 0.2; }
+      to { opacity: 0.5; }
+    }
+
+    .logo {
+      position: fixed;
+      top: 2rem;
+      left: 3rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      z-index: 10;
+      color: var(--fg);
+    }
+
+    .scroll {
+      position: fixed;
+      right: 3rem;
+      bottom: 2rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transform: rotate(90deg);
+      transform-origin: right bottom;
+    }
+
+    .grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 3rem;
+      margin-top: 4rem;
     }
 
     .card {
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 1.5rem;
-      background: rgba(255,255,255,0.02);
-      cursor: pointer;
-      transition: transform 0.15s ease, background 0.15s ease;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 2rem;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.04), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
     }
 
     .card:hover {
-      transform: translateY(-2px);
-      background: rgba(255,255,255,0.04);
+      border-color: var(--fg);
+      transform: translateY(-4px);
     }
 
-    .card-title {
-      font-size: 1.1rem;
-      font-weight: 500;
-      margin-bottom: 0.25rem;
+    .card h3 {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
     }
 
-    .card-sub {
-      font-size: 0.85rem;
-      color: var(--subtle);
+    .card p {
+      font-size: 0.9rem;
     }
 
-    .hidden {
-      display: none;
-      margin-top: 1rem;
-      font-size: 0.85rem;
-      color: var(--subtle);
-      line-height: 1.4;
+    .divider {
+      height: 1px;
+      width: 100%;
+      background: rgba(255,255,255,0.15);
+      margin: 6rem 0;
     }
 
-    .lesson {
-      margin-top: 0.75rem;
-      padding: 0.75rem;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,0.02);
+    .footer {
+      text-align: center;
+      padding: 4rem 10vw;
+      color: var(--muted);
       font-size: 0.8rem;
     }
 
-    .preview {
-      margin-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      padding-top: 1.5rem;
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
     }
 
-    .preview-title {
-      font-size: 0.75rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--subtle);
-      margin-bottom: 0.75rem;
-    }
-
-    .fish-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
-    }
-
-    .fish {
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      aspect-ratio: 1 / 1;
-      background: #111;
-    }
-
-    .fish video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    @media (max-width: 800px) {
-      h1 { font-size: 2rem; }
-      .actions { grid-template-columns: 1fr; }
-      .fish-grid { grid-template-columns: repeat(2, 1fr); }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
-  <main class="container">
 
-    <!-- Header -->
-    <section class="header">
-      <div class="logo">COEXIST</div>
-      <h1>Stop exploitation. Build better systems.</h1>
-      <p class="sub">We don’t sell animals. We protect genetics and pay people for their data.</p>
-    </section>
+  <div class="logo">FutureBetta™</div>
+  <div class="scroll">Scroll</div>
 
-    <!-- Actions -->
-    <section class="actions">
-      <!-- Become a Breeder -->
-      <div class="card" onclick="toggleSection('breeder')">
-        <div class="card-title">Become a breeder →</div>
-        <div class="card-sub">Free starter lesson • Ethical systems • Genetics access</div>
-        <div id="breeder" class="hidden">
-          <div class="lesson">
-            <strong>Free Lesson:</strong><br>
-            Step 1 — Tank setup for healthy breeding<br>
-            • Minimum size<br>
-            • Filtration & heat<br>
-            • Stress-free environment
-          </div>
-        </div>
+  <!-- HERO -->
+  <section class="hero fade-in">
+    <h1>We Don’t Sell Bettas.<br>We Fix the Industry.</h1>
+    <p>
+      The betta fish world is broken — weak genetics, bad advice, zero support.
+      FutureBetta exists to rebuild it from the ground up.
+    </p>
+    <button class="btn">Enter the Future</button>
+  </section>
+
+  <!-- PROBLEMS -->
+  <section class="fade-in">
+    <h2>The Three Failures</h2>
+    <p>Every betta problem traces back to these industry-level mistakes.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>01 — Broken Genetics</h3>
+        <p>
+          Mass breeding prioritizes color over health, producing fragile fish
+          with short lifespans and chronic disease.
+        </p>
       </div>
 
-      <!-- Genetics Exchange -->
-      <div class="card" onclick="toggleSection('exchange')">
-        <div class="card-title">Explore the genetics exchange →</div>
-        <div class="card-sub">Rare lines • Verified breeders • Welfare-first</div>
-        <div id="exchange" class="hidden">
-          <div class="lesson">
-            Access rare genetics, track lineage, and exchange breeding rights — not animals.
-          </div>
-        </div>
+      <div class="card">
+        <h3>02 — Misinformation</h3>
+        <p>
+          People are sold bowls, no heaters, no filters — and then blamed when
+          their fish suffers.
+        </p>
       </div>
-    </section>
 
-    <!-- Preview -->
-    <section class="preview">
-      <div class="preview-title">Genetics preview</div>
-      <div class="fish-grid">
-        <div class="fish">
-          <video autoplay muted loop playsinline src="https://cdn.coverr.co/videos/coverr-colorful-betta-fish-9060/1080p.mp4"></video>
-        </div>
-        <div class="fish">
-          <video autoplay muted loop playsinline src="https://cdn.coverr.co/videos/coverr-fighting-fish-8454/1080p.mp4"></video>
-        </div>
-        <div class="fish">
-          <video autoplay muted loop playsinline src="https://cdn.coverr.co/videos/coverr-blue-betta-fish-8453/1080p.mp4"></video>
-        </div>
-        <div class="fish">
-          <video autoplay muted loop playsinline src="https://cdn.coverr.co/videos/coverr-red-betta-fish-8452/1080p.mp4"></video>
-        </div>
+      <div class="card">
+        <h3>03 — Zero Support</h3>
+        <p>
+          When a fish gets sick, stressed, or stops eating, owners are left
+          alone with no real help.
+        </p>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <div class="divider"></div>
+
+  <!-- SOLUTION -->
+  <section class="fade-in">
+    <h2>Our System</h2>
+    <p>
+      We solve the root causes — not the symptoms.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Health-First Genetics</h3>
+        <p>
+          Every line is bred for longevity, immune strength, and behavior — then
+          color.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Zero-Guesswork Systems</h3>
+        <p>
+          Every fish comes with a proven, minimalist tank system designed to
+          remove failure points.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Lifetime Support</h3>
+        <p>
+          Real humans. Real help. Health diagnostics, care protocols, and direct
+          access when something feels off.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- MISSION -->
+  <section class="fade-in">
+    <h2>We Are Building the First Ethical Betta Company.</h2>
+    <p>
+      This is not a fish brand. It’s a system for creating healthier animals,
+      smarter owners, and a future where no betta is disposable.
+    </p>
+    <button class="btn">Join the Movement</button>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="footer fade-in">
+    © 2026 FutureBetta™ — Designed for the next generation of fishkeeping.
+  </div>
 
   <script>
-    function toggleSection(id) {
-      const el = document.getElementById(id);
-      el.style.display = el.style.display === "block" ? "none" : "block";
-    }
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
+
 </body>
 </html>
