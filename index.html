@@ -1,369 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>babybettas</title>
-  <style>
-    :root {
-      --bg: #000;
-      --fg: #fff;
-      --muted: #aaa;
-      --accent: #4ef1ff;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', system-ui, sans-serif;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      text-align: center;
-      overflow-x: hidden;
-    }
-
-    section {
-      min-height: 100vh;
-      padding: 5rem 6vw;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    h1, h2, h3 {
-      font-weight: 300;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      font-size: clamp(2.2rem, 6vw, 4.5rem);
-      margin-bottom: 1.5rem;
-    }
-
-    h2 {
-      font-size: clamp(1.3rem, 3vw, 2.2rem);
-      margin-bottom: 1rem;
-    }
-
-    p {
-      max-width: 720px;
-      line-height: 1.7;
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-
-    .btn {
-      margin-top: 2.2rem;
-      padding: 0.9rem 2.2rem;
-      border: 1px solid var(--fg);
-      background: transparent;
-      color: var(--fg);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 2;
-    }
-
-    .btn:hover {
-      background: var(--fg);
-      color: var(--bg);
-    }
-
-    .logo {
-      position: fixed;
-      top: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.8rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      z-index: 10;
-    }
-
-    /* HERO VIDEO */
-    .hero-video {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 110%;
-      height: 110%;
-      object-fit: cover;
-      transform: translate(-50%, -50%);
-      filter: brightness(0.55);
-      z-index: 1;
-    }
-
-    .hero-overlay {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      padding: 0 6vw;
-    }
-
-    /* WIZARD */
-    .wizard {
-      max-width: 640px;
-      width: 100%;
-      margin-top: 2.5rem;
-      z-index: 2;
-    }
-
-    .question {
-      display: none;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    .question.active {
-      display: block;
-    }
-
-    .answers {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2.2rem;
-    }
-
-    .answer {
-      border: 1px solid rgba(255,255,255,0.25);
-      padding: 1.6rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .answer:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-    }
-
-    .answer small {
-      display: block;
-      margin-top: 0.6rem;
-      color: var(--muted);
-      font-size: 0.85rem;
-      line-height: 1.4;
-    }
-
-    .result {
-      display: none;
-      max-width: 720px;
-      animation: fadeIn 0.6s ease forwards;
-      z-index: 2;
-    }
-
-    .kit-card {
-      border: 1px solid rgba(255,255,255,0.3);
-      padding: 2.2rem;
-      margin-top: 2.5rem;
-      backdrop-filter: blur(6px);
-      background: rgba(0,0,0,0.4);
-    }
-
-    .kit-card h3 {
-      margin-bottom: 1rem;
-    }
-
-    .kit-items {
-      text-align: left;
-      margin-top: 1.5rem;
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-
-    .progress {
-      margin-top: 1.5rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>BabyBettas</title>
+<style>
+  :root {
+    --bg: #000;
+    --fg: #fff;
+    --accent: #4ef1ff;
+    --muted: #aaa;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
+  body { background:var(--bg); color:var(--fg); text-align:center; overflow-x:hidden; }
+  section { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:5rem 6vw; }
+  h1 { font-weight:300; font-size:clamp(2rem,5vw,4rem); margin-bottom:1rem; }
+  h2 { font-weight:300; font-size:clamp(1.3rem,3vw,2rem); margin-bottom:1rem; }
+  p { max-width:720px; line-height:1.7; color:var(--muted); font-size:1rem; margin-bottom:2rem; }
+  .btn { padding:1rem 2rem; border:1px solid var(--fg); background:transparent; color:var(--fg); cursor:pointer; text-transform:uppercase; letter-spacing:0.1em; transition:all 0.3s; }
+  .btn:hover { background:var(--fg); color:var(--bg); }
+  .logo { position:fixed; top:2rem; left:50%; transform:translateX(-50%); font-size:0.8rem; letter-spacing:0.25em; text-transform:uppercase; z-index:10; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2rem; margin-top:2.5rem; max-width:900px; width:100%; }
+  .card { border:1px solid rgba(255,255,255,0.15); padding:2rem; transition:all 0.3s ease; cursor:pointer; }
+  .card:hover { border-color:var(--accent); transform:translateY(-3px); }
+  .kit-card { border:1px solid rgba(255,255,255,0.25); padding:2rem; margin-top:2rem; max-width:600px; width:100%; }
+  .kit-items { text-align:left; margin-top:1rem; color:var(--muted); font-size:0.95rem; line-height:1.6; }
+  .fade-in { opacity:0; transform:translateY(30px); transition:all 1s ease; }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
+</style>
 </head>
 <body>
 
-  <div class="logo">babybettas</div>
+<div class="logo">babybettas</div>
 
-  <!-- HERO -->
-  <section>
-    <video autoplay muted loop playsinline class="hero-video">
-      <source src="bettas.mp4" type="video/mp4">
-    </video>
+<!-- HERO -->
+<section class="fade-in">
+  <h1>Healthy Bettas. Perfect Homes.</h1>
+  <p>Pick your betta, and we’ll ship everything they need to thrive — tank, plants, driftwood, food, and cleanup crew included.</p>
+  <button class="btn" onclick="document.getElementById('builder').scrollIntoView({behavior:'smooth'})">Build Your Kit</button>
+</section>
 
-    <div class="hero-overlay">
-      <h1>Pick a Betta.<br>We Handle the Rest.</h1>
-      <p>
-        Tap a couple choices and we’ll build the perfect setup for your fish.
-      </p>
-      <button class="btn" onclick="startWizard()">Build My Betta Kit</button>
+<!-- BUILDER -->
+<section id="builder" class="fade-in">
+  <h2>Pick Your Betta</h2>
+  <div class="grid">
+    <div class="card" onclick="selectBetta('solo')">
+      <h3>Solo Betta</h3>
+      <p>Perfect for one happy fish. Comes with everything they need.</p>
     </div>
-  </section>
-
-  <!-- WIZARD -->
-  <section id="wizardSection" style="display:none;">
-    <video autoplay muted loop playsinline class="hero-video">
-      <source src="bettas.mp4" type="video/mp4">
-    </video>
-
-    <div class="hero-overlay">
-      <h2>Build Your Betta Kit</h2>
-      <p>Just two quick taps.</p>
-
-      <div class="wizard">
-
-        <!-- Question 1 -->
-        <div class="question active" data-step="1">
-          <h3>How many bettas?</h3>
-          <div class="answers">
-            <div class="answer" onclick="answer('fishCount','one')">
-              One Betta
-              <small>Peaceful solo setup</small>
-            </div>
-            <div class="answer" onclick="answer('fishCount','pair')">
-              Breeding Pair
-              <small>Learn breeding hands-on</small>
-            </div>
-          </div>
-        </div>
-
-        <!-- Question 2 -->
-        <div class="question" data-step="2">
-          <h3>What’s your goal?</h3>
-          <div class="answers">
-            <div class="answer" onclick="answer('goal','easy')">
-              Easy Pet
-              <small>Low maintenance, stress-free</small>
-            </div>
-            <div class="answer" onclick="answer('goal','breed')">
-              Breed Bettas
-              <small>Serious breeding setup</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="progress" id="progress">STEP 1 OF 2</div>
-
-      </div>
+    <div class="card" onclick="selectBetta('pair')">
+      <h3>Breeding Pair</h3>
+      <p>Learn breeding safely with two fish. Full kit included for success.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- RESULT -->
-  <section id="resultSection" style="display:none;">
-    <video autoplay muted loop playsinline class="hero-video">
-      <source src="bettas.mp4" type="video/mp4">
-    </video>
+<!-- RESULT -->
+<section id="result" class="fade-in" style="display:none;">
+  <h2>Your Perfect Kit</h2>
+  <div class="kit-card">
+    <h3 id="kitTitle">Starter Betta Kit</h3>
+    <p id="kitDescription">Everything your fish needs to thrive.</p>
+    <div class="kit-items" id="kitItems"></div>
+    <button class="btn" style="margin-top:2rem;">Go to Checkout</button>
+  </div>
+</section>
 
-    <div class="hero-overlay">
-      <h2>Your Perfect Betta Kit</h2>
-      <p>Built just for you.</p>
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('visible'); } });
+  }, {threshold:0.2});
+  document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
 
-      <div class="result" id="resultCard">
-        <div class="kit-card">
-          <h3 id="kitTitle">Starter Betta Kit</h3>
-          <p id="kitDescription">Perfect for easy, happy betta care.</p>
+  function selectBetta(type){
+    const result = document.getElementById('result');
+    const title = document.getElementById('kitTitle');
+    const desc = document.getElementById('kitDescription');
+    const items = document.getElementById('kitItems');
 
-          <div class="kit-items" id="kitItems"></div>
-
-          <button class="btn" style="margin-top:2.5rem;">Go to Checkout</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <script>
-    const answers = {};
-    let currentStep = 1;
-    const totalSteps = 2;
-
-    function startWizard() {
-      document.querySelector('section').style.display = 'none';
-      document.getElementById('wizardSection').style.display = 'flex';
-      updateProgress();
+    let kit = {};
+    if(type==='pair'){
+      kit = {
+        title:"Breeder Betta Kit",
+        desc:"Safe, complete kit for breeding success.",
+        items:[
+          "Two healthy bettas",
+          "15-gallon tank with lid",
+          "Heater & sponge filter",
+          "Live plants & driftwood",
+          "Cleanup crew (snails, shrimps)",
+          "High-quality food",
+          "Care & breeding guide",
+          "24/7 human support"
+        ]
+      };
+    } else {
+      kit = {
+        title:"Solo Betta Kit",
+        desc:"Complete setup for a happy solo fish.",
+        items:[
+          "One healthy betta",
+          "15-gallon tank with lid",
+          "Heater & gentle filter",
+          "Live plants & driftwood",
+          "Cleanup crew (snails, shrimps)",
+          "High-quality food",
+          "Care guide",
+          "Support access"
+        ]
+      };
     }
 
-    function answer(key, value) {
-      answers[key] = value;
-      nextStep();
-    }
-
-    function nextStep() {
-      const current = document.querySelector(`.question[data-step="${currentStep}"]`);
-      if (current) current.classList.remove('active');
-
-      currentStep++;
-
-      if (currentStep > totalSteps) {
-        showResult();
-      } else {
-        const next = document.querySelector(`.question[data-step="${currentStep}"]`);
-        if (next) next.classList.add('active');
-        updateProgress();
-      }
-    }
-
-    function updateProgress() {
-      document.getElementById('progress').textContent = `STEP ${currentStep} OF ${totalSteps}`;
-    }
-
-    function showResult() {
-      document.getElementById('wizardSection').style.display = 'none';
-      document.getElementById('resultSection').style.display = 'flex';
-
-      const title = document.getElementById('kitTitle');
-      const desc = document.getElementById('kitDescription');
-      const items = document.getElementById('kitItems');
-
-      let kit = {};
-
-      if (answers.fishCount === 'pair' || answers.goal === 'breed') {
-        kit = {
-          title: "Breeder Betta Kit",
-          desc: "Everything you need to safely and successfully breed bettas.",
-          items: [
-            "Breeding pair of bettas",
-            "Two conditioning tanks",
-            "Breeding tank with divider",
-            "Heater & sponge filter",
-            "Live food starter pack",
-            "Egg & fry care guide",
-            "Human support"
-          ]
-        };
-      } else {
-        kit = {
-          title: "Starter Betta Kit",
-          desc: "The easiest, safest way to keep a happy betta.",
-          items: [
-            "Healthy betta",
-            "5 gallon tank",
-            "Heater & filter",
-            "Food & conditioner",
-            "Simple setup guide",
-            "Support access"
-          ]
-        };
-      }
-
-      title.textContent = kit.title;
-      desc.textContent = kit.desc;
-      items.innerHTML = kit.items.map(item => `• ${item}`).join('<br>');
-      document.getElementById('resultCard').style.display = 'block';
-    }
-  </script>
+    title.textContent = kit.title;
+    desc.textContent = kit.desc;
+    items.innerHTML = kit.items.map(i=>`• ${i}`).join('<br>');
+    result.style.display='flex';
+    result.scrollIntoView({behavior:'smooth'});
+  }
+</script>
 
 </body>
 </html>
