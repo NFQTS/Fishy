@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BabyBettas</title>
+<title>BabyBettas Breeder Packs</title>
 <style>
   :root {
     --bg:#000;
@@ -27,13 +27,8 @@
   .kit-items { text-align:center; margin-top:1rem; color:var(--muted); font-size:0.95rem; line-height:1.6; min-height:1.5em; }
   .fade-in { opacity:0; transform:translateY(20px); transition:all 1s ease; }
   .fade-in.visible { opacity:1; transform:translateY(0); }
-  /* subtle floating animation */
-  .hero-video-bg {
-    position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-1;
-  }
-  .hero-video-bg video {
-    width:100%; height:100%; object-fit:cover; filter:brightness(0.3);
-  }
+  .hero-video-bg { position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-1; }
+  .hero-video-bg video { width:100%; height:100%; object-fit:cover; filter:brightness(0.3); }
 </style>
 </head>
 <body>
@@ -43,34 +38,33 @@
 <!-- HERO -->
 <section class="fade-in">
   <div class="hero-video-bg">
-    <!-- placeholder video, replace src with your own betta montage -->
     <video autoplay muted loop>
       <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
     </video>
   </div>
-  <h1>Healthy Bettas. Everything included.</h1>
+  <h1>Healthy Bettas. Everything Included.</h1>
   <p>Tank • Plants • Driftwood • Heater & Filter • Cleanup Crew • High-Quality Food • Care Guide • 24/7 Support</p>
-  <button class="btn" onclick="document.getElementById('builder').scrollIntoView({behavior:'smooth'})">Build Your Kit</button>
+  <button class="btn" onclick="document.getElementById('step1').scrollIntoView({behavior:'smooth'})">Start Your Breeder Pack</button>
 </section>
 
-<!-- BUILDER -->
-<section id="builder" class="fade-in">
-  <h2>Pick Your Betta</h2>
+<!-- STEP 1: Pick Your Fish -->
+<section id="step1" class="fade-in">
+  <h2>Step 1: Pick Your Bettas</h2>
   <div class="grid">
-    <div class="card" onclick="selectBetta('solo')">
+    <div class="card" onclick="selectFish('solo')">
       <h3>Solo Betta</h3>
-      <p>One happy fish with everything included</p>
+      <p>One happy fish, complete setup included</p>
     </div>
-    <div class="card" onclick="selectBetta('pair')">
+    <div class="card" onclick="selectFish('pair')">
       <h3>Breeding Pair</h3>
-      <p>Two fish, safe and complete setup</p>
+      <p>Two fish for hands-on breeding experience</p>
     </div>
   </div>
 </section>
 
-<!-- RESULT -->
-<section id="result" class="fade-in" style="display:none;">
-  <h2>Your Kit</h2>
+<!-- STEP 2: Show Kit -->
+<section id="step2" class="fade-in" style="display:none;">
+  <h2>Your Complete Kit</h2>
   <div class="kit-card">
     <h3 id="kitTitle">Starter Betta Kit</h3>
     <p id="kitDescription">Everything your fish needs.</p>
@@ -80,25 +74,25 @@
 </section>
 
 <script>
-  // fade-in observer
+  // Fade-in observer
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('visible'); } });
   }, {threshold:0.2});
   document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
 
-  // kit builder logic
+  // Kit selection logic
   let kitItemsList = [];
   let kitIndex = 0;
   let kitInterval;
 
-  function selectBetta(type){
-    const result = document.getElementById('result');
+  function selectFish(type){
+    const step2 = document.getElementById('step2');
     const title = document.getElementById('kitTitle');
     const desc = document.getElementById('kitDescription');
     const items = document.getElementById('kitItems');
 
     if(type==='pair'){
-      title.textContent = "Breeder Betta Kit";
+      title.textContent = "Breeder Betta Pack";
       desc.textContent = "Safe, complete kit for breeding success.";
       kitItemsList = [
         "Two healthy bettas",
@@ -108,10 +102,10 @@
         "Cleanup crew (snails, shrimps)",
         "High-quality food",
         "Care & breeding guide",
-        "24/7 human support"
+        "24/7 support"
       ];
     } else {
-      title.textContent = "Solo Betta Kit";
+      title.textContent = "Solo Betta Pack";
       desc.textContent = "Complete setup for a happy solo fish.";
       kitItemsList = [
         "One healthy betta",
@@ -121,13 +115,13 @@
         "Cleanup crew (snails, shrimps)",
         "High-quality food",
         "Care guide",
-        "Support access"
+        "24/7 support"
       ];
     }
 
-    result.style.display='flex';
-    result.scrollIntoView({behavior:'smooth'});
-    
+    step2.style.display='flex';
+    step2.scrollIntoView({behavior:'smooth'});
+
     kitIndex = 0;
     items.textContent = kitItemsList[kitIndex];
     clearInterval(kitInterval);
