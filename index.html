@@ -2,20 +2,19 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BabyBettas</title>
 <style>
   :root {
-    --bg: #000;
-    --fg: #fff;
-    --accent: #4ef1ff;
-    --muted: #aaa;
+    --bg:#000;
+    --fg:#fff;
+    --accent:#4ef1ff;
+    --muted:#aaa;
   }
   * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
   body { background:var(--bg); color:var(--fg); text-align:center; overflow-x:hidden; }
   section { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:5rem 6vw; }
   h1 { font-weight:300; font-size:clamp(2rem,5vw,4rem); margin-bottom:1rem; }
-  h2 { font-weight:300; font-size:clamp(1.3rem,3vw,2rem); margin-bottom:1rem; }
   p { max-width:720px; line-height:1.7; color:var(--muted); font-size:1rem; margin-bottom:2rem; }
   .btn { padding:1rem 2rem; border:1px solid var(--fg); background:transparent; color:var(--fg); cursor:pointer; text-transform:uppercase; letter-spacing:0.1em; transition:all 0.3s; }
   .btn:hover { background:var(--fg); color:var(--bg); }
@@ -24,7 +23,7 @@
   .card { border:1px solid rgba(255,255,255,0.15); padding:2rem; transition:all 0.3s ease; cursor:pointer; }
   .card:hover { border-color:var(--accent); transform:translateY(-3px); }
   .kit-card { border:1px solid rgba(255,255,255,0.25); padding:2rem; margin-top:2rem; max-width:600px; width:100%; }
-  .kit-items { text-align:left; margin-top:1rem; color:var(--muted); font-size:0.95rem; line-height:1.6; }
+  .kit-items { text-align:center; margin-top:1rem; color:var(--muted); font-size:0.95rem; line-height:1.6; }
   .fade-in { opacity:0; transform:translateY(30px); transition:all 1s ease; }
   .fade-in.visible { opacity:1; transform:translateY(0); }
 </style>
@@ -35,8 +34,8 @@
 
 <!-- HERO -->
 <section class="fade-in">
-  <h1>Healthy Bettas. Perfect Homes.</h1>
-  <p>Pick your betta, and we’ll ship everything they need to thrive — tank, plants, driftwood, food, and cleanup crew included.</p>
+  <h1>Healthy Bettas. Everything included.</h1>
+  <p>15-gallon tank • Live plants • Driftwood • Heater & filter • Cleanup crew • High-quality food • Care guide • 24/7 support</p>
   <button class="btn" onclick="document.getElementById('builder').scrollIntoView({behavior:'smooth'})">Build Your Kit</button>
 </section>
 
@@ -46,22 +45,22 @@
   <div class="grid">
     <div class="card" onclick="selectBetta('solo')">
       <h3>Solo Betta</h3>
-      <p>Perfect for one happy fish. Comes with everything they need.</p>
+      <p>One happy fish with everything included</p>
     </div>
     <div class="card" onclick="selectBetta('pair')">
       <h3>Breeding Pair</h3>
-      <p>Learn breeding safely with two fish. Full kit included for success.</p>
+      <p>Two fish, safe and complete setup</p>
     </div>
   </div>
 </section>
 
 <!-- RESULT -->
 <section id="result" class="fade-in" style="display:none;">
-  <h2>Your Perfect Kit</h2>
+  <h2>Your Kit</h2>
   <div class="kit-card">
     <h3 id="kitTitle">Starter Betta Kit</h3>
-    <p id="kitDescription">Everything your fish needs to thrive.</p>
-    <div class="kit-items" id="kitItems"></div>
+    <p id="kitDescription">Everything your fish needs.</p>
+    <div class="kit-items" id="kitItems">Loading...</div>
     <button class="btn" style="margin-top:2rem;">Go to Checkout</button>
   </div>
 </section>
@@ -72,50 +71,54 @@
   }, {threshold:0.2});
   document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
 
+  let kitItemsList = [];
+  let kitIndex = 0;
+  let kitInterval;
+
   function selectBetta(type){
     const result = document.getElementById('result');
     const title = document.getElementById('kitTitle');
     const desc = document.getElementById('kitDescription');
     const items = document.getElementById('kitItems');
 
-    let kit = {};
     if(type==='pair'){
-      kit = {
-        title:"Breeder Betta Kit",
-        desc:"Safe, complete kit for breeding success.",
-        items:[
-          "Two healthy bettas",
-          "15-gallon tank with lid",
-          "Heater & sponge filter",
-          "Live plants & driftwood",
-          "Cleanup crew (snails, shrimps)",
-          "High-quality food",
-          "Care & breeding guide",
-          "24/7 human support"
-        ]
-      };
+      title.textContent = "Breeder Betta Kit";
+      desc.textContent = "Safe, complete kit for breeding success.";
+      kitItemsList = [
+        "Two healthy bettas",
+        "15-gallon tank with lid",
+        "Heater & sponge filter",
+        "Live plants & driftwood",
+        "Cleanup crew (snails, shrimps)",
+        "High-quality food",
+        "Care & breeding guide",
+        "24/7 human support"
+      ];
     } else {
-      kit = {
-        title:"Solo Betta Kit",
-        desc:"Complete setup for a happy solo fish.",
-        items:[
-          "One healthy betta",
-          "15-gallon tank with lid",
-          "Heater & gentle filter",
-          "Live plants & driftwood",
-          "Cleanup crew (snails, shrimps)",
-          "High-quality food",
-          "Care guide",
-          "Support access"
-        ]
-      };
+      title.textContent = "Solo Betta Kit";
+      desc.textContent = "Complete setup for a happy solo fish.";
+      kitItemsList = [
+        "One healthy betta",
+        "15-gallon tank with lid",
+        "Heater & gentle filter",
+        "Live plants & driftwood",
+        "Cleanup crew (snails, shrimps)",
+        "High-quality food",
+        "Care guide",
+        "Support access"
+      ];
     }
 
-    title.textContent = kit.title;
-    desc.textContent = kit.desc;
-    items.innerHTML = kit.items.map(i=>`• ${i}`).join('<br>');
     result.style.display='flex';
     result.scrollIntoView({behavior:'smooth'});
+    
+    kitIndex = 0;
+    items.textContent = kitItemsList[kitIndex];
+    clearInterval(kitInterval);
+    kitInterval = setInterval(()=>{
+      kitIndex = (kitIndex+1) % kitItemsList.length;
+      items.textContent = kitItemsList[kitIndex];
+    },1200);
   }
 </script>
 
