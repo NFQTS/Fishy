@@ -6,129 +6,177 @@
 <title>BabyBettas Breeder Packs</title>
 <style>
   :root {
-    --bg:#000;
-    --fg:#fff;
-    --accent:#4ef1ff;
-    --muted:#aaa;
+    --bg: #000;
+    --fg: #fff;
+    --accent: #4ef1ff;
+    --muted: #aaa;
   }
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
-  body { background:var(--bg); color:var(--fg); text-align:center; overflow-x:hidden; }
-  section { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:5rem 6vw; position:relative; }
-  h1 { font-weight:300; font-size:clamp(2.2rem,5vw,4.5rem); margin-bottom:1rem; }
-  h2 { font-weight:300; font-size:clamp(1.3rem,3vw,2rem); margin-bottom:1rem; }
-  p { max-width:720px; line-height:1.7; color:var(--muted); font-size:1rem; margin-bottom:2rem; }
-  .btn { padding:1rem 2rem; border:1px solid var(--fg); background:transparent; color:var(--fg); cursor:pointer; text-transform:uppercase; letter-spacing:0.1em; transition:all 0.3s; font-weight:500; }
-  .btn:hover { background:var(--fg); color:var(--bg); }
-  .logo { position:fixed; top:2rem; left:50%; transform:translateX(-50%); font-size:0.8rem; letter-spacing:0.25em; text-transform:uppercase; z-index:10; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:2rem; margin-top:2.5rem; max-width:900px; width:100%; }
-  .card { border:1px solid rgba(255,255,255,0.15); padding:2rem; transition:all 0.3s ease; cursor:pointer; border-radius:10px; }
-  .card:hover { border-color:var(--accent); transform:translateY(-3px); }
-  .kit-card { border:1px solid rgba(255,255,255,0.25); padding:2rem; margin-top:2rem; max-width:600px; width:100%; border-radius:12px; }
-  .kit-items { text-align:center; margin-top:1rem; color:var(--muted); font-size:0.95rem; line-height:1.6; min-height:1.5em; }
-  .fade-in { opacity:0; transform:translateY(20px); transition:all 1s ease; }
-  .fade-in.visible { opacity:1; transform:translateY(0); }
-  .hero-video-bg { position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden; z-index:-1; }
-  .hero-video-bg video { width:100%; height:100%; object-fit:cover; filter:brightness(0.3); }
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+  body, html { width: 100%; height: 100%; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+
+  /* Fullscreen video background */
+  .video-bg {
+    position: fixed; top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.3);
+  }
+
+  section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 6vw;
+    text-align: center;
+  }
+
+  .logo {
+    position: fixed; top: 1.5rem; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem; letter-spacing: 0.25em; text-transform: uppercase;
+    z-index: 5;
+  }
+
+  h1 { font-weight: 300; font-size: clamp(2.2rem, 6vw, 4.5rem); margin-bottom: 1rem; }
+  p { font-size: 1rem; color: var(--muted); margin-bottom: 2rem; max-width: 700px; line-height: 1.6; }
+
+  .btn {
+    padding: 1rem 2rem;
+    border: 1px solid var(--fg);
+    background: transparent;
+    color: var(--fg);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .btn:hover { background: var(--fg); color: var(--bg); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 2rem;
+  }
+
+  .card {
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 2rem;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: 0.3s ease;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+  .kit-card {
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 2rem;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 2rem;
+    border-radius: 12px;
+  }
+  .kit-items {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 1rem;
+    min-height: 1.5em;
+  }
 </style>
 </head>
+
 <body>
 
-<div class="logo">babybettas</div>
+  <video autoplay muted loop playsinline class="video-bg">
+    <source src="betta-loop.mp4" type="video/mp4">
+    <!-- Replace with your own elegant betta swimming loop video (e.g., from Mixkit) -->  [oai_citation:1‡Mixkit](https://mixkit.co/free-stock-video/betta-fish-in-aquarium-6871/?utm_source=chatgpt.com)
+  </video>
 
-<!-- HERO -->
-<section class="fade-in">
-  <div class="hero-video-bg">
-    <video autoplay muted loop>
-      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-    </video>
-  </div>
-  <h1>Healthy Bettas. Everything Included.</h1>
-  <p>Tank • Plants • Driftwood • Heater & Filter • Cleanup Crew • High-Quality Food • Care Guide • 24/7 Support</p>
-  <button class="btn" onclick="document.getElementById('step1').scrollIntoView({behavior:'smooth'})">Start Your Breeder Pack</button>
-</section>
+  <div class="logo">babybettas</div>
 
-<!-- STEP 1: Pick Your Fish -->
-<section id="step1" class="fade-in">
-  <h2>Step 1: Pick Your Bettas</h2>
-  <div class="grid">
-    <div class="card" onclick="selectFish('solo')">
-      <h3>Solo Betta</h3>
-      <p>One happy fish, complete setup included</p>
+  <!-- HERO -->
+  <section>
+    <h1>Healthy Bettas. Everything Included.</h1>
+    <p>Tank • Plants • Driftwood • Heater & Filter • Cleanup Crew • High‑Quality Food • Care Guide • 24/7 Support</p>
+    <button class="btn" onclick="document.getElementById('pick').scrollIntoView({behavior:'smooth'})">
+      Start Your Breeder Pack
+    </button>
+  </section>
+
+  <!-- PICK BETTAS -->
+  <section id="pick">
+    <h2>Pick Your Bettas</h2>
+    <div class="grid">
+      <div class="card" onclick="selectPack('solo')">
+        <h3>Solo Betta Pack</h3>
+        <p>Perfect for one beautiful betta</p>
+      </div>
+      <div class="card" onclick="selectPack('pair')">
+        <h3>Breeding Pair Pack</h3>
+        <p>Complete setup for two bettas</p>
+      </div>
     </div>
-    <div class="card" onclick="selectFish('pair')">
-      <h3>Breeding Pair</h3>
-      <p>Two fish for hands-on breeding experience</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- STEP 2: Show Kit -->
-<section id="step2" class="fade-in" style="display:none;">
-  <h2>Your Complete Kit</h2>
-  <div class="kit-card">
-    <h3 id="kitTitle">Starter Betta Kit</h3>
-    <p id="kitDescription">Everything your fish needs.</p>
-    <div class="kit-items" id="kitItems">Loading...</div>
-    <button class="btn" style="margin-top:2rem;">Go to Checkout</button>
-  </div>
-</section>
+  <!-- KIT RESULT -->
+  <section id="result" style="display:none;">
+    <h2>Your Complete Pack</h2>
+    <div class="kit-card">
+      <h3 id="kitTitle"></h3>
+      <p id="kitDesc"></p>
+      <div class="kit-items" id="kitItems"></div>
+      <button class="btn" style="margin-top:2rem;">Go to Checkout</button>
+    </div>
+  </section>
 
 <script>
-  // Fade-in observer
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('visible'); } });
-  }, {threshold:0.2});
-  document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+  const kitListSolo = [
+    "One healthy betta",
+    "15‑gallon tank with lid",
+    "Heater & gentle filter",
+    "Live plants & driftwood",
+    "Cleanup crew (snails & shrimps)",
+    "High‑quality food",
+    "Care guide",
+    "24/7 support"
+  ];
+  const kitListPair = [
+    "Two healthy bettas",
+    "15‑gallon tank with lid",
+    "Heater & sponge filter",
+    "Live plants & driftwood",
+    "Cleanup crew (snails & shrimps)",
+    "High‑quality food",
+    "Breeding care guide",
+    "24/7 support"
+  ];
 
-  // Kit selection logic
-  let kitItemsList = [];
-  let kitIndex = 0;
-  let kitInterval;
+  function selectPack(type) {
+    document.getElementById('result').style.display = "flex";
+    document.getElementById('result').scrollIntoView({behavior:'smooth'});
 
-  function selectFish(type){
-    const step2 = document.getElementById('step2');
     const title = document.getElementById('kitTitle');
-    const desc = document.getElementById('kitDescription');
+    const desc  = document.getElementById('kitDesc');
     const items = document.getElementById('kitItems');
 
-    if(type==='pair'){
-      title.textContent = "Breeder Betta Pack";
-      desc.textContent = "Safe, complete kit for breeding success.";
-      kitItemsList = [
-        "Two healthy bettas",
-        "15-gallon tank with lid",
-        "Heater & sponge filter",
-        "Live plants & driftwood",
-        "Cleanup crew (snails, shrimps)",
-        "High-quality food",
-        "Care & breeding guide",
-        "24/7 support"
-      ];
-    } else {
-      title.textContent = "Solo Betta Pack";
-      desc.textContent = "Complete setup for a happy solo fish.";
-      kitItemsList = [
-        "One healthy betta",
-        "15-gallon tank with lid",
-        "Heater & gentle filter",
-        "Live plants & driftwood",
-        "Cleanup crew (snails, shrimps)",
-        "High-quality food",
-        "Care guide",
-        "24/7 support"
-      ];
-    }
+    let list = (type === 'pair' ? kitListPair : kitListSolo);
+    title.textContent = type === 'pair' ? "Breeder Betta Pack" : "Solo Betta Pack";
+    desc.textContent = "Everything your fish needs.";
 
-    step2.style.display='flex';
-    step2.scrollIntoView({behavior:'smooth'});
-
-    kitIndex = 0;
-    items.textContent = kitItemsList[kitIndex];
-    clearInterval(kitInterval);
-    kitInterval = setInterval(()=>{
-      kitIndex = (kitIndex+1) % kitItemsList.length;
-      items.textContent = kitItemsList[kitIndex];
-    },1200);
+    // Cycle items elegantly
+    let idx = 0;
+    items.textContent = list[idx];
+    clearInterval(window.kitCycle);
+    window.kitCycle = setInterval(() => {
+      idx = (idx + 1) % list.length;
+      items.textContent = list[idx];
+    }, 1200);
   }
 </script>
 
