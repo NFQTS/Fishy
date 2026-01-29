@@ -33,6 +33,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      position: relative;
     }
 
     h1, h2, h3 {
@@ -69,6 +70,7 @@
       font-size: 0.75rem;
       cursor: pointer;
       transition: all 0.3s ease;
+      z-index: 2;
     }
 
     .btn:hover {
@@ -87,10 +89,32 @@
       z-index: 10;
     }
 
+    /* HERO VIDEO */
+    .hero-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 110%;
+      height: 110%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      filter: brightness(0.55);
+      z-index: 1;
+    }
+
+    .hero-overlay {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 6vw;
+    }
+
+    /* WIZARD */
     .wizard {
-      max-width: 720px;
+      max-width: 640px;
       width: 100%;
-      margin-top: 3rem;
+      margin-top: 2.5rem;
+      z-index: 2;
     }
 
     .question {
@@ -105,13 +129,13 @@
     .answers {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.8rem;
-      margin-top: 2.5rem;
+      gap: 1.5rem;
+      margin-top: 2.2rem;
     }
 
     .answer {
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 1.8rem;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 1.6rem;
       cursor: pointer;
       transition: all 0.3s ease;
     }
@@ -133,12 +157,15 @@
       display: none;
       max-width: 720px;
       animation: fadeIn 0.6s ease forwards;
+      z-index: 2;
     }
 
     .kit-card {
-      border: 1px solid rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.3);
       padding: 2.2rem;
       margin-top: 2.5rem;
+      backdrop-filter: blur(6px);
+      background: rgba(0,0,0,0.4);
     }
 
     .kit-card h3 {
@@ -173,112 +200,86 @@
 
   <!-- HERO -->
   <section>
-    <h1>Pick a Betta.<br>We Handle the Rest.</h1>
-    <p>
-      Answer a few easy questions and we will build the perfect kit for your fish — no research, no confusion.
-    </p>
-    <button class="btn" onclick="startWizard()">Build My Betta Kit</button>
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="bettas.mp4" type="video/mp4">
+    </video>
+
+    <div class="hero-overlay">
+      <h1>Pick a Betta.<br>We Handle the Rest.</h1>
+      <p>
+        Tap a couple choices and we’ll build the perfect setup for your fish.
+      </p>
+      <button class="btn" onclick="startWizard()">Build My Betta Kit</button>
+    </div>
   </section>
 
   <!-- WIZARD -->
   <section id="wizardSection" style="display:none;">
-    <h2>Build Your Betta Kit</h2>
-    <p>Just a few quick taps.</p>
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="bettas.mp4" type="video/mp4">
+    </video>
 
-    <div class="wizard">
+    <div class="hero-overlay">
+      <h2>Build Your Betta Kit</h2>
+      <p>Just two quick taps.</p>
 
-      <!-- Question 1 -->
-      <div class="question active" data-step="1">
-        <h3>Who is this for?</h3>
-        <div class="answers">
-          <div class="answer" onclick="answer('user','kid')">
-            A Kid
-            <small>Easy, safe, and simple setup</small>
-          </div>
-          <div class="answer" onclick="answer('user','adult')">
-            An Adult
-            <small>More control and customization</small>
-          </div>
-          <div class="answer" onclick="answer('user','family')">
-            Family Project
-            <small>Learning together</small>
+      <div class="wizard">
+
+        <!-- Question 1 -->
+        <div class="question active" data-step="1">
+          <h3>How many bettas?</h3>
+          <div class="answers">
+            <div class="answer" onclick="answer('fishCount','one')">
+              One Betta
+              <small>Peaceful solo setup</small>
+            </div>
+            <div class="answer" onclick="answer('fishCount','pair')">
+              Breeding Pair
+              <small>Learn breeding hands-on</small>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Question 2 -->
-      <div class="question" data-step="2">
-        <h3>How many bettas?</h3>
-        <div class="answers">
-          <div class="answer" onclick="answer('fishCount','one')">
-            One Betta
-            <small>Peaceful solo setup</small>
-          </div>
-          <div class="answer" onclick="answer('fishCount','pair')">
-            Breeding Pair
-            <small>Learn breeding hands-on</small>
+        <!-- Question 2 -->
+        <div class="question" data-step="2">
+          <h3>What’s your goal?</h3>
+          <div class="answers">
+            <div class="answer" onclick="answer('goal','easy')">
+              Easy Pet
+              <small>Low maintenance, stress-free</small>
+            </div>
+            <div class="answer" onclick="answer('goal','breed')">
+              Breed Bettas
+              <small>Serious breeding setup</small>
+            </div>
           </div>
         </div>
+
+        <div class="progress" id="progress">STEP 1 OF 2</div>
+
       </div>
-
-      <!-- Question 3 -->
-      <div class="question" data-step="3">
-        <h3>What’s your goal?</h3>
-        <div class="answers">
-          <div class="answer" onclick="answer('goal','easy')">
-            Easy Pet
-            <small>Low maintenance, stress-free</small>
-          </div>
-          <div class="answer" onclick="answer('goal','learn')">
-            Learn & Explore
-            <small>Hands-on learning experience</small>
-          </div>
-          <div class="answer" onclick="answer('goal','breed')">
-            Breed Bettas
-            <small>Serious setup for breeding success</small>
-          </div>
-        </div>
-      </div>
-
-      <!-- Question 4 -->
-      <div class="question" data-step="4">
-        <h3>How hands-on do you want to be?</h3>
-        <div class="answers">
-          <div class="answer" onclick="answer('effort','minimal')">
-            Super Simple
-            <small>Set it up and enjoy</small>
-          </div>
-          <div class="answer" onclick="answer('effort','medium')">
-            Some Setup
-            <small>I like learning but keep it easy</small>
-          </div>
-          <div class="answer" onclick="answer('effort','advanced')">
-            Fully Involved
-            <small>I want full control</small>
-          </div>
-        </div>
-      </div>
-
-      <div class="progress" id="progress">STEP 1 OF 4</div>
-
     </div>
   </section>
 
   <!-- RESULT -->
   <section id="resultSection" style="display:none;">
-    <h2>Your Perfect Betta Kit</h2>
-    <p>We built this based on your answers.</p>
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="bettas.mp4" type="video/mp4">
+    </video>
 
-    <div class="result" id="resultCard">
-      <div class="kit-card">
-        <h3 id="kitTitle">Starter Betta Kit</h3>
-        <p id="kitDescription">Perfect for easy, happy betta care.</p>
+    <div class="hero-overlay">
+      <h2>Your Perfect Betta Kit</h2>
+      <p>Built just for you.</p>
 
-        <div class="kit-items" id="kitItems">
-          <!-- Items injected here -->
+      <div class="result" id="resultCard">
+        <div class="kit-card">
+          <h3 id="kitTitle">Starter Betta Kit</h3>
+          <p id="kitDescription">Perfect for easy, happy betta care.</p>
+
+          <div class="kit-items" id="kitItems"></div>
+
+          <button class="btn" style="margin-top:2.5rem;">Go to Checkout</button>
         </div>
-
-        <button class="btn" style="margin-top:2.5rem;">Go to Checkout</button>
       </div>
     </div>
   </section>
@@ -286,7 +287,7 @@
   <script>
     const answers = {};
     let currentStep = 1;
-    const totalSteps = 4;
+    const totalSteps = 2;
 
     function startWizard() {
       document.querySelector('section').style.display = 'none';
@@ -328,7 +329,6 @@
 
       let kit = {};
 
-      // Simple logic — you can expand this
       if (answers.fishCount === 'pair' || answers.goal === 'breed') {
         kit = {
           title: "Breeder Betta Kit",
@@ -340,21 +340,7 @@
             "Heater & sponge filter",
             "Live food starter pack",
             "Egg & fry care guide",
-            "24/7 human support"
-          ]
-        };
-      } else if (answers.goal === 'learn' || answers.effort === 'medium') {
-        kit = {
-          title: "Explorer Betta Kit",
-          desc: "Perfect for learning while keeping care easy.",
-          items: [
-            "Healthy betta",
-            "5–10 gallon tank",
-            "Heater & gentle filter",
-            "Live plants",
-            "Water testing kit",
-            "Easy care guide",
-            "Text support"
+            "Human support"
           ]
         };
       } else {
